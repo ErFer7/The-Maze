@@ -38,9 +38,60 @@ public class MenuExit : MonoBehaviour
     #endregion
 
     #region Unity Methods
+    private void Start()
+    {
+        // Inicializa as posições
+        targetPositionUp = new Vector2(0, 0);
+        targetPositionDown = new Vector2(0, -485);
+    }
 
+    void Update()
+    {
+        // Se o usuário pressina ESC ou o botão de retornar no smartphone
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            // Se não há nenhuma animação tocando
+            if (!DataHolder.animating)
+            {
+                // Ativa a caixa de texto
+                if (exitMessageBox.anchoredPosition.y < targetPositionUp.y - 10)
+                {
+                    // Abafa a música usando o filtro passa-baixa
+                    musicManager.gameObject.GetComponent<AudioLowPassFilter>().enabled = true;
+                    if (musicManager.publicCoroutine_2 != null)
+                    {
+                        StopCoroutine(musicManager.publicCoroutine_2);
+                    }
+                    musicManager.publicCoroutine_2 = StartCoroutine(musicManager.lowPassFilterFade(200F, 0.65F));
+
+                    // Move a caixa de texto para a tela
+                    coroutine_MBA = StartCoroutine(MessageBoxAnimation(targetPositionUp, colorUp, animationTime));
+                }
+                // Desativa a caixa de texto
+                else
+                {
+                    // Toca o áudio da caixa de texto
+                    exitMessageBox.GetComponent<AudioSource>().Play();
+
+                    // Abafa a música
+                    if (musicManager.publicCoroutine_2 != null)
+                    {
+                        StopCoroutine(musicManager.publicCoroutine_2);
+                    }
+                    musicManager.gameObject.GetComponent<AudioLowPassFilter>().cutoffFrequency = 22000;
+
+                    // Desativa o filtro
+                    musicManager.gameObject.GetComponent<AudioLowPassFilter>().enabled = false;
+
+                    // Move a caixa de texto para baixo da tela
+                    coroutine_MBA = StartCoroutine(MessageBoxAnimation(targetPositionDown, colorDown, animationTime));
+                }
+            }
+        }
+    }
     #endregion
 
+    #region MessageBoxAnimation
     public IEnumerator MessageBoxAnimation(Vector2 targetPosition, Color targetAlpha, float time)
     {
         DataHolder.animating = true;
@@ -80,56 +131,5 @@ public class MenuExit : MonoBehaviour
         DataHolder.animating = false;
         StopCoroutine(coroutine_MBA);
     }
-
-    private void Start()
-    {
-        // Inicializa as posições
-        targetPositionUp = new Vector2(0, 0);
-        targetPositionDown = new Vector2(0, -485);
-    }
-
-    void Update()
-    {
-        // Se o usuário pressina ESC ou o botão de retornar no smartphone
-        if (Input.GetKeyDown(KeyCode.Escape))
-        {
-            // Se não há nenhuma animação tocando
-            if (!DataHolder.animating)
-            {
-                // Ativa a caixa de texto
-                if (exitMessageBox.anchoredPosition.y < targetPositionUp.y - 10)
-                {
-                    // Abafa a música usando o filtro passa-baixa
-                    musicManager.gameObject.GetComponent<AudioLowPassFilter>().enabled = true;
-                    if (musicManager.publicCoroutine_2 != null)
-                    {
-                        StopCoroutine(musicManager.publicCoroutine_2);
-                    }
-                    musicManager.publicCoroutine_2 = StartCoroutine(musicManager.lowPassFilterFade(200F, 0.65F));
-
-                    // Move a caixa de texto para a tela
-                    coroutine_MBA = StartCoroutine(MessageBoxAnimation(targetPositionUp, colorUp, animationTime));
-                }
-                // Desativa a caixa de texto
-                else
-                {   
-                    // Toca o áudio da caixa de texto
-                    exitMessageBox.GetComponent<AudioSource>().Play();
-                    
-                    // Abafa a música
-                    if (musicManager.publicCoroutine_2 != null)
-                    {
-                        StopCoroutine(musicManager.publicCoroutine_2);
-                    }
-                    musicManager.gameObject.GetComponent<AudioLowPassFilter>().cutoffFrequency = 22000;
-
-                    // Desativa o filtro
-                    musicManager.gameObject.GetComponent<AudioLowPassFilter>().enabled = false;
-
-                    // Move a caixa de texto para baixo da tela
-                    coroutine_MBA = StartCoroutine(MessageBoxAnimation(targetPositionDown, colorDown, animationTime));
-                }
-            }
-        }
-    }
+    #endregion
 }
