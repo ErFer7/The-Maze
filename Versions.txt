@@ -617,14 +617,17 @@ V 3.3.4		Bundle 61
 
 - GC incremental removido
 
-13/05/2020
+18/10/2020
 
 V 3.4		Bundle 62
 
 - Removido anúncios e o modo premium
 - Arquivos residuais de versões anteriores removidos
+* Refatoração em 87%
+* Google Play Games Atualizado
 
-18/10/2020
+18/04/2020
 
 V 3.4.1		Bundle 63
 
+* Modificado o método de exibição dos placares

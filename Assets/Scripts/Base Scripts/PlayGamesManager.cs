@@ -238,7 +238,7 @@ public class PlayGamesManager : MonoBehaviour
     public void ShowLeaderboard()
     {
         // Mostra o placar
-        Social.ShowLeaderboardUI();
+        PlayGamesPlatform.Instance.ShowLeaderboardUI("Cfji293fjsie_QA");
     }
 
     public void ShowAchievements()
