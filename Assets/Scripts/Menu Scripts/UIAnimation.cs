@@ -3,6 +3,8 @@ using System.Collections;
 
 public class UIAnimation : MonoBehaviour
 {
+    // REFATORAR
+
     public bool spin;
     public float rotationSpeed;
     public float updateTime;

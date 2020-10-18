@@ -3,6 +3,8 @@ using UnityEngine.UI;
 
 public class SoundManager : MonoBehaviour
 {
+    // REFATORAR
+
     public Toggle soundToggle;
     public AudioSource startButtonAudio;
     public AudioSource playGamesButtonAudio;

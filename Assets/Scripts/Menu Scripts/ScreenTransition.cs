@@ -3,6 +3,8 @@ using System.Collections;
 
 public class ScreenTransition : MonoBehaviour
 {
+    // REFATORAR
+
     public GameObject canvas;
     public CanvasGroup canvasAlpha;
     public GameObject nextPanel;

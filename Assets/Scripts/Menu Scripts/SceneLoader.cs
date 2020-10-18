@@ -5,24 +5,36 @@ using System.Collections;
 
 public class SceneLoader : MonoBehaviour
 {
+    // AINDA EM REFATORAÇÃO
+
+    #region Public Variables
+    // Acesso a objetos
     public GameObject Canvas;
-    public GameMode mode;
     public GameObject messageBox;
-    public Image backGround;
-    public RectTransform messageBoxPosition;
-    public Color colorUp;
-    public Color colorDown;
-    public float animationTime;
-    public Button continueButton;
-    public Button newGameButton;
     public GameObject returnButton;
     public GameObject musicManager;
+    
+    // Modo de jogo
+    public GameMode mode;
+    
+    // Acesso ao plano de fundo
+    public Image backGround;
 
-    private Coroutine coroutine;
-    private Coroutine coroutine_2;
-    private Vector2 targetPositionUp;
-    private Vector2 targetPositionDown;
+    // Acesso a caixa de texto
+    public RectTransform messageBoxPosition;
 
+    // Cores (Para o uso do alfa)
+    public Color colorUp;
+    public Color colorDown;
+
+    // Tempo de animação
+    public float animationTime;
+
+    // Botões
+    public Button continueButton;
+    public Button newGameButton;
+
+    // Modos de jogo
     public enum GameMode
     {
         Classic,
@@ -30,24 +42,53 @@ public class SceneLoader : MonoBehaviour
         Dark,
         Custom
     }
+    #endregion
 
+    #region Private Variables
+    // Coroutines
+    private Coroutine coroutine_MBA;
+    private Coroutine coroutine_R;
+
+    // Posições da caixa de texto
+    private Vector2 targetPositionUp;
+    private Vector2 targetPositionDown;
+    #endregion
+
+    #region Unity Methods
+    private void Start()
+    {
+        // Adiciona receptores de eventos para os botões
+        continueButton.onClick.AddListener(Continue);
+        newGameButton.onClick.AddListener(NewGame);
+
+        // Inicializa as posições alvo
+        targetPositionUp = new Vector2(0, 0);
+        targetPositionDown = new Vector2(0, -510);
+    }
+    #endregion
+
+    #region Loading Core
+
+    #endregion
     public void LoadScene()
     {
-        if (DataHolder.animating == false)
+        // Caso nenhuma animação esteja ocorrendo
+        if (!DataHolder.animating)
         {
-            // Changes the settings for each mode
+            // Muda as configurações para cada modo
             switch (mode)
             {
-                // Classic
+                // Clássico
                 case GameMode.Classic:
 
                     DataHolder.progressive = true;
                     DataHolder.regressiveTime = false;
                     DataHolder.dark = false;
 
-                    // If there is a classic maze saved shows a message box
+                    // Se tem um labirinto clássico salvo exibe a caixa de texto
                     if (PlayerPrefs.GetInt("classicSaved", -1) > 0)
-                    {
+                    {   
+                        // Abafa a música
                         musicManager.gameObject.GetComponent<AudioLowPassFilter>().enabled = true;
                         if (musicManager.GetComponent<MusicManager>().publicCoroutine_LPFF != null)
                         {
@@ -55,9 +96,9 @@ public class SceneLoader : MonoBehaviour
                         }
                         musicManager.GetComponent<MusicManager>().publicCoroutine_LPFF = StartCoroutine(musicManager.GetComponent<MusicManager>().LowPassFilterFade(200F, 0.65F));
 
-                        coroutine = StartCoroutine(MessageBoxAnimation(targetPositionUp, colorUp, animationTime));
+                        // Exibe a caixa de texto
+                        coroutine_MBA = StartCoroutine(MessageBoxAnimation(targetPositionUp, colorUp, animationTime));
                     }
-                    // Continues normally
                     else
                     {
                         DataHolder.continueLastMaze = false;
@@ -67,14 +108,14 @@ public class SceneLoader : MonoBehaviour
                     }
 
                     break;
-                // Time
+                // Tempo
                 case GameMode.Time:
 
                     DataHolder.progressive = true;
                     DataHolder.regressiveTime = true;
                     DataHolder.dark = false;
 
-                    // If there is a time maze saved shows a message box
+                    // Se tem um labirinto de tempo salvo exibe a caixa de texto
                     if (PlayerPrefs.GetInt("timeSaved", -1) > 0)
                     {
                         musicManager.gameObject.GetComponent<AudioLowPassFilter>().enabled = true;
@@ -84,9 +125,8 @@ public class SceneLoader : MonoBehaviour
                         }
                         musicManager.GetComponent<MusicManager>().publicCoroutine_LPFF = StartCoroutine(musicManager.GetComponent<MusicManager>().LowPassFilterFade(200F, 0.65F));
 
-                        coroutine = StartCoroutine(MessageBoxAnimation(targetPositionUp, colorUp, animationTime));
+                        coroutine_MBA = StartCoroutine(MessageBoxAnimation(targetPositionUp, colorUp, animationTime));
                     }
-                    // Continues normally
                     else
                     {
                         DataHolder.continueLastMaze = false;
@@ -96,14 +136,14 @@ public class SceneLoader : MonoBehaviour
                     }
 
                     break;
-                // Dark
+                // Escuro
                 case GameMode.Dark:
 
                     DataHolder.progressive = true;
                     DataHolder.regressiveTime = false;
                     DataHolder.dark = true;
 
-                    // If there is a classic maze saved shows a message box
+                    // Se tem um labirinto escuro salvo exibe a caixa de texto
                     if (PlayerPrefs.GetInt("darkSaved", -1) > 0)
                     {
                         musicManager.gameObject.GetComponent<AudioLowPassFilter>().enabled = true;
@@ -113,9 +153,8 @@ public class SceneLoader : MonoBehaviour
                         }
                         musicManager.GetComponent<MusicManager>().publicCoroutine_LPFF = StartCoroutine(musicManager.GetComponent<MusicManager>().LowPassFilterFade(200F, 0.65F));
 
-                        coroutine = StartCoroutine(MessageBoxAnimation(targetPositionUp, colorUp, animationTime));
+                        coroutine_MBA = StartCoroutine(MessageBoxAnimation(targetPositionUp, colorUp, animationTime));
                     }
-                    // Continues normally
                     else
                     {
                         DataHolder.continueLastMaze = false;
@@ -125,7 +164,7 @@ public class SceneLoader : MonoBehaviour
                     }
 
                     break;
-                // Custom
+                // Personalizado
                 case GameMode.Custom:
 
                     DataHolder.progressive = false;
@@ -141,7 +180,6 @@ public class SceneLoader : MonoBehaviour
         }
     }
 
-    // Animates the message box
     IEnumerator MessageBoxAnimation(Vector2 targetPosition, Color targetAlpha, float time)
     {
         DataHolder.animating = true;
@@ -181,13 +219,13 @@ public class SceneLoader : MonoBehaviour
         }
         else
         {
-            coroutine_2 = StartCoroutine(Return());
+            coroutine_R = StartCoroutine(Return());
         }
 
         DataHolder.animating = false;
         continueButton.interactable = true;
         newGameButton.interactable = true;
-        StopCoroutine(coroutine);
+        StopCoroutine(coroutine_MBA);
     }
 
     // Close the message box
@@ -210,11 +248,11 @@ public class SceneLoader : MonoBehaviour
 
                 // Closes the message box
                 messageBox.GetComponentInChildren<AudioSource>().Play();
-                coroutine = StartCoroutine(MessageBoxAnimation(targetPositionDown, colorDown, animationTime));
+                coroutine_MBA = StartCoroutine(MessageBoxAnimation(targetPositionDown, colorDown, animationTime));
                 // Enables the start page return
                 returnButton.GetComponent<MobileReturn>().enabled = true;
 
-                StopCoroutine(coroutine_2);
+                StopCoroutine(coroutine_R);
             }
 
             yield return null;
@@ -265,7 +303,7 @@ public class SceneLoader : MonoBehaviour
         {
             Canvas.GetComponent<Fade>().coroutine_FT = StartCoroutine(Canvas.GetComponent<Fade>().FadeTo(0F, Canvas.GetComponent<Fade>().fadeTime));
             musicManager.GetComponent<MusicManager>().publicCoroutine_MF = StartCoroutine(musicManager.GetComponent<MusicManager>().MusicFade(0, 3));
-            coroutine = StartCoroutine(Load());
+            coroutine_MBA = StartCoroutine(Load());
         }
     }
 
@@ -278,21 +316,10 @@ public class SceneLoader : MonoBehaviour
             {
                 StopCoroutine(Canvas.GetComponent<Fade>().coroutine_FT);
                 SceneManager.LoadScene(1);
-                StopCoroutine(coroutine);
+                StopCoroutine(coroutine_MBA);
             }
 
             yield return null;
         }
-    }
-
-    private void Start()
-    {
-        // Adds listeners to the buttons
-        continueButton.onClick.AddListener(Continue);
-        newGameButton.onClick.AddListener(NewGame);
-
-        // Initializes the target positions
-        targetPositionUp = new Vector2(0, 0);
-        targetPositionDown = new Vector2(0, -510);
     }
 }
