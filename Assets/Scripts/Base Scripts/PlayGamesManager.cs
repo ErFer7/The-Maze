@@ -1001,11 +1001,11 @@ public class PlayGamesManager : MonoBehaviour
                 {
                     // Abafa a música
                     musicManager.gameObject.GetComponent<AudioLowPassFilter>().enabled = true;
-                    if (musicManager.publicCoroutine_2 != null)
+                    if (musicManager.publicCoroutine_LPFF != null)
                     {
-                        StopCoroutine(musicManager.publicCoroutine_2);
+                        StopCoroutine(musicManager.publicCoroutine_LPFF);
                     }
-                    musicManager.publicCoroutine_2 = StartCoroutine(musicManager.lowPassFilterFade(200F, 0.65F));
+                    musicManager.publicCoroutine_LPFF = StartCoroutine(musicManager.LowPassFilterFade(200F, 0.65F));
 
                     // Inicia a animãção de subida
                     coroutine = StartCoroutine(MessageBoxAnimation(targetPositionUp, colorUp, animationTime));
@@ -1058,9 +1058,9 @@ public class PlayGamesManager : MonoBehaviour
                 playGamesMessageBoxTransform.GetComponent<AudioSource>().Play();
 
                 // Retorna a música ao normal
-                if (musicManager.publicCoroutine_2 != null)
+                if (musicManager.publicCoroutine_LPFF != null)
                 {
-                    StopCoroutine(musicManager.publicCoroutine_2);
+                    StopCoroutine(musicManager.publicCoroutine_LPFF);
                 }
                 musicManager.gameObject.GetComponent<AudioLowPassFilter>().cutoffFrequency = 22000;
                 musicManager.gameObject.GetComponent<AudioLowPassFilter>().enabled = false;

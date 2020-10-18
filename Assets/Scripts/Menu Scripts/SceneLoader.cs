@@ -49,11 +49,11 @@ public class SceneLoader : MonoBehaviour
                     if (PlayerPrefs.GetInt("classicSaved", -1) > 0)
                     {
                         musicManager.gameObject.GetComponent<AudioLowPassFilter>().enabled = true;
-                        if (musicManager.GetComponent<MusicManager>().publicCoroutine_2 != null)
+                        if (musicManager.GetComponent<MusicManager>().publicCoroutine_LPFF != null)
                         {
-                            StopCoroutine(musicManager.GetComponent<MusicManager>().publicCoroutine_2);
+                            StopCoroutine(musicManager.GetComponent<MusicManager>().publicCoroutine_LPFF);
                         }
-                        musicManager.GetComponent<MusicManager>().publicCoroutine_2 = StartCoroutine(musicManager.GetComponent<MusicManager>().lowPassFilterFade(200F, 0.65F));
+                        musicManager.GetComponent<MusicManager>().publicCoroutine_LPFF = StartCoroutine(musicManager.GetComponent<MusicManager>().LowPassFilterFade(200F, 0.65F));
 
                         coroutine = StartCoroutine(MessageBoxAnimation(targetPositionUp, colorUp, animationTime));
                     }
@@ -78,11 +78,11 @@ public class SceneLoader : MonoBehaviour
                     if (PlayerPrefs.GetInt("timeSaved", -1) > 0)
                     {
                         musicManager.gameObject.GetComponent<AudioLowPassFilter>().enabled = true;
-                        if (musicManager.GetComponent<MusicManager>().publicCoroutine_2 != null)
+                        if (musicManager.GetComponent<MusicManager>().publicCoroutine_LPFF != null)
                         {
-                            StopCoroutine(musicManager.GetComponent<MusicManager>().publicCoroutine_2);
+                            StopCoroutine(musicManager.GetComponent<MusicManager>().publicCoroutine_LPFF);
                         }
-                        musicManager.GetComponent<MusicManager>().publicCoroutine_2 = StartCoroutine(musicManager.GetComponent<MusicManager>().lowPassFilterFade(200F, 0.65F));
+                        musicManager.GetComponent<MusicManager>().publicCoroutine_LPFF = StartCoroutine(musicManager.GetComponent<MusicManager>().LowPassFilterFade(200F, 0.65F));
 
                         coroutine = StartCoroutine(MessageBoxAnimation(targetPositionUp, colorUp, animationTime));
                     }
@@ -107,11 +107,11 @@ public class SceneLoader : MonoBehaviour
                     if (PlayerPrefs.GetInt("darkSaved", -1) > 0)
                     {
                         musicManager.gameObject.GetComponent<AudioLowPassFilter>().enabled = true;
-                        if (musicManager.GetComponent<MusicManager>().publicCoroutine_2 != null)
+                        if (musicManager.GetComponent<MusicManager>().publicCoroutine_LPFF != null)
                         {
-                            StopCoroutine(musicManager.GetComponent<MusicManager>().publicCoroutine_2);
+                            StopCoroutine(musicManager.GetComponent<MusicManager>().publicCoroutine_LPFF);
                         }
-                        musicManager.GetComponent<MusicManager>().publicCoroutine_2 = StartCoroutine(musicManager.GetComponent<MusicManager>().lowPassFilterFade(200F, 0.65F));
+                        musicManager.GetComponent<MusicManager>().publicCoroutine_LPFF = StartCoroutine(musicManager.GetComponent<MusicManager>().LowPassFilterFade(200F, 0.65F));
 
                         coroutine = StartCoroutine(MessageBoxAnimation(targetPositionUp, colorUp, animationTime));
                     }
@@ -201,9 +201,9 @@ public class SceneLoader : MonoBehaviour
             // If the user press "Esc" or the mobile escape button
             if (Input.GetKeyDown(KeyCode.Escape))
             {
-                if (musicManager.GetComponent<MusicManager>().publicCoroutine_2 != null)
+                if (musicManager.GetComponent<MusicManager>().publicCoroutine_LPFF != null)
                 {
-                    StopCoroutine(musicManager.GetComponent<MusicManager>().publicCoroutine_2);
+                    StopCoroutine(musicManager.GetComponent<MusicManager>().publicCoroutine_LPFF);
                 }
                 musicManager.gameObject.GetComponent<AudioLowPassFilter>().cutoffFrequency = 22000;
                 musicManager.gameObject.GetComponent<AudioLowPassFilter>().enabled = false;
@@ -264,7 +264,7 @@ public class SceneLoader : MonoBehaviour
         if (DataHolder.animating == false)
         {
             Canvas.GetComponent<Fade>().coroutine_FT = StartCoroutine(Canvas.GetComponent<Fade>().FadeTo(0F, Canvas.GetComponent<Fade>().fadeTime));
-            musicManager.GetComponent<MusicManager>().publicCoroutine = StartCoroutine(musicManager.GetComponent<MusicManager>().musicFade(0, 3));
+            musicManager.GetComponent<MusicManager>().publicCoroutine_MF = StartCoroutine(musicManager.GetComponent<MusicManager>().MusicFade(0, 3));
             coroutine = StartCoroutine(Load());
         }
     }

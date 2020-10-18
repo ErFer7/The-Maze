@@ -58,11 +58,11 @@ public class MenuExit : MonoBehaviour
                 {
                     // Abafa a música usando o filtro passa-baixa
                     musicManager.gameObject.GetComponent<AudioLowPassFilter>().enabled = true;
-                    if (musicManager.publicCoroutine_2 != null)
+                    if (musicManager.publicCoroutine_LPFF != null)
                     {
-                        StopCoroutine(musicManager.publicCoroutine_2);
+                        StopCoroutine(musicManager.publicCoroutine_LPFF);
                     }
-                    musicManager.publicCoroutine_2 = StartCoroutine(musicManager.lowPassFilterFade(200F, 0.65F));
+                    musicManager.publicCoroutine_LPFF = StartCoroutine(musicManager.LowPassFilterFade(200F, 0.65F));
 
                     // Move a caixa de texto para a tela
                     coroutine_MBA = StartCoroutine(MessageBoxAnimation(targetPositionUp, colorUp, animationTime));
@@ -74,9 +74,9 @@ public class MenuExit : MonoBehaviour
                     exitMessageBox.GetComponent<AudioSource>().Play();
 
                     // Abafa a música
-                    if (musicManager.publicCoroutine_2 != null)
+                    if (musicManager.publicCoroutine_LPFF != null)
                     {
-                        StopCoroutine(musicManager.publicCoroutine_2);
+                        StopCoroutine(musicManager.publicCoroutine_LPFF);
                     }
                     musicManager.gameObject.GetComponent<AudioLowPassFilter>().cutoffFrequency = 22000;
 

@@ -15,9 +15,9 @@ public class QuitGame : MonoBehaviour
         // Hides the message box
         if (DataHolder.animating == false)
         {
-            if (musicManager.publicCoroutine_2 != null)
+            if (musicManager.publicCoroutine_LPFF != null)
             {
-                StopCoroutine(musicManager.publicCoroutine_2);
+                StopCoroutine(musicManager.publicCoroutine_LPFF);
             }
             musicManager.gameObject.GetComponent<AudioLowPassFilter>().cutoffFrequency = 22000;
             musicManager.gameObject.GetComponent<AudioLowPassFilter>().enabled = false;
