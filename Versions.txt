@@ -623,3 +623,8 @@ V 3.4		Bundle 62
 
 - Removido anúncios e o modo premium
 - Arquivos residuais de versões anteriores removidos
+
+18/10/2020
+
+V 3.4.1		Bundle 63
+

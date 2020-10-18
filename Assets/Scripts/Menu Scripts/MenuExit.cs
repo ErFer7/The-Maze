@@ -4,19 +4,42 @@ using UnityEngine.UI;
 
 public class MenuExit : MonoBehaviour
 {
+    #region Public Variables
+    #region Editor Acessible
+    // Objeto da caixa de texto
     public GameObject exit;
+
+    // Tempo da animação
     public float animationTime;
+
+    // Cores (O canal alfa é o único usado)
     public Color colorUp;
     public Color colorDown;
+
+    // Fundo
     public Image exitBackGround;
+
+    // Caixa de texto
     public RectTransform exitMessageBox;
+
+    // Acesso ao Music Manager
     public MusicManager musicManager;
+    #endregion
 
+    // Coroutine da animação
     [System.NonSerialized]
-    public Coroutine coroutine;
+    public Coroutine coroutine_MBA;
+    #endregion
 
+    #region Private Variables
+    // Posições
     private Vector2 targetPositionUp;
     private Vector2 targetPositionDown;
+    #endregion
+
+    #region Unity Methods
+
+    #endregion
 
     public IEnumerator MessageBoxAnimation(Vector2 targetPosition, Color targetAlpha, float time)
     {
@@ -55,27 +78,28 @@ public class MenuExit : MonoBehaviour
         }
 
         DataHolder.animating = false;
-        StopCoroutine(coroutine);
+        StopCoroutine(coroutine_MBA);
     }
 
     private void Start()
     {
-        // Initializes the target positions
+        // Inicializa as posições
         targetPositionUp = new Vector2(0, 0);
         targetPositionDown = new Vector2(0, -485);
     }
 
     void Update()
     {
-        // If the user press "Esc" or "Return on a smartphone"
+        // Se o usuário pressina ESC ou o botão de retornar no smartphone
         if (Input.GetKeyDown(KeyCode.Escape))
         {
-            // If there is no animaton playing
-            if (DataHolder.animating == false)
+            // Se não há nenhuma animação tocando
+            if (!DataHolder.animating)
             {
-                // turn the message box on
+                // Ativa a caixa de texto
                 if (exitMessageBox.anchoredPosition.y < targetPositionUp.y - 10)
                 {
+                    // Abafa a música usando o filtro passa-baixa
                     musicManager.gameObject.GetComponent<AudioLowPassFilter>().enabled = true;
                     if (musicManager.publicCoroutine_2 != null)
                     {
@@ -83,21 +107,27 @@ public class MenuExit : MonoBehaviour
                     }
                     musicManager.publicCoroutine_2 = StartCoroutine(musicManager.lowPassFilterFade(200F, 0.65F));
 
-                    coroutine = StartCoroutine(MessageBoxAnimation(targetPositionUp, colorUp, animationTime));
+                    // Move a caixa de texto para a tela
+                    coroutine_MBA = StartCoroutine(MessageBoxAnimation(targetPositionUp, colorUp, animationTime));
                 }
-                // turn the message box off
+                // Desativa a caixa de texto
                 else
-                {
+                {   
+                    // Toca o áudio da caixa de texto
                     exitMessageBox.GetComponent<AudioSource>().Play();
-
+                    
+                    // Abafa a música
                     if (musicManager.publicCoroutine_2 != null)
                     {
                         StopCoroutine(musicManager.publicCoroutine_2);
                     }
                     musicManager.gameObject.GetComponent<AudioLowPassFilter>().cutoffFrequency = 22000;
+
+                    // Desativa o filtro
                     musicManager.gameObject.GetComponent<AudioLowPassFilter>().enabled = false;
 
-                    coroutine = StartCoroutine(MessageBoxAnimation(targetPositionDown, colorDown, animationTime));
+                    // Move a caixa de texto para baixo da tela
+                    coroutine_MBA = StartCoroutine(MessageBoxAnimation(targetPositionDown, colorDown, animationTime));
                 }
             }
         }

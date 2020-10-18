@@ -22,7 +22,7 @@ public class QuitGame : MonoBehaviour
             musicManager.gameObject.GetComponent<AudioLowPassFilter>().cutoffFrequency = 22000;
             musicManager.gameObject.GetComponent<AudioLowPassFilter>().enabled = false;
 
-            menu.GetComponent<MenuExit>().coroutine = StartCoroutine(menu.GetComponent<MenuExit>().MessageBoxAnimation(new Vector2(0, -485), new Color(1,1,1,0), 0.25F));
+            menu.GetComponent<MenuExit>().coroutine_MBA = StartCoroutine(menu.GetComponent<MenuExit>().MessageBoxAnimation(new Vector2(0, -485), new Color(1,1,1,0), 0.25F));
         }
     }
 }
