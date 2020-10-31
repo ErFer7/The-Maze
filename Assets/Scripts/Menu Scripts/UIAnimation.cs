@@ -1,35 +1,44 @@
-﻿using UnityEngine;
-using System.Collections;
+﻿using System.Collections;
+using UnityEngine;
 
 public class UIAnimation : MonoBehaviour
 {
-    // REFATORAR
-
+    #region Public Variables
+    // Definições da animação
     public bool spin;
     public float rotationSpeed;
     public float updateTime;
+    #endregion
+
+    #region Private Variables
+    // Taxa de atualização da animação
     private WaitForSeconds waitTime;
+    #endregion
 
-    // Spin Animation
-    IEnumerator SpinAnimation ()
-    {
-        while (spin == true)
-        {
-            // Rotates the object at a the specified speed
-            transform.Rotate(0F, 0F, rotationSpeed);
-
-            yield return waitTime;
-        }
-    }
-
+    #region Unity Methods
     private void Start()
     {
-        // Initialize update rate of the animation
+        // Inicializa a taxa de atualização da animação
         waitTime = new WaitForSeconds(updateTime);
     }
 
     private void OnEnable()
     {
+        // Inicia a animação
         StartCoroutine(SpinAnimation());
     }
+    #endregion
+
+    #region Methods
+    IEnumerator SpinAnimation ()
+    {
+        while (spin)
+        {
+            // Rotaciona o objeto na velocidade especificada
+            transform.Rotate(0F, 0F, rotationSpeed);
+
+            yield return waitTime;
+        }
+    }
+    #endregion
 }
