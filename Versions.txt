@@ -641,4 +641,4 @@ V 3.4.2		Bundle 64
 - Removida linguagem Chinêsa simplificada pois não é possível garantir sua precisão
 - Removida linguagem Chinêsa tradicional pois não é possível garantir sua precisão
 - Removida linguagem Russa pois não é possível garantir sua precisão
-* Refatoração em 90%
+* Refatoração em 94%

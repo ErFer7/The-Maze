@@ -3,8 +3,8 @@ using UnityEngine.UI;
 
 public class SoundManager : MonoBehaviour
 {
-    // REFATORAR
-
+    #region Public Variables
+    // Cada variável corresponte a um botão ou elemento de UI que produza som
     public Toggle soundToggle;
     public AudioSource startButtonAudio;
     public AudioSource playGamesButtonAudio;
@@ -41,15 +41,51 @@ public class SoundManager : MonoBehaviour
     public AudioSource es419_ButtonAudio;
     public AudioSource ptBR_ButtonAudio;
     public AudioSource returnButtonAudio_5;
+    #endregion
 
+    #region Unity Methods
+    private void Start()
+    {
+        // Atualiza o sistema de acordo com as configurações de som
+        switch (PlayerPrefs.GetInt("Sound", -1))
+        {
+            // Caso o som esteja desligado
+            case 0:
+                // Atualiza o botão de som
+                soundToggle.onValueChanged.SetPersistentListenerState(0, UnityEngine.Events.UnityEventCallState.Off);
+
+                // Atualiza as definições do som no sistema (desativa)
+                soundToggle.isOn = false;
+                DataHolder.sound = false;
+                break;
+            // Caso o som esteja ligado
+            case 1:
+
+                // Atualiza as definições do som no sistema (ativa)
+                DataHolder.sound = true;
+                break;
+            // Caso não haja definição o padrão será com o som ativo
+            default:
+                DataHolder.sound = true;
+                break;
+        }
+
+        // Atualiza o botão de som (condição durante a execução na plataforma Android)
+        soundToggle.onValueChanged.SetPersistentListenerState(0, UnityEngine.Events.UnityEventCallState.RuntimeOnly);
+    }
+    #endregion
+
+    #region Methods
     public void SoundSwitch()
     {
-        // Activates the sound
-        if (soundToggle.isOn == true)
+        // Ativa o som
+        if (soundToggle.isOn)
         {
+            // Atualiza as definições do som no sistema
             DataHolder.sound = true;
             PlayerPrefs.SetInt("Sound", 1);
 
+            // Atualiza os volumes
             startButtonAudio.volume = 1;
             playGamesButtonAudio.volume = 1;
             leaderboardButtonAudio.volume = 1;
@@ -86,12 +122,14 @@ public class SoundManager : MonoBehaviour
             ptBR_ButtonAudio.volume = 1;
             returnButtonAudio_5.volume = 1;
         }
-        // Deactivates the sound
+        // Desativa o som
         else
         {
+            // Atualiza as definições do som no sistema
             DataHolder.sound = false;
             PlayerPrefs.SetInt("Sound", 0);
-            
+
+            // Atualiza os volumes
             startButtonAudio.volume = 0;
             playGamesButtonAudio.volume = 0;
             leaderboardButtonAudio.volume = 0;
@@ -129,24 +167,5 @@ public class SoundManager : MonoBehaviour
             returnButtonAudio_5.volume = 0;
         }
     }
-
-    private void Start()
-    {
-        switch (PlayerPrefs.GetInt("Sound", -1))
-        {
-            case 0:
-                soundToggle.onValueChanged.SetPersistentListenerState(0, UnityEngine.Events.UnityEventCallState.Off);
-                soundToggle.isOn = false;
-                DataHolder.sound = false;
-                break;
-            case 1:
-                DataHolder.sound = true;
-                break;
-            default:
-                DataHolder.sound = true;
-                break;
-        }
-
-        soundToggle.onValueChanged.SetPersistentListenerState(0, UnityEngine.Events.UnityEventCallState.RuntimeOnly);
-    }
+    #endregion
 }
