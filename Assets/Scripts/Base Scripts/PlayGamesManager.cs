@@ -238,7 +238,7 @@ public class PlayGamesManager : MonoBehaviour
     public void ShowLeaderboard()
     {
         // Mostra o placar
-        PlayGamesPlatform.Instance.ShowLeaderboardUI("Cfji293fjsie_QA");
+        PlayGamesPlatform.Instance.ShowLeaderboardUI(GPGSIds.leaderboard_top_score_by_maze);
     }
 
     public void ShowAchievements()

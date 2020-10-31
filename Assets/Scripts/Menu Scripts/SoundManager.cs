@@ -37,14 +37,9 @@ public class SoundManager : MonoBehaviour
     public AudioSource doneButtonAudio;
     public AudioSource returnButtonAudio_3;
     public AudioSource returnButtonAudio_4;
-    public AudioSource af_ButtonAudio;
     public AudioSource enUSButtonAudio;
     public AudioSource es419_ButtonAudio;
     public AudioSource ptBR_ButtonAudio;
-    public AudioSource deDE_ButtonAudio;
-    public AudioSource cnCN_ButtonAudio;
-    public AudioSource cnHK_ButtonAudio;
-    public AudioSource ruRU_ButtonAudio;
     public AudioSource returnButtonAudio_5;
 
     public void SoundSwitch()
@@ -86,14 +81,9 @@ public class SoundManager : MonoBehaviour
             doneButtonAudio.volume = 1;
             returnButtonAudio_3.volume = 1;
             returnButtonAudio_4.volume = 1;
-            af_ButtonAudio.volume = 1;
             enUSButtonAudio.volume = 1;
             es419_ButtonAudio.volume = 1;
             ptBR_ButtonAudio.volume = 1;
-            deDE_ButtonAudio.volume = 1;
-            cnCN_ButtonAudio.volume = 1;
-            cnHK_ButtonAudio.volume = 1;
-            ruRU_ButtonAudio.volume = 1;
             returnButtonAudio_5.volume = 1;
         }
         // Deactivates the sound
@@ -133,14 +123,9 @@ public class SoundManager : MonoBehaviour
             doneButtonAudio.volume = 0;
             returnButtonAudio_3.volume = 0;
             returnButtonAudio_4.volume = 0;
-            af_ButtonAudio.volume = 0;
             enUSButtonAudio.volume = 0;
             es419_ButtonAudio.volume = 0;
             ptBR_ButtonAudio.volume = 0;
-            deDE_ButtonAudio.volume = 0;
-            cnCN_ButtonAudio.volume = 0;
-            cnHK_ButtonAudio.volume = 0;
-            ruRU_ButtonAudio.volume = 0;
             returnButtonAudio_5.volume = 0;
         }
     }

@@ -68,8 +68,6 @@ public class SceneLoader : MonoBehaviour
     #endregion
 
     #region Loading Core
-
-    #endregion
     public void LoadScene()
     {
         // Caso nenhuma animação esteja ocorrendo
@@ -180,65 +178,17 @@ public class SceneLoader : MonoBehaviour
         }
     }
 
-    IEnumerator MessageBoxAnimation(Vector2 targetPosition, Color targetAlpha, float time)
-    {
-        DataHolder.animating = true;
-        messageBox.SetActive(true);
-        continueButton.interactable = false;
-        newGameButton.interactable = false;
-
-        // Opening message box animation
-        for (float i = 0; i <= 1F; i += Time.deltaTime / time)
-        {
-            // Stops lerping the color when the alpha is +-0.05 the value
-            if (Mathf.Abs(backGround.color.a - targetAlpha.a) < 0.05F)
-            {
-                backGround.color = targetAlpha;
-            }
-
-            // Stops lerping the position when the message box is +-0.1 the value
-            if (Mathf.Abs(messageBoxPosition.anchoredPosition.y - targetPosition.y) < 0.1F)
-            {
-                messageBoxPosition.anchoredPosition = targetPosition;
-                i = 2;
-            }
-
-            // Lerp the color of the back ground
-            backGround.color = Color.Lerp(backGround.color, targetAlpha, i);
-
-            // Lerp the position of the message box
-            messageBoxPosition.anchoredPosition = Vector2.Lerp(messageBoxPosition.anchoredPosition, targetPosition, i);
-
-            yield return null;
-        }
-
-        // When the message box is completely down it is disabled
-        if (messageBoxPosition.anchoredPosition.y < targetPositionUp.y - 10F)
-        {
-            messageBox.SetActive(false);
-        }
-        else
-        {
-            coroutine_R = StartCoroutine(Return());
-        }
-
-        DataHolder.animating = false;
-        continueButton.interactable = true;
-        newGameButton.interactable = true;
-        StopCoroutine(coroutine_MBA);
-    }
-
-    // Close the message box
     IEnumerator Return()
     {
-        // Disables the start page return
+        // Desabilita o retorno da página principal
         returnButton.GetComponent<MobileReturn>().enabled = false;
 
         while (true)
         {
-            // If the user press "Esc" or the mobile escape button
+            // Caso o usuário pressione ESC ou o botão de retorno no smartphone
             if (Input.GetKeyDown(KeyCode.Escape))
-            {
+            {   
+                // Retorna a música ao normal (desabilita o filtro passa-baixa)
                 if (musicManager.GetComponent<MusicManager>().publicCoroutine_LPFF != null)
                 {
                     StopCoroutine(musicManager.GetComponent<MusicManager>().publicCoroutine_LPFF);
@@ -246,10 +196,11 @@ public class SceneLoader : MonoBehaviour
                 musicManager.gameObject.GetComponent<AudioLowPassFilter>().cutoffFrequency = 22000;
                 musicManager.gameObject.GetComponent<AudioLowPassFilter>().enabled = false;
 
-                // Closes the message box
+                // Fecha a caixa de texto
                 messageBox.GetComponentInChildren<AudioSource>().Play();
                 coroutine_MBA = StartCoroutine(MessageBoxAnimation(targetPositionDown, colorDown, animationTime));
-                // Enables the start page return
+
+                // Habilita o retorno da página principal
                 returnButton.GetComponent<MobileReturn>().enabled = true;
 
                 StopCoroutine(coroutine_R);
@@ -259,25 +210,25 @@ public class SceneLoader : MonoBehaviour
         }
     }
 
-    // Continues from the last maze
     private void Continue()
     {
+        // Definição de continuação
         DataHolder.continueLastMaze = true;
 
-        if (DataHolder.regressiveTime == false)
+        if (!DataHolder.regressiveTime)
         {
-            // Classic
+            // Clássico
             if (!DataHolder.dark)
             {
                 DataHolder.level = PlayerPrefs.GetInt("classicLevel");
             }
-            // Dark
+            // Escuro
             else
             {
                 DataHolder.level = PlayerPrefs.GetInt("darkLevel");
             }
         }
-        // Time
+        // Tempo
         else
         {
             DataHolder.level = PlayerPrefs.GetInt("timeLevel");
@@ -286,33 +237,21 @@ public class SceneLoader : MonoBehaviour
         FadeOutAnimation();
     }
 
-    // Start a new game
     private void NewGame()
     {
+        // Definições de novo jogo
         DataHolder.continueLastMaze = false;
         DataHolder.level = 1;
 
         FadeOutAnimation();
     }
 
-    // Fade out before loading
-    private void FadeOutAnimation()
-    {
-        // Fade the screen to black and wait for the end of the animation to load
-        if (DataHolder.animating == false)
-        {
-            Canvas.GetComponent<Fade>().coroutine_FT = StartCoroutine(Canvas.GetComponent<Fade>().FadeTo(0F, Canvas.GetComponent<Fade>().fadeTime));
-            musicManager.GetComponent<MusicManager>().publicCoroutine_MF = StartCoroutine(musicManager.GetComponent<MusicManager>().MusicFade(0, 3));
-            coroutine_MBA = StartCoroutine(Load());
-        }
-    }
-
     IEnumerator Load()
     {
-        // Loads when all animations are finished
+        // Carrega quando todas as animações terminarem
         while (true)
         {
-            if (DataHolder.animating == false)
+            if (!DataHolder.animating)
             {
                 StopCoroutine(Canvas.GetComponent<Fade>().coroutine_FT);
                 SceneManager.LoadScene(1);
@@ -322,4 +261,68 @@ public class SceneLoader : MonoBehaviour
             yield return null;
         }
     }
+    #endregion
+
+    #region Loading animations
+    IEnumerator MessageBoxAnimation(Vector2 targetPosition, Color targetAlpha, float time)
+    {
+        // Condições iniciais da animação
+        DataHolder.animating = true;
+        messageBox.SetActive(true);
+        continueButton.interactable = false;
+        newGameButton.interactable = false;
+
+        // Animação da abertura da caixa de animações
+        for (float i = 0; i <= 1F; i += Time.deltaTime / time)
+        {
+            // Para a interpolação quando o alfa converge abaixo de 0.05
+            if (Mathf.Abs(backGround.color.a - targetAlpha.a) < 0.05F)
+            {
+                backGround.color = targetAlpha;
+            }
+
+            // Para a interpolação quando a posição converge abaixo de 0.01
+            if (Mathf.Abs(messageBoxPosition.anchoredPosition.y - targetPosition.y) < 0.1F)
+            {
+                messageBoxPosition.anchoredPosition = targetPosition;
+                i = 2;
+            }
+
+            // Interpola a cor do plano de fundo
+            backGround.color = Color.Lerp(backGround.color, targetAlpha, i);
+
+            // Interpola a posição da caixa de texto
+            messageBoxPosition.anchoredPosition = Vector2.Lerp(messageBoxPosition.anchoredPosition, targetPosition, i);
+
+            yield return null;
+        }
+
+        // Quando a caixa de texto está totalmente escondida ela é desabilitada
+        if (messageBoxPosition.anchoredPosition.y < targetPositionUp.y - 10F)
+        {
+            messageBox.SetActive(false);
+        }
+        else
+        {
+            coroutine_R = StartCoroutine(Return());
+        }
+
+        // Condições finais da animação
+        DataHolder.animating = false;
+        continueButton.interactable = true;
+        newGameButton.interactable = true;
+        StopCoroutine(coroutine_MBA);
+    }
+
+    private void FadeOutAnimation()
+    {
+        // Faz a animação de fade out
+        if (!DataHolder.animating)
+        {
+            Canvas.GetComponent<Fade>().coroutine_FT = StartCoroutine(Canvas.GetComponent<Fade>().FadeTo(0F, Canvas.GetComponent<Fade>().fadeTime));
+            musicManager.GetComponent<MusicManager>().publicCoroutine_MF = StartCoroutine(musicManager.GetComponent<MusicManager>().MusicFade(0, 3));
+            coroutine_MBA = StartCoroutine(Load());
+        }
+    }
+    #endregion
 }

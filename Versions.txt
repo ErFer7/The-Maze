@@ -631,3 +631,13 @@ V 3.4		Bundle 62
 V 3.4.1		Bundle 63
 
 * Modificado o método de exibição dos placares
+
+30/10/2020
+
+V 3.4.2		Bundle 64
+
+- Removida linguagem Afrikanêr pois não é possível garantir sua precisão
+- Removida linguagem Alemã pois não é possível garantir sua precisão
+- Removida linguagem Chinêsa simplificada pois não é possível garantir sua precisão
+- Removida linguagem Chinêsa tradicional pois não é possível garantir sua precisão
+- Removida linguagem Russa pois não é possível garantir sua precisão
