@@ -3,24 +3,44 @@ using System.Collections;
 
 public class ScreenTransition : MonoBehaviour
 {
-    // REFATORAR
-
+    #region Public Variables
+    // Variáveis para o canvas
     public GameObject canvas;
     public CanvasGroup canvasAlpha;
+
+    // Próximo painel
     public GameObject nextPanel;
+
+    // Tempo da transição
     public float fadeTime;
+    #endregion
 
+    #region Private Variables
+    // Painel atual
     private GameObject currentPanel;
-    private Coroutine coroutine;
 
+    // Coroutine da atualização e desativação dos paineis
+    private Coroutine coroutine_PU_PD;
+    #endregion
+
+    #region Unity Methods
+    private void Start()
+    {
+        // Determina o painel atual
+        currentPanel = gameObject.transform.parent.gameObject;
+    }
+    #endregion
+
+    #region Methods
     public void StartTransition()
     {
-        if (DataHolder.animating == false)
+        if (!DataHolder.animating)
         {
-            // Fade out
+            // Animação de fade out
             canvas.GetComponent<Fade>().coroutine_FT = StartCoroutine(canvas.GetComponent<Fade>().FadeTo(0F, fadeTime));
 
-            coroutine = StartCoroutine(PanelUpdate());
+            // Inicia a atualização do painel
+            coroutine_PU_PD = StartCoroutine(PanelUpdate());
         }
     }
 
@@ -28,20 +48,20 @@ public class ScreenTransition : MonoBehaviour
     {
         while (true)
         {
-            // If the fading out is complete
-            if (DataHolder.animating == false && canvasAlpha.alpha < 1F)
+            // Se a animação de fade out acabou
+            if (!DataHolder.animating && canvasAlpha.alpha < 1F)
             {
                 // Fade in
                 canvas.GetComponent<Fade>().coroutine_FT = StartCoroutine(canvas.GetComponent<Fade>().FadeTo(1F, fadeTime));
 
-                // Rotate the current panel in 90°
+                // Rotaciona o painel atual em 90°
                 currentPanel.transform.Rotate(90, 0, 0);
 
-                // Activates the next panel
+                // Ativa o próximo painel
                 nextPanel.SetActive(true);
 
-                StopCoroutine(coroutine);
-                coroutine = StartCoroutine(PanelDeactivation());
+                StopCoroutine(coroutine_PU_PD);
+                coroutine_PU_PD = StartCoroutine(PanelDeactivation());
             }
 
             yield return null;
@@ -52,24 +72,20 @@ public class ScreenTransition : MonoBehaviour
     {
         while (true)
         {
-            // If the fading in is complete
-            if (DataHolder.animating == false && canvasAlpha.alpha > 0F)
+            // Se a animação de fade in acabou
+            if (!DataHolder.animating && canvasAlpha.alpha > 0F)
             {
-                // Deactivates the current panel
+                // Desativa o painel atual
                 currentPanel.SetActive(false);
 
-                // Rotates the panel back
+                // Rotaciona o painel para a sua posição original
                 currentPanel.transform.Rotate(-90, 0, 0);
 
-                StopCoroutine(coroutine);
+                StopCoroutine(coroutine_PU_PD);
             }
 
             yield return null;
         }
     }
-
-    private void Start()
-    {
-        currentPanel = gameObject.transform.parent.gameObject;
-    }
+    #endregion
 }

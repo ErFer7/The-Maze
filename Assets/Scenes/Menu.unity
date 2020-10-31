@@ -2363,10 +2363,6 @@ MonoBehaviour:
   enUSButtonAudio: {fileID: 445127466}
   es419_ButtonAudio: {fileID: 722238780}
   ptBR_ButtonAudio: {fileID: 1438374206}
-  deDE_ButtonAudio: {fileID: 0}
-  cnCN_ButtonAudio: {fileID: 0}
-  cnHK_ButtonAudio: {fileID: 0}
-  ruRU_ButtonAudio: {fileID: 0}
   returnButtonAudio_5: {fileID: 1588825183}
 --- !u!1 &237700436
 GameObject:
@@ -6388,7 +6384,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &825806800
 RectTransform:
   m_ObjectHideFlags: 0
@@ -10787,7 +10783,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1483658980
 RectTransform:
   m_ObjectHideFlags: 0
