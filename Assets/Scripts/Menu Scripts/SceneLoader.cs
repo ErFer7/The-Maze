@@ -5,8 +5,6 @@ using UnityEngine.UI;
 
 public class SceneLoader : MonoBehaviour
 {
-    // AINDA EM REFATORAÇÃO
-
     #region Public Variables
     // Acesso a objetos
     public GameObject Canvas;
