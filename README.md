@@ -20,16 +20,14 @@ The Maze é um jogo para android desenvolvido por mim durante 2019. O jogo foi p
 * Controles para o jogador
 * Grade de paredes em teste
 
+## v0.4 - 13/04/2019
+
+* Geração de grade de paredes
+* Pós-Processamento em teste
+* Criação algoritimo recursivo de backtracking em testes
+
 AINDA NÃO REFATORADO
 [=============================================]
-
-13/04/2019
-
-V 0.4
-
-+ Grade de paredes
-* Pós-Processamento em teste
-* Algoritimo recursivo de backtracking em testes
 
 14/04/2019
 
