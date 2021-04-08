@@ -17,11 +17,17 @@ public class Fade : MonoBehaviour
     #region Private Variables
     // Alfa do canvas principal
     private CanvasGroup canvasAlpha;
+
+    // Acesso ao Script Manager
+    private ScriptManager scriptManager;
     #endregion
 
     #region Unity Methods
     private void Start()
     {
+        // Acessa o script manager
+        scriptManager = GameObject.FindWithTag("ScriptManager").GetComponent<ScriptManager>();
+
         // Acessa o CanvasGroup do canvas principal
         canvasAlpha = gameObject.GetComponent<CanvasGroup>();
 
@@ -37,7 +43,7 @@ public class Fade : MonoBehaviour
     public IEnumerator FadeTo(float value, float time)
     {
         // Define que uma animação começou
-        DataHolder.animating = true;
+        scriptManager.animating = true;
 
         // Operação de fading
         for (float i = 0; i <= 1F; i += Time.deltaTime / time)
@@ -56,7 +62,7 @@ public class Fade : MonoBehaviour
         }
 
         // Define que a animação terminou
-        DataHolder.animating = false;
+        scriptManager.animating = false;
         StopCoroutine(coroutine_FT);
     }
     #endregion

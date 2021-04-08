@@ -12,22 +12,34 @@ public class CustomSeed : MonoBehaviour
     public Button done;
     #endregion
 
+    #region Private Variables
+    // Acesso ao Script Manager
+    private ScriptManager scriptManager;
+    #endregion
+
+    #region Unity Methods
+    private void Start()
+    {
+        scriptManager = GameObject.FindWithTag("ScriptManager").GetComponent<ScriptManager>();
+    }
+    #endregion
+
     #region Custom Seed
     public void SetSeed()
     {
         // Ignora o string se ele for vazio
         if (gameObject.GetComponent<InputField>().text == "")
         {
-            DataHolder.useSavedSeed = false;
+            scriptManager.useSavedSeed = false;
         }
         else
         {
-            DataHolder.useSavedSeed = true;
+            scriptManager.useSavedSeed = true;
 
             // Se o string não puder ser convertido em números inteiros então uma seed aleatória será usada
-            if (!int.TryParse(gameObject.GetComponent<InputField>().text, out DataHolder.seed))
+            if (!int.TryParse(gameObject.GetComponent<InputField>().text, out scriptManager.seed))
             {
-                DataHolder.seed = GetDeterministicHashCode(gameObject.GetComponent<InputField>().text);
+                scriptManager.seed = GetDeterministicHashCode(gameObject.GetComponent<InputField>().text);
             }
         }
     }

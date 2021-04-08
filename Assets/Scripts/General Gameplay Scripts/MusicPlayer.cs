@@ -45,8 +45,11 @@ public class MusicPlayer : MonoBehaviour
     // Define o índice da música
     private int themeIndex;
 
-    // Acesso a o LowPassFilter
+    // Acesso ao LowPassFilter
     private AudioLowPassFilter lowPassFilter;
+
+    // Acesso ao Script Manager
+    private ScriptManager scriptManager;
 
     // Modos de jogo
     private enum GameMode
@@ -90,12 +93,15 @@ public class MusicPlayer : MonoBehaviour
 
     private void Start()
     {
+        // Acessa o script manager
+        scriptManager = GameObject.FindWithTag("ScriptManager").GetComponent<ScriptManager>();
+
         // Acessa os componentes
         audioSource = GetComponent<AudioSource>();
         lowPassFilter = GetComponent<AudioLowPassFilter>();
 
         // Se a música está ativada ativa o controle de inicialização
-        if (DataHolder.music)
+        if (scriptManager.music)
         {
             coroutine_SC_LPFF = StartCoroutine(StartingControl());
         }
@@ -108,7 +114,7 @@ public class MusicPlayer : MonoBehaviour
         // Inicia a música quando todas as animações acabaram
         while (true)
         {
-            if (DataHolder.loadingStage == -3)
+            if (scriptManager.loadingStage == -3)
             {
                 coroutine_PM = StartCoroutine(PlayMusic());
                 StopCoroutine(coroutine_SC_LPFF);
@@ -125,7 +131,7 @@ public class MusicPlayer : MonoBehaviour
         // Define a música inicial //
 
         // Modo clássico ou customizado
-        if (!DataHolder.regressiveTime && !DataHolder.dark)
+        if (!scriptManager.regressiveTime && !scriptManager.dark)
         {
             gameMode = GameMode.classic_or_Custom;
 
@@ -146,7 +152,7 @@ public class MusicPlayer : MonoBehaviour
             }
         }
         // Modo tempo
-        else if (DataHolder.regressiveTime)
+        else if (scriptManager.regressiveTime)
         {
             gameMode = GameMode.time;
 
@@ -167,7 +173,7 @@ public class MusicPlayer : MonoBehaviour
             }
         }
         // Modo escuro
-        else if (DataHolder.dark)
+        else if (scriptManager.dark)
         {
             gameMode = GameMode.dark;
 

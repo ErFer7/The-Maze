@@ -25,11 +25,17 @@ public class PauseInput : MonoBehaviour
 
     // Coroutine da operação de fading
     private Coroutine coroutine_FIT;
+
+    // Acesso ao Script Manager
+    private ScriptManager scriptManager;
     #endregion
 
     #region Unity Methods
     private void Start()
     {
+        // Acessa o script manager
+        scriptManager = GameObject.FindWithTag("ScriptManager").GetComponent<ScriptManager>();
+
         // Acessa o script da tela de pausa neste objeto
         pausingScreenScript = gameObject.GetComponentInParent<Pause>();
 
@@ -37,13 +43,13 @@ public class PauseInput : MonoBehaviour
         musicPlayer = GameObject.FindWithTag("GameplayMusicPlayer");
 
         // Se o modo é escuro torna o botão branco
-        if (DataHolder.dark && gameObject.name == "Pause Button")
+        if (scriptManager.dark && gameObject.name == "Pause Button")
         {
             gameObject.GetComponent<Image>().color = new Color(0.898F, 0.898F, 0.898F);
         }
 
         // Se o som está desativado os botões não emitirão sons
-        if (!DataHolder.sound)
+        if (!scriptManager.sound)
         {
             GetComponent<AudioSource>().volume = 0;
         }
@@ -67,7 +73,7 @@ public class PauseInput : MonoBehaviour
         }
 
         // Interpola o volume do Music Player para 0 caso o carregamento esteja voltando para o menu
-        if (DataHolder.loadingStage == -1)
+        if (scriptManager.loadingStage == -1)
         {
             musicPlayer.GetComponent<MusicPlayer>().coroutine_VF = StartCoroutine(musicPlayer.GetComponent<MusicPlayer>().volumeFade(0, 0.25F));
         }
@@ -82,18 +88,18 @@ public class PauseInput : MonoBehaviour
                 Destroy(audioSource.gameObject);
             }
 
-            switch (DataHolder.loadingStage)
+            switch (scriptManager.loadingStage)
             {
                 // Carregamento para o menu
                 case 1:
                     StopCoroutine(coroutine_FIT);
-                    DataHolder.animating = false;
+                    scriptManager.animating = false;
                     SceneManager.LoadScene(0);
                     break;
                 // Reinicia o labirinto
                 case 5:
-                    DataHolder.restarting = true;
-                    DataHolder.animating = false;
+                    scriptManager.restarting = true;
+                    scriptManager.animating = false;
                     SceneManager.LoadScene(1);
                     break;
                 default:
@@ -109,7 +115,7 @@ public class PauseInput : MonoBehaviour
     public void Pause()
     {
         // Ativa a tela de pausa caso nenhuma animação esteja ativa
-        if (!DataHolder.animating)
+        if (!scriptManager.animating)
         {
             pausingScreen.gameObject.SetActive(true);
         }
@@ -124,10 +130,10 @@ public class PauseInput : MonoBehaviour
     public void Menu()
     {
         // Caso nenhuma animação esteja ativa o controle de carregamento é iniciado no estado -1 (Menu)
-        if (!DataHolder.animating)
+        if (!scriptManager.animating)
         {
-            DataHolder.loadingStage = -1;
-            DataHolder.animating = true;
+            scriptManager.loadingStage = -1;
+            scriptManager.animating = true;
             StartCoroutine(LoadingOutControl_P());
         }
     }
@@ -135,10 +141,10 @@ public class PauseInput : MonoBehaviour
     public void Restart()
     {
         // Caso nenhuma animação esteja ativa o controle de carregamento é iniciado no estado -1 (Reiniciando)
-        if (!DataHolder.animating)
+        if (!scriptManager.animating)
         {
-            DataHolder.loadingStage = -2;
-            DataHolder.animating = true;
+            scriptManager.loadingStage = -2;
+            scriptManager.animating = true;
             StartCoroutine(LoadingOutControl_P());
         }
     }

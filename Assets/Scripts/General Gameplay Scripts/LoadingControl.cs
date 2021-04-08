@@ -58,13 +58,19 @@ public class LoadingControl : MonoBehaviour
 
     // Acesso ao AudioSource
     private AudioSource audioSource;
+
+    // Acesso ao Script manager
+    private ScriptManager scriptManager;
     #endregion
 
     #region Unity Methods
     private void Start()
     {
+        // Acessa o script manager
+        scriptManager = GameObject.FindWithTag("ScriptManager").GetComponent<ScriptManager>();
+
         // Estado inicial
-        DataHolder.loadingStage = 0;
+        scriptManager.loadingStage = 0;
 
         // Inicia o carregamento
         controlCoroutine = StartCoroutine(Control());
@@ -78,26 +84,26 @@ public class LoadingControl : MonoBehaviour
     IEnumerator Control()
     {
         // Condição inicial
-        DataHolder.animating = true;
+        scriptManager.animating = true;
 
         while (true)
         {
-            switch (DataHolder.loadingStage)
+            switch (scriptManager.loadingStage)
             {
                 case 0:
-                    DataHolder.loadingStage = -1;
+                    scriptManager.loadingStage = -1;
 
                     // Traduz o texto da tela de carregamento se possível
-                    if (DataHolder.dynamicLocalizedText.ContainsKey("GeneratingMaze"))
+                    if (scriptManager.dynamicLocalizedText.ContainsKey("GeneratingMaze"))
                     {
-                        generatingMaze.text = DataHolder.dynamicLocalizedText["GeneratingMaze"];
+                        generatingMaze.text = scriptManager.dynamicLocalizedText["GeneratingMaze"];
                     }
 
                     // Inicia o fade in da tela de carregamento
                     coroutine = StartCoroutine(blackScreen.GetComponent<FadeImage>().FadeImageTo(0, 1));
                     break;
                 case 1:
-                    DataHolder.loadingStage = -1;
+                    scriptManager.loadingStage = -1;
 
                     // Para a coroutine do fade in da tela de carregamento
                     StopCoroutine(coroutine);
@@ -109,7 +115,7 @@ public class LoadingControl : MonoBehaviour
                     coroutine = StartCoroutine(mazeGenerator.CreateWalls());
                     break;
                 case 2:
-                    DataHolder.loadingStage = -1;
+                    scriptManager.loadingStage = -1;
 
                     // Para a coroutine da criação de muros
                     StopCoroutine(coroutine);
@@ -118,7 +124,7 @@ public class LoadingControl : MonoBehaviour
                     coroutine = StartCoroutine(mazeGenerator.GeneratePath());
                     break;
                 case 3:
-                    DataHolder.loadingStage = -1;
+                    scriptManager.loadingStage = -1;
 
                     // Para a coroutine da geração do labirinto
                     StopCoroutine(coroutine);
@@ -127,7 +133,7 @@ public class LoadingControl : MonoBehaviour
                     coroutine = StartCoroutine(mazeGenerator.SetSpawn());
                     break;
                 case 4:
-                    DataHolder.loadingStage = -2;
+                    scriptManager.loadingStage = -2;
 
                     // Para a coroutine de geração do spawn
                     StopCoroutine(coroutine);
@@ -142,7 +148,7 @@ public class LoadingControl : MonoBehaviour
                     coroutine = StartCoroutine(blackScreen.GetComponent<FadeImage>().FadeImageTo(1, 1));
                     break;
                 case 5:
-                    DataHolder.loadingStage = -3;
+                    scriptManager.loadingStage = -3;
 
                     // Para a coroutine do fade out da tela de carregamento
                     StopCoroutine(coroutine);
@@ -154,14 +160,14 @@ public class LoadingControl : MonoBehaviour
                     coroutine = StartCoroutine(blackScreen.GetComponent<FadeImage>().FadeImageTo(0, 0.5F));
 
                     // Se o som está habilitado
-                    if (DataHolder.sound)
+                    if (scriptManager.sound)
                     {
                         // Toca o som de início do jogo
                         audioSource.PlayOneShot(audioSource.clip);
                     }
                     break;
                 case 6:
-                    DataHolder.loadingStage = 7;
+                    scriptManager.loadingStage = 7;
 
                     // Para a coroutine do fade in do jogo
                     StopCoroutine(coroutine);
@@ -173,10 +179,10 @@ public class LoadingControl : MonoBehaviour
                     coroutine = StartCoroutine(timer.StartTimer());
 
                     // Destrava o jogador
-                    DataHolder.playerCanMove = true;
+                    scriptManager.playerCanMove = true;
 
                     // Condição final
-                    DataHolder.animating = false;
+                    scriptManager.animating = false;
                     break;
                 case 7:
 

@@ -15,11 +15,17 @@ public class PlayGamesButtons : MonoBehaviour
 
     // Evento de tecla pressionada
     private Event keyPressed;
+
+    // Acesso ao Script Manager
+    private ScriptManager scriptManager;
     #endregion
 
     #region Unity Methods
     private void Start()
     {
+        // Acessa o script manager
+        scriptManager = GameObject.FindWithTag("ScriptManager").GetComponent<ScriptManager>();
+
         // Procura e define o objeto
         playGamesManager = GameObject.FindWithTag("PlayGamesManager").GetComponent<PlayGamesManager>();
 
@@ -49,7 +55,7 @@ public class PlayGamesButtons : MonoBehaviour
     public void Interact()
     {   
         // Se não há nenhuma animação no momento
-        if (!DataHolder.animating)
+        if (!scriptManager.animating)
         {
             // Faz o login caso o jogador não esteja logado, caso ele esteja logado faz o logoff
             if (PlayerPrefs.GetInt("Authenticated", 0) == 0)

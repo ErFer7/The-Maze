@@ -35,11 +35,17 @@ public class MenuExit : MonoBehaviour
     // Posições
     private Vector2 targetPositionUp;
     private Vector2 targetPositionDown;
+
+    // Acesso ao Script manager
+    private ScriptManager scriptManager;
     #endregion
 
     #region Unity Methods
     private void Start()
     {
+        // Acessa o script manager
+        scriptManager = GameObject.FindWithTag("ScriptManager").GetComponent<ScriptManager>();
+
         // Inicializa as posições
         targetPositionUp = new Vector2(0, 0);
         targetPositionDown = new Vector2(0, -485);
@@ -51,7 +57,7 @@ public class MenuExit : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Escape))
         {
             // Se não há nenhuma animação tocando
-            if (!DataHolder.animating)
+            if (!scriptManager.animating)
             {
                 // Ativa a caixa de texto
                 if (exitMessageBox.anchoredPosition.y < targetPositionUp.y - 10)
@@ -94,7 +100,7 @@ public class MenuExit : MonoBehaviour
     #region MessageBoxAnimation
     public IEnumerator MessageBoxAnimation(Vector2 targetPosition, Color targetAlpha, float time)
     {
-        DataHolder.animating = true;
+        scriptManager.animating = true;
         exit.SetActive(true);
 
         // Opening message box animation
@@ -128,7 +134,7 @@ public class MenuExit : MonoBehaviour
             exit.SetActive(false);
         }
 
-        DataHolder.animating = false;
+        scriptManager.animating = false;
         StopCoroutine(coroutine_MBA);
     }
     #endregion

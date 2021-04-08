@@ -54,11 +54,17 @@ public class Timer : MonoBehaviour
 
     // Estado de inicialização da coroutine da animação da morte
     private bool coroutine_DAC_Started;
+
+    // Acesso ao Script Manager
+    private ScriptManager scriptManager;
     #endregion
 
     #region Unity Methods
     private void Start()
     {
+        // Acessa o script manager
+        scriptManager = GameObject.FindWithTag("ScriptManager").GetComponent<ScriptManager>();
+
         // Acessa o texto de display
         counter = gameObject.GetComponent<Text>();
 
@@ -66,13 +72,13 @@ public class Timer : MonoBehaviour
         oldSeconds = -1;
 
         // Inicializa o modo de tempo (regressivo)
-        if (DataHolder.regressiveTime)
+        if (scriptManager.regressiveTime)
         {
             // Define a cor da base do display
             gameObject.GetComponentInParent<Image>().color = new Color(0.4F, 0F, 0F);
 
             // Define o tempo inicial restante
-            currentTime = Mathf.FloorToInt((DataHolder.width * DataHolder.height * 2) / 7) + 1;
+            currentTime = Mathf.FloorToInt((scriptManager.width * scriptManager.height * 2) / 7) + 1;
 
             // Converte o tempo para o formato HH:MM:SS
             TimeInHMS();
@@ -82,7 +88,7 @@ public class Timer : MonoBehaviour
         }
 
         // Inicialização para o modo escuro
-        if (DataHolder.dark)
+        if (scriptManager.dark)
         {
             counter.color = new Color(0F, 0F, 0F);
             gameObject.GetComponentInParent<Image>().color = new Color(0.898F, 0.898F, 0.898F);
@@ -111,9 +117,9 @@ public class Timer : MonoBehaviour
         coroutine_DAC_Started = false;
 
         // Tempo inicial para o modo tempo (regressivo)
-        if (DataHolder.regressiveTime)
+        if (scriptManager.regressiveTime)
         {
-            currentTime = Mathf.FloorToInt((DataHolder.width * DataHolder.height * 2) / 7) + 1;
+            currentTime = Mathf.FloorToInt((scriptManager.width * scriptManager.height * 2) / 7) + 1;
         }
 
         while (true)
@@ -122,7 +128,7 @@ public class Timer : MonoBehaviour
             if (!pausingScreen.activeSelf && !exit.exiting)
             {
                 // Conta o tempo
-                if (!DataHolder.regressiveTime)
+                if (!scriptManager.regressiveTime)
                 {
                     currentTime += Time.deltaTime;
                 }

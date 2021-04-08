@@ -52,11 +52,17 @@ public class LocalizationManager : MonoBehaviour
     private Vector2 buttonSize;
     private Vector2 doneButtonSize;
     private Vector2 labelSize;
+
+    // Acesso ao Script manager
+    private ScriptManager scriptManager;
     #endregion
 
     #region Unity Methods
     private void Start()
     {
+        // Acessa o script manager
+        scriptManager = GameObject.FindWithTag("ScriptManager").GetComponent<ScriptManager>();
+
         // Acessa a linguagem do sistema
         systemLanguage = Application.systemLanguage;
 
@@ -145,23 +151,23 @@ public class LocalizationManager : MonoBehaviour
                 doneButton.sizeDelta = doneButtonSize;
 
                 // Textos do gameplay
-                DataHolder.dynamicLocalizedText.Clear();
-                DataHolder.dynamicLocalizedText.Add("LoggingIn", "Logging in...");
-                DataHolder.dynamicLocalizedText.Add("LoginComplete", "Login complete");
-                DataHolder.dynamicLocalizedText.Add("LoginFailed", "Login failed");
-                DataHolder.dynamicLocalizedText.Add("GeneratingMaze", "GENERATING MAZE");
-                DataHolder.dynamicLocalizedText.Add("pausingScreen_Level", "LEVEL");
-                DataHolder.dynamicLocalizedText.Add("pausingScreen_Seed", "SEED");
-                DataHolder.dynamicLocalizedText.Add("pausingScreen_DistanceTravelled", "DISTANCE TRAVELLED");
-                DataHolder.dynamicLocalizedText.Add("pausingScreen_Size", "SIZE");
-                DataHolder.dynamicLocalizedText.Add("exitScreen_title_Success_Progressive", "LEVEL {0} COMPLETED");
-                DataHolder.dynamicLocalizedText.Add("exitScreen_title_Success_Non-Progressive", "LEVEL COMPLETED");
-                DataHolder.dynamicLocalizedText.Add("exitScreen_title_Failure", "YOU FAILED");
-                DataHolder.dynamicLocalizedText.Add("exitScreen_subTitle", "Maze {0}");
-                DataHolder.dynamicLocalizedText.Add("exitScreen_Score", "Score");
+                scriptManager.dynamicLocalizedText.Clear();
+                scriptManager.dynamicLocalizedText.Add("LoggingIn", "Logging in...");
+                scriptManager.dynamicLocalizedText.Add("LoginComplete", "Login complete");
+                scriptManager.dynamicLocalizedText.Add("LoginFailed", "Login failed");
+                scriptManager.dynamicLocalizedText.Add("GeneratingMaze", "GENERATING MAZE");
+                scriptManager.dynamicLocalizedText.Add("pausingScreen_Level", "LEVEL");
+                scriptManager.dynamicLocalizedText.Add("pausingScreen_Seed", "SEED");
+                scriptManager.dynamicLocalizedText.Add("pausingScreen_DistanceTravelled", "DISTANCE TRAVELLED");
+                scriptManager.dynamicLocalizedText.Add("pausingScreen_Size", "SIZE");
+                scriptManager.dynamicLocalizedText.Add("exitScreen_title_Success_Progressive", "LEVEL {0} COMPLETED");
+                scriptManager.dynamicLocalizedText.Add("exitScreen_title_Success_Non-Progressive", "LEVEL COMPLETED");
+                scriptManager.dynamicLocalizedText.Add("exitScreen_title_Failure", "YOU FAILED");
+                scriptManager.dynamicLocalizedText.Add("exitScreen_subTitle", "Maze {0}");
+                scriptManager.dynamicLocalizedText.Add("exitScreen_Score", "Score");
 
                 // Tamanhos de fonte do gameplay
-                DataHolder.scoreFontSize = 60;
+                scriptManager.scoreFontSize = 60;
                 break;
             // Espanhol - América Latina
             case "es-419":
@@ -213,23 +219,23 @@ public class LocalizationManager : MonoBehaviour
                 doneButton.sizeDelta = doneButtonSize;
 
                 // Textos do gameplay
-                DataHolder.dynamicLocalizedText.Clear();
-                DataHolder.dynamicLocalizedText.Add("LoggingIn", "Iniciando sesión...");
-                DataHolder.dynamicLocalizedText.Add("LoginComplete", "Sesión iniciada");
-                DataHolder.dynamicLocalizedText.Add("LoginFailed", "Error de inicio de sesión");
-                DataHolder.dynamicLocalizedText.Add("GeneratingMaze", "GENERANDO LABERINTO");
-                DataHolder.dynamicLocalizedText.Add("pausingScreen_Level", "NIVEL");
-                DataHolder.dynamicLocalizedText.Add("pausingScreen_Seed", "SEMILLA");
-                DataHolder.dynamicLocalizedText.Add("pausingScreen_DistanceTravelled", "DISTANCIA RECORRIDA");
-                DataHolder.dynamicLocalizedText.Add("pausingScreen_Size", "TAMAÑO");
-                DataHolder.dynamicLocalizedText.Add("exitScreen_title_Success_Progressive", "NIVEL {0} COMPLETADO");
-                DataHolder.dynamicLocalizedText.Add("exitScreen_title_Success_Non-Progressive", "NIVEL COMPLETADO");
-                DataHolder.dynamicLocalizedText.Add("exitScreen_title_Failure", "FALLASTE");
-                DataHolder.dynamicLocalizedText.Add("exitScreen_subTitle", "Laberinto {0}");
-                DataHolder.dynamicLocalizedText.Add("exitScreen_Score", "Puntuación");
+                scriptManager.dynamicLocalizedText.Clear();
+                scriptManager.dynamicLocalizedText.Add("LoggingIn", "Iniciando sesión...");
+                scriptManager.dynamicLocalizedText.Add("LoginComplete", "Sesión iniciada");
+                scriptManager.dynamicLocalizedText.Add("LoginFailed", "Error de inicio de sesión");
+                scriptManager.dynamicLocalizedText.Add("GeneratingMaze", "GENERANDO LABERINTO");
+                scriptManager.dynamicLocalizedText.Add("pausingScreen_Level", "NIVEL");
+                scriptManager.dynamicLocalizedText.Add("pausingScreen_Seed", "SEMILLA");
+                scriptManager.dynamicLocalizedText.Add("pausingScreen_DistanceTravelled", "DISTANCIA RECORRIDA");
+                scriptManager.dynamicLocalizedText.Add("pausingScreen_Size", "TAMAÑO");
+                scriptManager.dynamicLocalizedText.Add("exitScreen_title_Success_Progressive", "NIVEL {0} COMPLETADO");
+                scriptManager.dynamicLocalizedText.Add("exitScreen_title_Success_Non-Progressive", "NIVEL COMPLETADO");
+                scriptManager.dynamicLocalizedText.Add("exitScreen_title_Failure", "FALLASTE");
+                scriptManager.dynamicLocalizedText.Add("exitScreen_subTitle", "Laberinto {0}");
+                scriptManager.dynamicLocalizedText.Add("exitScreen_Score", "Puntuación");
 
                 // Tamanhos de fonte do gameplay
-                DataHolder.scoreFontSize = 45;
+                scriptManager.scoreFontSize = 45;
                 break;
             // Português - Brasil
             case "pt-BR":
@@ -281,23 +287,23 @@ public class LocalizationManager : MonoBehaviour
                 doneButton.sizeDelta = doneButtonSize;
 
                 // Textos do gameplay
-                DataHolder.dynamicLocalizedText.Clear();
-                DataHolder.dynamicLocalizedText.Add("LoggingIn", "Fazendo login...");
-                DataHolder.dynamicLocalizedText.Add("LoginComplete", "Login concluído");
-                DataHolder.dynamicLocalizedText.Add("LoginFailed", "Falha no login");
-                DataHolder.dynamicLocalizedText.Add("GeneratingMaze", "GERANDO LABIRINTO");
-                DataHolder.dynamicLocalizedText.Add("pausingScreen_Level", "NÍVEL");
-                DataHolder.dynamicLocalizedText.Add("pausingScreen_Seed", "SEMENTE");
-                DataHolder.dynamicLocalizedText.Add("pausingScreen_DistanceTravelled", "DISTÂNCIA PERCORRIDA");
-                DataHolder.dynamicLocalizedText.Add("pausingScreen_Size", "TAMANHO");
-                DataHolder.dynamicLocalizedText.Add("exitScreen_title_Success_Progressive", "NÍVEL {0} CONCLUÍDO");
-                DataHolder.dynamicLocalizedText.Add("exitScreen_title_Success_Non-Progressive", "NÍVEL CONCLUÍDO");
-                DataHolder.dynamicLocalizedText.Add("exitScreen_title_Failure", "VOCÊ FALHOU");
-                DataHolder.dynamicLocalizedText.Add("exitScreen_subTitle", "Labirinto {0}");
-                DataHolder.dynamicLocalizedText.Add("exitScreen_Score", "Pontuação");
+                scriptManager.dynamicLocalizedText.Clear();
+                scriptManager.dynamicLocalizedText.Add("LoggingIn", "Fazendo login...");
+                scriptManager.dynamicLocalizedText.Add("LoginComplete", "Login concluído");
+                scriptManager.dynamicLocalizedText.Add("LoginFailed", "Falha no login");
+                scriptManager.dynamicLocalizedText.Add("GeneratingMaze", "GERANDO LABIRINTO");
+                scriptManager.dynamicLocalizedText.Add("pausingScreen_Level", "NÍVEL");
+                scriptManager.dynamicLocalizedText.Add("pausingScreen_Seed", "SEMENTE");
+                scriptManager.dynamicLocalizedText.Add("pausingScreen_DistanceTravelled", "DISTÂNCIA PERCORRIDA");
+                scriptManager.dynamicLocalizedText.Add("pausingScreen_Size", "TAMANHO");
+                scriptManager.dynamicLocalizedText.Add("exitScreen_title_Success_Progressive", "NÍVEL {0} CONCLUÍDO");
+                scriptManager.dynamicLocalizedText.Add("exitScreen_title_Success_Non-Progressive", "NÍVEL CONCLUÍDO");
+                scriptManager.dynamicLocalizedText.Add("exitScreen_title_Failure", "VOCÊ FALHOU");
+                scriptManager.dynamicLocalizedText.Add("exitScreen_subTitle", "Labirinto {0}");
+                scriptManager.dynamicLocalizedText.Add("exitScreen_Score", "Pontuação");
 
                 // Tamanhos de fonte do gameplay
-                DataHolder.scoreFontSize = 45;
+                scriptManager.scoreFontSize = 45;
                 break;
             default:
                 break;

@@ -7,6 +7,16 @@ public class FadeImage : MonoBehaviour
     #region Private Variables
     // Acesso a tela preta
     private Image blackScreenImage;
+
+    // Acesso ao script manager
+    private ScriptManager scriptManager;
+    #endregion
+
+    #region Unity Methods
+    private void Start()
+    {
+        scriptManager = GameObject.FindWithTag("ScriptManager").GetComponent<ScriptManager>();
+    }
     #endregion
 
     #region Animation
@@ -39,16 +49,16 @@ public class FadeImage : MonoBehaviour
                 blackScreenImage.CrossFadeAlpha(value, 0, false);
 
                 // Estados de saída (Explicados em LoadinControl.cs)
-                switch (DataHolder.loadingStage)
+                switch (scriptManager.loadingStage)
                 {
                     case -1:
-                        DataHolder.loadingStage = 1;
+                        scriptManager.loadingStage = 1;
                         break;
                     case -2:
-                        DataHolder.loadingStage = 5;
+                        scriptManager.loadingStage = 5;
                         break;
                     case -3:
-                        DataHolder.loadingStage = 6;
+                        scriptManager.loadingStage = 6;
                         break;
                     default:
                         break;

@@ -43,9 +43,17 @@ public class SoundManager : MonoBehaviour
     public AudioSource returnButtonAudio_5;
     #endregion
 
+    #region Private Variables
+    // Acesso ao Script manager
+    private ScriptManager scriptManager;
+    #endregion
+
     #region Unity Methods
     private void Start()
     {
+        // Acessa o script manager
+        scriptManager = GameObject.FindWithTag("ScriptManager").GetComponent<ScriptManager>();
+
         // Atualiza o sistema de acordo com as configurações de som
         switch (PlayerPrefs.GetInt("Sound", -1))
         {
@@ -56,17 +64,17 @@ public class SoundManager : MonoBehaviour
 
                 // Atualiza as definições do som no sistema (desativa)
                 soundToggle.isOn = false;
-                DataHolder.sound = false;
+                scriptManager.sound = false;
                 break;
             // Caso o som esteja ligado
             case 1:
 
                 // Atualiza as definições do som no sistema (ativa)
-                DataHolder.sound = true;
+                scriptManager.sound = true;
                 break;
             // Caso não haja definição o padrão será com o som ativo
             default:
-                DataHolder.sound = true;
+                scriptManager.sound = true;
                 break;
         }
 
@@ -82,7 +90,7 @@ public class SoundManager : MonoBehaviour
         if (soundToggle.isOn)
         {
             // Atualiza as definições do som no sistema
-            DataHolder.sound = true;
+            scriptManager.sound = true;
             PlayerPrefs.SetInt("Sound", 1);
 
             // Atualiza os volumes
@@ -126,7 +134,7 @@ public class SoundManager : MonoBehaviour
         else
         {
             // Atualiza as definições do som no sistema
-            DataHolder.sound = false;
+            scriptManager.sound = false;
             PlayerPrefs.SetInt("Sound", 0);
 
             // Atualiza os volumes

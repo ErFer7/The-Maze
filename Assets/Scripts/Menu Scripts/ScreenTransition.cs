@@ -21,11 +21,17 @@ public class ScreenTransition : MonoBehaviour
 
     // Coroutine da atualização e desativação dos paineis
     private Coroutine coroutine_PU_PD;
+
+    // Acesso ao Script manager
+    private ScriptManager scriptManager;
     #endregion
 
     #region Unity Methods
     private void Start()
     {
+        // Acessa o script manager
+        scriptManager = GameObject.FindWithTag("ScriptManager").GetComponent<ScriptManager>();
+
         // Determina o painel atual
         currentPanel = gameObject.transform.parent.gameObject;
     }
@@ -34,7 +40,7 @@ public class ScreenTransition : MonoBehaviour
     #region Methods
     public void StartTransition()
     {
-        if (!DataHolder.animating)
+        if (!scriptManager.animating)
         {
             // Animação de fade out
             canvas.GetComponent<Fade>().coroutine_FT = StartCoroutine(canvas.GetComponent<Fade>().FadeTo(0F, fadeTime));
@@ -49,7 +55,7 @@ public class ScreenTransition : MonoBehaviour
         while (true)
         {
             // Se a animação de fade out acabou
-            if (!DataHolder.animating && canvasAlpha.alpha < 1F)
+            if (!scriptManager.animating && canvasAlpha.alpha < 1F)
             {
                 // Fade in
                 canvas.GetComponent<Fade>().coroutine_FT = StartCoroutine(canvas.GetComponent<Fade>().FadeTo(1F, fadeTime));
@@ -73,7 +79,7 @@ public class ScreenTransition : MonoBehaviour
         while (true)
         {
             // Se a animação de fade in acabou
-            if (!DataHolder.animating && canvasAlpha.alpha > 0F)
+            if (!scriptManager.animating && canvasAlpha.alpha > 0F)
             {
                 // Desativa o painel atual
                 currentPanel.SetActive(false);

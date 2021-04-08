@@ -39,11 +39,17 @@ public class Exit : MonoBehaviour
 
     // AudioSource da saída
     private AudioSource audioSource;
+
+    // Acesso ao script manager
+    private ScriptManager scriptManager;
     #endregion
 
     #region Unity Methods
     private void Start()
     {
+        // Acessa o script manager
+        scriptManager = GameObject.FindWithTag("ScriptManager").GetComponent<ScriptManager>();
+
         // Acessa o AudioSource da saída
         audioSource = GetComponent<AudioSource>();
 
@@ -58,7 +64,7 @@ public class Exit : MonoBehaviour
         exiting = true;
 
         // Toca o som da saída
-        if (DataHolder.sound)
+        if (scriptManager.sound)
         {
             audioSource.PlayOneShot(audioSource.clip);
         }
@@ -67,7 +73,7 @@ public class Exit : MonoBehaviour
         pauseButton.interactable = false;
 
         // Trava o jogador
-        DataHolder.playerCanMove = false;
+        scriptManager.playerCanMove = false;
 
         // Inicia a animação da saída
         coroutine = StartCoroutine(ExitingAnimation());
@@ -78,7 +84,7 @@ public class Exit : MonoBehaviour
     IEnumerator ExitingAnimation()
     {
         // Condição inicial
-        DataHolder.animating = true;
+        scriptManager.animating = true;
 
         // Define a saída como o novo alvo da camera
         mainCamera.GetComponent<SmoothFollow>().target = transform;
@@ -103,7 +109,7 @@ public class Exit : MonoBehaviour
             else
             {
                 // Finaliza a animação e ativa a tela de saída
-                DataHolder.animating = false;
+                scriptManager.animating = false;
                 exitScreen.SetActive(true);
                 StopCoroutine(coroutine);
             }

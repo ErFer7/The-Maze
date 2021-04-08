@@ -64,6 +64,9 @@ public class PlayerMovement : MonoBehaviour
     private bool active;
     private bool deactivationComplete;
 
+    // Acesso ao Script manager
+    private ScriptManager scriptManager;
+
     #region DEBUG
     // DEBUG
     private bool debugControl;
@@ -77,13 +80,16 @@ public class PlayerMovement : MonoBehaviour
     #region Unity Methods
     private void Start()
     {
+        // Acessa o script manager
+        scriptManager = GameObject.FindWithTag("ScriptManager").GetComponent<ScriptManager>();
+
         // Acessa o Rigidbody2D do jogador e o CanvasGroup do joystick
         player = gameObject.GetComponent<Rigidbody2D>();
         joystickAlpha = joystickBase.GetComponent<CanvasGroup>();
 
         // Define os estados iniciais
         touchStart = false;
-        DataHolder.playerCanMove = false;
+        scriptManager.playerCanMove = false;
 
         // Inicialização para a distância
         setupPosition = new Vector2(-1, -1);
@@ -102,7 +108,7 @@ public class PlayerMovement : MonoBehaviour
         debugLeft = new Vector2(-speed, 0);
 
         // Muda a cor do joystick no modo escuro
-        if (DataHolder.dark)
+        if (scriptManager.dark)
         {
             joystickBase.GetComponent<Image>().color = new Color(0.898F, 0.898F, 0.898F);
             joystickButton.GetComponent<Image>().color = new Color(0.898F, 0.898F, 0.898F);
@@ -112,7 +118,7 @@ public class PlayerMovement : MonoBehaviour
     private void Update()
     {
         // Se o jogador pode se mover o input é habilitado
-        if (DataHolder.playerCanMove)
+        if (scriptManager.playerCanMove)
         {
             GetInputDirection();
 

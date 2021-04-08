@@ -50,39 +50,42 @@ public class ExitScreen : MonoBehaviour
 
     // Acesso ao PlayGames Manager
     private PlayGamesManager playGamesManager;
+
+    // Acesso ao Script Manager
+    private ScriptManager scriptManager;
     #endregion
 
     #region Unity Methods
     private void Start()
     {
         // Inicialização para o tempo não regressivo
-        if (!DataHolder.regressiveTime)
+        if (!scriptManager.regressiveTime)
         {
             // Para modos progressivos (Clássico)
-            if (DataHolder.progressive)
+            if (scriptManager.progressive)
             {
                 // Traduz o título se possível
-                if (DataHolder.dynamicLocalizedText.ContainsKey("exitScreen_title_Success_Progressive"))
+                if (scriptManager.dynamicLocalizedText.ContainsKey("exitScreen_title_Success_Progressive"))
                 {
-                    title.text = string.Format(DataHolder.dynamicLocalizedText["exitScreen_title_Success_Progressive"], DataHolder.level);
+                    title.text = string.Format(scriptManager.dynamicLocalizedText["exitScreen_title_Success_Progressive"], scriptManager.level);
                 }
                 else
                 {
-                    title.text = "LEVEL " + DataHolder.level + " COMPLETED";
+                    title.text = "LEVEL " + scriptManager.level + " COMPLETED";
                 }
 
                 // Traduz o subtítulo se possível
-                if (DataHolder.dynamicLocalizedText.ContainsKey("exitScreen_subTitle"))
+                if (scriptManager.dynamicLocalizedText.ContainsKey("exitScreen_subTitle"))
                 {
-                    subTitle.text = string.Format(DataHolder.dynamicLocalizedText["exitScreen_subTitle"], DataHolder.seed);
+                    subTitle.text = string.Format(scriptManager.dynamicLocalizedText["exitScreen_subTitle"], scriptManager.seed);
                 }
                 else
                 {
-                    subTitle.text = "Maze " + DataHolder.seed;
+                    subTitle.text = "Maze " + scriptManager.seed;
                 }
 
                 // Desabilita o botão de "próximo" no nível 99, labirinto 100x100
-                if (DataHolder.level == 99)
+                if (scriptManager.level == 99)
                 {
                     nextButton.SetActive(false);
 
@@ -96,9 +99,9 @@ public class ExitScreen : MonoBehaviour
             else
             {
                 // Traduz o título se possível
-                if (DataHolder.dynamicLocalizedText.ContainsKey("exitScreen_title_Success_Non-Progressive"))
+                if (scriptManager.dynamicLocalizedText.ContainsKey("exitScreen_title_Success_Non-Progressive"))
                 {
-                    title.text = DataHolder.dynamicLocalizedText["exitScreen_title_Success_Non-Progressive"];
+                    title.text = scriptManager.dynamicLocalizedText["exitScreen_title_Success_Non-Progressive"];
                 }
                 else
                 {
@@ -106,13 +109,13 @@ public class ExitScreen : MonoBehaviour
                 }
 
                 // Traduz o subtítulo se possível
-                if (DataHolder.dynamicLocalizedText.ContainsKey("exitScreen_subTitle"))
+                if (scriptManager.dynamicLocalizedText.ContainsKey("exitScreen_subTitle"))
                 {
-                    subTitle.text = string.Format(DataHolder.dynamicLocalizedText["exitScreen_subTitle"], DataHolder.seed);
+                    subTitle.text = string.Format(scriptManager.dynamicLocalizedText["exitScreen_subTitle"], scriptManager.seed);
                 }
                 else
                 {
-                    subTitle.text = "Maze " + DataHolder.seed;
+                    subTitle.text = "Maze " + scriptManager.seed;
                 }
 
                 // Desabilita o botão de "próximo"
@@ -126,10 +129,10 @@ public class ExitScreen : MonoBehaviour
         }
 
         // Traduz o texto da pontuação se possível
-        if (DataHolder.dynamicLocalizedText.ContainsKey("exitScreen_Score"))
+        if (scriptManager.dynamicLocalizedText.ContainsKey("exitScreen_Score"))
         {
-            scoreText.text = DataHolder.dynamicLocalizedText["exitScreen_Score"];
-            scoreText.fontSize = DataHolder.scoreFontSize;
+            scoreText.text = scriptManager.dynamicLocalizedText["exitScreen_Score"];
+            scoreText.fontSize = scriptManager.scoreFontSize;
         }
         else
         {
@@ -148,8 +151,11 @@ public class ExitScreen : MonoBehaviour
     #region Exit Operations
     IEnumerator Exit()
     {
+        // Acessa o script manager
+        scriptManager = GameObject.FindWithTag("ScriptManager").GetComponent<ScriptManager>();
+
         // Condição inicial
-        DataHolder.animating = true;
+        scriptManager.animating = true;
 
         // Acessa os objetos
         canvas = gameObject.GetComponent<CanvasGroup>();
@@ -163,26 +169,26 @@ public class ExitScreen : MonoBehaviour
         SaveProgress();
 
         // Se o labirinto não é regressivo
-        if (!DataHolder.regressiveTime)
+        if (!scriptManager.regressiveTime)
         {
             // Pontuação do modo clássico
-            if (!DataHolder.dark)
+            if (!scriptManager.dark)
             {
-                score = CalculateScore(DataHolder.width, DataHolder.height, timer.currentTime, false, difficulty);
+                score = CalculateScore(scriptManager.width, scriptManager.height, timer.currentTime, false, difficulty);
             }
             // Pontuação do modo escuro
             else
             {
-                score = CalculateScore(DataHolder.width, DataHolder.height, timer.currentTime, false, difficulty_DarkMode);
+                score = CalculateScore(scriptManager.width, scriptManager.height, timer.currentTime, false, difficulty_DarkMode);
             }
 
             if (PlayerPrefs.GetInt("Authenticated", 0) == 1)
             {
                 // Conquista de término de campanha
-                if (DataHolder.level == 99)
+                if (scriptManager.level == 99)
                 {
                     // Clássico
-                    if (DataHolder.dark == false)
+                    if (scriptManager.dark == false)
                     {
                         playGamesManager.RunEndingAchievement("classic", true);
                     }
@@ -198,9 +204,9 @@ public class ExitScreen : MonoBehaviour
         else if (timer.currentTime < 0)
         {
             // Exibe o título, traduzido se possível
-            if (DataHolder.dynamicLocalizedText.ContainsKey("exitScreen_title_Failure"))
+            if (scriptManager.dynamicLocalizedText.ContainsKey("exitScreen_title_Failure"))
             {
-                title.text = DataHolder.dynamicLocalizedText["exitScreen_title_Failure"];
+                title.text = scriptManager.dynamicLocalizedText["exitScreen_title_Failure"];
             }
             else
             {
@@ -211,13 +217,13 @@ public class ExitScreen : MonoBehaviour
             title.color = new Color(0.5F, 0, 0);
 
             // Traduz o subtítulo se possível
-            if (DataHolder.dynamicLocalizedText.ContainsKey("exitScreen_subTitle") == true)
+            if (scriptManager.dynamicLocalizedText.ContainsKey("exitScreen_subTitle") == true)
             {
-                subTitle.text = string.Format(DataHolder.dynamicLocalizedText["exitScreen_subTitle"], DataHolder.seed);
+                subTitle.text = string.Format(scriptManager.dynamicLocalizedText["exitScreen_subTitle"], scriptManager.seed);
             }
             else
             {
-                subTitle.text = "Maze " + DataHolder.seed;
+                subTitle.text = "Maze " + scriptManager.seed;
             }
 
             // Define a cor do subtítulo como vermelho
@@ -234,32 +240,32 @@ public class ExitScreen : MonoBehaviour
         else if (timer.currentTime > 0)
         {
             // Exibe o título, traduzido se possível
-            if (DataHolder.dynamicLocalizedText.ContainsKey("exitScreen_title_Success_Progressive"))
+            if (scriptManager.dynamicLocalizedText.ContainsKey("exitScreen_title_Success_Progressive"))
             {
-                title.text = string.Format(DataHolder.dynamicLocalizedText["exitScreen_title_Success_Progressive"], DataHolder.level);
+                title.text = string.Format(scriptManager.dynamicLocalizedText["exitScreen_title_Success_Progressive"], scriptManager.level);
             }
             else
             {
-                title.text = "LEVEL " + DataHolder.level + " COMPLETED";
+                title.text = "LEVEL " + scriptManager.level + " COMPLETED";
             }
 
             // Traduz o subtítulo se possível
-            if (DataHolder.dynamicLocalizedText.ContainsKey("exitScreen_subTitle") == true)
+            if (scriptManager.dynamicLocalizedText.ContainsKey("exitScreen_subTitle") == true)
             {
-                subTitle.text = string.Format(DataHolder.dynamicLocalizedText["exitScreen_subTitle"], DataHolder.seed);
+                subTitle.text = string.Format(scriptManager.dynamicLocalizedText["exitScreen_subTitle"], scriptManager.seed);
             }
             else
             {
-                subTitle.text = "Maze " + DataHolder.seed;
+                subTitle.text = "Maze " + scriptManager.seed;
             }
 
             // Calcula a pontuação
-            score = CalculateScore(DataHolder.width, DataHolder.height, timer.currentTime, true);
+            score = CalculateScore(scriptManager.width, scriptManager.height, timer.currentTime, true);
 
             if (PlayerPrefs.GetInt("Authenticated", 0) == 1)
             {
                 // Conquista de término de campanha (Tempo)
-                if (DataHolder.level == 99)
+                if (scriptManager.level == 99)
                 {
                     playGamesManager.RunEndingAchievement("time", true);
                 }
@@ -283,7 +289,7 @@ public class ExitScreen : MonoBehaviour
             }
 
             // Conquista de tamanho de labirinto
-            playGamesManager.MazeSizeAchievement(DataHolder.width, DataHolder.height, true);
+            playGamesManager.MazeSizeAchievement(scriptManager.width, scriptManager.height, true);
         }
 
         // Abafa a música
@@ -314,7 +320,7 @@ public class ExitScreen : MonoBehaviour
         }
 
         // Condição final, permite que o jogador use os botões
-        DataHolder.animating = false;
+        scriptManager.animating = false;
 
         // Anima a pontuação
         for (float i = 0; i <= 1F; i += Time.deltaTime / scoreTime)
@@ -348,24 +354,24 @@ public class ExitScreen : MonoBehaviour
     private void SaveProgress()
     {
         // Se o labirinto é progressivo (Clássico, tempo ou escuro)
-        if (DataHolder.progressive)
+        if (scriptManager.progressive)
         {
             // Salva apenas se o nível não é o nível final
-            if (DataHolder.level < 99)
+            if (scriptManager.level < 99)
             {
                 // Para modos não regressivos (Clássico ou escuro)
-                if (!DataHolder.regressiveTime)
+                if (!scriptManager.regressiveTime)
                 {
                     // Clássico
-                    if (!DataHolder.dark)
+                    if (!scriptManager.dark)
                     {
-                        PlayerPrefs.SetInt("classicLevel", (DataHolder.level + 1));
+                        PlayerPrefs.SetInt("classicLevel", (scriptManager.level + 1));
                         PlayerPrefs.SetInt("classicSeed", (int)System.DateTime.Now.Ticks);
                     }
                     // Escuro
                     else
                     {
-                        PlayerPrefs.SetInt("darkLevel", (DataHolder.level + 1));
+                        PlayerPrefs.SetInt("darkLevel", (scriptManager.level + 1));
                         PlayerPrefs.SetInt("darkSeed", (int)System.DateTime.Now.Ticks);
                     }
                 }
@@ -375,7 +381,7 @@ public class ExitScreen : MonoBehaviour
                     // Se o jogador ganhou no modo tempo
                     if (timer.currentTime > 0)
                     {
-                        PlayerPrefs.SetInt("timeLevel", (DataHolder.level + 1));
+                        PlayerPrefs.SetInt("timeLevel", (scriptManager.level + 1));
                         PlayerPrefs.SetInt("timeSeed", (int)System.DateTime.Now.Ticks);
                     }
                     // Se o jogador perdeu no modo tempo a campanha é descartada
@@ -389,10 +395,10 @@ public class ExitScreen : MonoBehaviour
             else
             {
                 // Para modos não regressivos (Clássico ou escuro)
-                if (!DataHolder.regressiveTime)
+                if (!scriptManager.regressiveTime)
                 {
                     // Clássico
-                    if (!DataHolder.dark)
+                    if (!scriptManager.dark)
                     {
                         // Descarta a campanha
                         PlayerPrefs.SetInt("classicSaved", -1);

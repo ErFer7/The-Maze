@@ -42,6 +42,9 @@ public class Pause : MonoBehaviour
 
     // Acesso ao Music Player
     private GameObject musicPlayer;
+
+    // Acesso ao Script manager
+    private ScriptManager scriptManager;
     #endregion
 
     #region Unity Methods
@@ -57,31 +60,31 @@ public class Pause : MonoBehaviour
         audioSource = GetComponent<AudioSource>();
 
         // Traduz todos os textos
-        if (DataHolder.dynamicLocalizedText.ContainsKey("pausingScreen_Level"))
+        if (scriptManager.dynamicLocalizedText.ContainsKey("pausingScreen_Level"))
         {
-            levelTitle.text = DataHolder.dynamicLocalizedText["pausingScreen_Level"];
+            levelTitle.text = scriptManager.dynamicLocalizedText["pausingScreen_Level"];
         }
-        if (DataHolder.dynamicLocalizedText.ContainsKey("pausingScreen_Seed"))
+        if (scriptManager.dynamicLocalizedText.ContainsKey("pausingScreen_Seed"))
         {
-            seedTitle.text = DataHolder.dynamicLocalizedText["pausingScreen_Seed"];
+            seedTitle.text = scriptManager.dynamicLocalizedText["pausingScreen_Seed"];
         }
-        if (DataHolder.dynamicLocalizedText.ContainsKey("pausingScreen_DistanceTravelled"))
+        if (scriptManager.dynamicLocalizedText.ContainsKey("pausingScreen_DistanceTravelled"))
         {
-            distanceTravelledTitle.text = DataHolder.dynamicLocalizedText["pausingScreen_DistanceTravelled"];
+            distanceTravelledTitle.text = scriptManager.dynamicLocalizedText["pausingScreen_DistanceTravelled"];
         }
-        if (DataHolder.dynamicLocalizedText.ContainsKey("pausingScreen_Size"))
+        if (scriptManager.dynamicLocalizedText.ContainsKey("pausingScreen_Size"))
         {
-            sizeTitle.text = DataHolder.dynamicLocalizedText["pausingScreen_Size"];
+            sizeTitle.text = scriptManager.dynamicLocalizedText["pausingScreen_Size"];
         }
 
         // Inicializa os displays de informação
-        size.text = DataHolder.width + " X " + DataHolder.height;
-        seed.text = "" + DataHolder.seed;
+        size.text = scriptManager.width + " X " + scriptManager.height;
+        seed.text = "" + scriptManager.seed;
 
         // Exibe o nível se o modo é progressivo
-        if (DataHolder.progressive)
+        if (scriptManager.progressive)
         {
-            level.text = "" + DataHolder.level;
+            level.text = "" + scriptManager.level;
         }
         else
         {
@@ -98,6 +101,7 @@ public class Pause : MonoBehaviour
 
         // Acessa os componentes
         canvas = gameObject.GetComponent<CanvasGroup>();
+        scriptManager = GameObject.FindWithTag("ScriptManager").GetComponent<ScriptManager>();
         musicPlayer = GameObject.FindWithTag("GameplayMusicPlayer");
 
         // Desabilita o botão
@@ -107,14 +111,14 @@ public class Pause : MonoBehaviour
         canvas.alpha = 0F;
 
         // Paraliza o jogador
-        DataHolder.playerCanMove = false;
+        scriptManager.playerCanMove = false;
         player.GetComponent<Rigidbody2D>().constraints = RigidbodyConstraints2D.FreezeAll;
 
         // Acessa a distância percorrida
         distanceTravelled.text = Mathf.Floor(player.GetComponent<PlayerMovement>().distanceTravelled) + "m";
 
         // Define o que uma animação iniciou
-        DataHolder.animating = true;
+        scriptManager.animating = true;
 
         // Abafa o áudio
         musicPlayer.GetComponent<AudioLowPassFilter>().enabled = true;
@@ -139,7 +143,7 @@ public class Pause : MonoBehaviour
         }
 
         // Define o que uma animação terminou
-        DataHolder.animating = false;
+        scriptManager.animating = false;
 
         // Espera o jogo ser continuado
         while (!resume)
@@ -148,7 +152,7 @@ public class Pause : MonoBehaviour
             if (Input.GetKeyDown(KeyCode.Escape))
             {
                 // Toca o som de saída
-                if (DataHolder.sound)
+                if (scriptManager.sound)
                 {
                     audioSource.Play();
                 }
@@ -161,7 +165,7 @@ public class Pause : MonoBehaviour
         }
 
         // Define o que uma animação iniciou
-        DataHolder.animating = true;
+        scriptManager.animating = true;
 
         // Operação de fade out
         for (float i = 0; i <= 1F; i += Time.deltaTime / fadeTime)
@@ -185,13 +189,13 @@ public class Pause : MonoBehaviour
         musicPlayer.GetComponent<MusicPlayer>().coroutine_SC_LPFF = StartCoroutine(musicPlayer.GetComponent<MusicPlayer>().LowPassFilterFade(22000F, fadeTime));
 
         // Define o que uma animação terminou
-        DataHolder.animating = false;
+        scriptManager.animating = false;
 
         // Reabilita o botão de pausa
         pauseButton.interactable = true;
 
         // Liberta o jogador
-        DataHolder.playerCanMove = true;
+        scriptManager.playerCanMove = true;
         player.GetComponent<Rigidbody2D>().constraints = RigidbodyConstraints2D.FreezeRotation;
 
         // Espera a frequência retornar ao normal

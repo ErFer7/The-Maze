@@ -32,11 +32,17 @@ public class MazeGenerator : MonoBehaviour
     // Luzes
     private GameObject playerLight;
     private GameObject exitLight;
+
+    // Acesso ao Script Manager
+    private ScriptManager scriptManager;
     #endregion
 
     #region Unity Methods
-    private void Awake()
+    private void Start()
     {
+        // Acessa o script manager
+        scriptManager = GameObject.FindWithTag("ScriptManager").GetComponent<ScriptManager>();
+
         // Prepara o labirinto para geração
         GeneratorInit();
     }
@@ -46,119 +52,119 @@ public class MazeGenerator : MonoBehaviour
     private void GeneratorInit()
     {
         // Modos progressivos (Clássico, Tempo ou Escuro)
-        if (DataHolder.progressive)
+        if (scriptManager.progressive)
         {
             // Define o tamanho do labirinto
-            DataHolder.width = DataHolder.level + 1;
-            DataHolder.height = DataHolder.level + 1;
+            scriptManager.width = scriptManager.level + 1;
+            scriptManager.height = scriptManager.level + 1;
 
             // Progresso normal
-            if (!DataHolder.continueLastMaze)
+            if (!scriptManager.continueLastMaze)
             {
-                DataHolder.useSavedSeed = false;
+                scriptManager.useSavedSeed = false;
             }
             // Progresso salvo
             else
             {
                 // Modos Clássico ou Escuro
-                if (!DataHolder.regressiveTime)
+                if (!scriptManager.regressiveTime)
                 {
                     // Clássico
-                    if (!DataHolder.dark)
+                    if (!scriptManager.dark)
                     {
                         // Define que a seed será usada e acessa a seed
-                        DataHolder.useSavedSeed = true;
-                        DataHolder.seed = PlayerPrefs.GetInt("classicSeed");
+                        scriptManager.useSavedSeed = true;
+                        scriptManager.seed = PlayerPrefs.GetInt("classicSeed");
                     }
                     // Escuro
                     else
                     {
                         // Define que a seed será usada e acessa a seed
-                        DataHolder.useSavedSeed = true;
-                        DataHolder.seed = PlayerPrefs.GetInt("darkSeed");
+                        scriptManager.useSavedSeed = true;
+                        scriptManager.seed = PlayerPrefs.GetInt("darkSeed");
                     }
                 }
                 // Tempo
                 else
                 {
                     // Define que a seed será usada e acessa a seed
-                    DataHolder.useSavedSeed = true;
-                    DataHolder.seed = PlayerPrefs.GetInt("timeSeed");
+                    scriptManager.useSavedSeed = true;
+                    scriptManager.seed = PlayerPrefs.GetInt("timeSeed");
                 }
             }
 
             // Definição de progresso normal para os próximos labirintos
-            DataHolder.continueLastMaze = false;
+            scriptManager.continueLastMaze = false;
         }
 
         // Em caso de testes redefine todos os parâmetros
         if (setTest)
         {
-            DataHolder.width = width;
-            DataHolder.height = height;
-            DataHolder.useSavedSeed = useSavedSeed;
-            DataHolder.seed = seed;
-            DataHolder.progressive = progressive;
-            DataHolder.level = level;
-            DataHolder.regressiveTime = regressiveTime;
-            DataHolder.dark = dark;
+            scriptManager.width = width;
+            scriptManager.height = height;
+            scriptManager.useSavedSeed = useSavedSeed;
+            scriptManager.seed = seed;
+            scriptManager.progressive = progressive;
+            scriptManager.level = level;
+            scriptManager.regressiveTime = regressiveTime;
+            scriptManager.dark = dark;
         }
 
         // Handler de erro: Tamanho inválido
-        if (DataHolder.width < 2 || DataHolder.height < 2 && !setTest)
+        if (scriptManager.width < 2 || scriptManager.height < 2 && !setTest)
         {
-            print("Invalid size: Width = " + DataHolder.width + ", Height = " + DataHolder.height);
+            print("Invalid size: Width = " + scriptManager.width + ", Height = " + scriptManager.height);
             print("Initializing with the default size of 2x2");
 
-            DataHolder.width = 2;
-            DataHolder.height = 2;
+            scriptManager.width = 2;
+            scriptManager.height = 2;
         }
 
         //  Preserva a seed caso o jogo esteja sendo reiniciado
-        if (DataHolder.restarting)
+        if (scriptManager.restarting)
         {
-            DataHolder.useSavedSeed = true;
+            scriptManager.useSavedSeed = true;
         }
 
         // Usa uma seed aleatória caso não tenha nenhuma seed predefinida
-        if (!DataHolder.useSavedSeed)
+        if (!scriptManager.useSavedSeed)
         {
-            DataHolder.seed = (int)System.DateTime.Now.Ticks;
+            scriptManager.seed = (int)System.DateTime.Now.Ticks;
         }
 
         // Salva o progresso caso o labirinto seja progressivo e não esteja reiniciando (Condições iniciais)
-        if (DataHolder.progressive && !DataHolder.restarting)
+        if (scriptManager.progressive && !scriptManager.restarting)
         {
             // Modos clássico ou escuro
-            if (!DataHolder.regressiveTime)
+            if (!scriptManager.regressiveTime)
             {
                 // Clássico
-                if (!DataHolder.dark)
+                if (!scriptManager.dark)
                 {
                     PlayerPrefs.SetInt("classicSaved", 1);
-                    PlayerPrefs.SetInt("classicLevel", DataHolder.level);
-                    PlayerPrefs.SetInt("classicSeed", DataHolder.seed);
+                    PlayerPrefs.SetInt("classicLevel", scriptManager.level);
+                    PlayerPrefs.SetInt("classicSeed", scriptManager.seed);
                 }
                 // Escuro
                 else
                 {
                     PlayerPrefs.SetInt("darkSaved", 1);
-                    PlayerPrefs.SetInt("darkLevel", DataHolder.level);
-                    PlayerPrefs.SetInt("darkSeed", DataHolder.seed);
+                    PlayerPrefs.SetInt("darkLevel", scriptManager.level);
+                    PlayerPrefs.SetInt("darkSeed", scriptManager.seed);
                 }
             }
             // Tempo
             else
             {
                 PlayerPrefs.SetInt("timeSaved", 1);
-                PlayerPrefs.SetInt("timeLevel", DataHolder.level);
-                PlayerPrefs.SetInt("timeSeed", DataHolder.seed);
+                PlayerPrefs.SetInt("timeLevel", scriptManager.level);
+                PlayerPrefs.SetInt("timeSeed", scriptManager.seed);
             }
         }
 
         // Reseta as seguintes variáveis
-        DataHolder.restarting = false;
-        DataHolder.useSavedSeed = false;
+        scriptManager.restarting = false;
+        scriptManager.useSavedSeed = false;
     }
 
     public IEnumerator CreateWalls()
@@ -168,16 +174,16 @@ public class MazeGenerator : MonoBehaviour
         GameObject wall;
 
         // Define a componente Y das paredes verticais
-        for (int vY = 0; vY < DataHolder.height; ++vY)
+        for (int vY = 0; vY < scriptManager.height; ++vY)
         {
             // Define a componente X das paredes verticais
-            for (float vX = -0.5F; vX < DataHolder.width; ++vX)
+            for (float vX = -0.5F; vX < scriptManager.width; ++vX)
             {
                 // Cria a parede
                 wall = Instantiate(pWall, new Vector2(vX, vY), Quaternion.identity) as GameObject;
 
                 // Se o jogo está no modo escuro muda o material da parede
-                if (DataHolder.dark)
+                if (scriptManager.dark)
                 {
                     wall.GetComponent<SpriteRenderer>().material = spriteLighting;
                 }
@@ -187,16 +193,16 @@ public class MazeGenerator : MonoBehaviour
         }
 
         // Define a componente Y das paredes horizontais
-        for (float hY = -0.5F; hY < DataHolder.height; ++hY)
+        for (float hY = -0.5F; hY < scriptManager.height; ++hY)
         {
             // Define a componente X das paredes horizontais
-            for (int hX = 0; hX < DataHolder.width; ++hX)
+            for (int hX = 0; hX < scriptManager.width; ++hX)
             {
                 // Cria a parede
                 wall = Instantiate(pWall, new Vector2(hX, hY), Quaternion.Euler(0, 0, 90)) as GameObject;
 
                 // Se o jogo está no modo escuro muda o material da parede
-                if (DataHolder.dark)
+                if (scriptManager.dark)
                 {
                     wall.GetComponent<SpriteRenderer>().material = spriteLighting;
                 }
@@ -206,7 +212,7 @@ public class MazeGenerator : MonoBehaviour
         }
 
         // Estado de finalização (Checado pelo Loading Control)
-        DataHolder.loadingStage = 2;
+        scriptManager.loadingStage = 2;
     }
 
     public IEnumerator GeneratePath()
@@ -236,10 +242,10 @@ public class MazeGenerator : MonoBehaviour
         RaycastHit2D wallDelete;
         
         // Define o estado inicial do gerador usando a seed
-        Random.InitState(DataHolder.seed);
+        Random.InitState(scriptManager.seed);
 
         // Define uma posição inicial aleatória para o gerador
-        gameObject.transform.position = new Vector2(Random.Range(0, DataHolder.width), Random.Range(0, DataHolder.height));
+        gameObject.transform.position = new Vector2(Random.Range(0, scriptManager.width), Random.Range(0, scriptManager.height));
 
         // O loop se repete até todas as células estarem visitadas
         do
@@ -258,7 +264,7 @@ public class MazeGenerator : MonoBehaviour
             leftCell = new Vector2(cellTracking.Peek().x - 1, cellTracking.Peek().y);
 
             // Checa quais células próximas estão livres
-            if (!visitedCells.Contains(upCell) && cellTracking.Peek().y != DataHolder.height - 1)
+            if (!visitedCells.Contains(upCell) && cellTracking.Peek().y != scriptManager.height - 1)
             {
                 directions.Add(upCell);
             }
@@ -268,7 +274,7 @@ public class MazeGenerator : MonoBehaviour
                 directions.Add(downCell);
             }
 
-            if (!visitedCells.Contains(rightCell) && cellTracking.Peek().x != DataHolder.width - 1)
+            if (!visitedCells.Contains(rightCell) && cellTracking.Peek().x != scriptManager.width - 1)
             {
                 directions.Add(rightCell);
             }
@@ -319,7 +325,7 @@ public class MazeGenerator : MonoBehaviour
                 backTracking = false;
             }
             // Faz o backtracking caso o labirinto ainda não esteja completamente gerado
-            else if (visitedCells.Count < DataHolder.width * DataHolder.height)
+            else if (visitedCells.Count < scriptManager.width * scriptManager.height)
             {
                 // Elimina uma célula do stack
                 cellTracking.Pop();
@@ -331,14 +337,14 @@ public class MazeGenerator : MonoBehaviour
                 backTracking = true;
             }
 
-        } while (visitedCells.Count != DataHolder.width * DataHolder.height);
+        } while (visitedCells.Count != scriptManager.width * scriptManager.height);
 
         // Limpa a stack e a lista
         visitedCells.Clear();
         cellTracking.Clear();
 
         // Estado de finalização (Usado pelo Loading control)
-        DataHolder.loadingStage = 3;
+        scriptManager.loadingStage = 3;
 
         yield return null;
     }
@@ -349,9 +355,9 @@ public class MazeGenerator : MonoBehaviour
         List<Vector2> spawnPositions = new List<Vector2>
         {
             new Vector2(0, 0),
-            new Vector2(0, (DataHolder.height - 1)),
-            new Vector2(DataHolder.width - 1, (DataHolder.height - 1)),
-            new Vector2(DataHolder.width - 1, 0)
+            new Vector2(0, (scriptManager.height - 1)),
+            new Vector2(scriptManager.width - 1, (scriptManager.height - 1)),
+            new Vector2(scriptManager.width - 1, 0)
         };
 
         // Move o jogador para algum canto aleatório
@@ -368,23 +374,23 @@ public class MazeGenerator : MonoBehaviour
         float ExitPosition_Y;
 
         // Define a posição X da saída
-        if (player.transform.position.x >= DataHolder.width / 2)
+        if (player.transform.position.x >= scriptManager.width / 2)
         {
             ExitPosition_X = 0;
         }
         else
         {
-            ExitPosition_X = DataHolder.width - 1;
+            ExitPosition_X = scriptManager.width - 1;
         }
 
         // Define a posição Y da saída
-        if (player.transform.position.y >= DataHolder.height / 2)
+        if (player.transform.position.y >= scriptManager.height / 2)
         {
             ExitPosition_Y = 0;
         }
         else
         {
-            ExitPosition_Y = DataHolder.height - 1;
+            ExitPosition_Y = scriptManager.height - 1;
         }
 
         // Define a posição da saída
@@ -395,7 +401,7 @@ public class MazeGenerator : MonoBehaviour
         exitLight = exit.transform.GetChild(0).gameObject;
 
         // Muda o visual no modo escuro
-        if (DataHolder.dark)
+        if (scriptManager.dark)
         {
             // Materiais
             player.GetComponent<SpriteRenderer>().material = spriteLighting;
@@ -424,7 +430,7 @@ public class MazeGenerator : MonoBehaviour
         }
 
         // Muda o visual no modo tempo
-        if (DataHolder.regressiveTime)
+        if (scriptManager.regressiveTime)
         {
             // Muda a cor do plano de fundo para vermelho
             backGround.color = new Color(1F, 0.7843F, 0.7843F);
@@ -434,7 +440,7 @@ public class MazeGenerator : MonoBehaviour
         }
 
         // Estado de finalização (Usado pelo Loading Control)
-        DataHolder.loadingStage = 4;
+        scriptManager.loadingStage = 4;
         yield return null;
     }
     #endregion

@@ -18,16 +18,22 @@ public class ExitInput : MonoBehaviour
 
     // Acesso ao MusicPlayer
     private GameObject musicPlayer;
+
+    // Acesso ao Script manager
+    private ScriptManager scriptManager;
     #endregion
 
     #region Unity Methods
     private void Start()
     {
+        // Acessa o script manager
+        scriptManager = GameObject.FindWithTag("ScriptManager").GetComponent<ScriptManager>();
+
         // Acessa o Music Player
         musicPlayer = GameObject.FindWithTag("GameplayMusicPlayer");
 
         // Se o som está desabilitado os botões não emitirão sons
-        if (!DataHolder.sound)
+        if (!scriptManager.sound)
         {
             GetComponent<AudioSource>().volume = 0;
         }
@@ -39,11 +45,11 @@ public class ExitInput : MonoBehaviour
     public void Next()
     {
         // Checa se uma animação já está em execução
-        if (!DataHolder.animating)
+        if (!scriptManager.animating)
         {
             // Condições do botão
-            DataHolder.loadingStage = -1;
-            DataHolder.animating = true;
+            scriptManager.loadingStage = -1;
+            scriptManager.animating = true;
 
             // Inicia a controlador de carregamento
             StartCoroutine(LoadingOutControl_E());
@@ -54,11 +60,11 @@ public class ExitInput : MonoBehaviour
     public void Menu()
     {
         // Checa se uma animação já está em execução
-        if (!DataHolder.animating)
+        if (!scriptManager.animating)
         {
             // Condições do botão
-            DataHolder.loadingStage = -2;
-            DataHolder.animating = true;
+            scriptManager.loadingStage = -2;
+            scriptManager.animating = true;
 
             // Inicia a controlador de carregamento
             StartCoroutine(LoadingOutControl_E());
@@ -69,11 +75,11 @@ public class ExitInput : MonoBehaviour
     public void Restart()
     {
         // Checa se uma animação já está em execução
-        if (!DataHolder.animating)
+        if (!scriptManager.animating)
         {
             // Condições do botão
-            DataHolder.loadingStage = -3;
-            DataHolder.animating = true;
+            scriptManager.loadingStage = -3;
+            scriptManager.animating = true;
 
             // Inicia a controlador de carregamento
             StartCoroutine(LoadingOutControl_E());
@@ -96,7 +102,7 @@ public class ExitInput : MonoBehaviour
         }
 
         // Reduz o volume da música a 0 caso esteja retornando para o menu
-        if (DataHolder.loadingStage == -2)
+        if (scriptManager.loadingStage == -2)
         {
             musicPlayer.GetComponent<MusicPlayer>().coroutine_VF = StartCoroutine(musicPlayer.GetComponent<MusicPlayer>().volumeFade(0, 0.25F));
         }
@@ -111,7 +117,7 @@ public class ExitInput : MonoBehaviour
                 Destroy(audioSource.gameObject);
             }
 
-            switch (DataHolder.loadingStage)
+            switch (scriptManager.loadingStage)
             {
                 // Próximo
                 case 1:
@@ -119,10 +125,10 @@ public class ExitInput : MonoBehaviour
                     StopCoroutine(coroutine);
 
                     // Condição final
-                    DataHolder.animating = false;
+                    scriptManager.animating = false;
 
                     // Incrementa o nível
-                    ++DataHolder.level;
+                    ++scriptManager.level;
 
                     // Carrega o próximo nível
                     SceneManager.LoadScene(1);
@@ -133,7 +139,7 @@ public class ExitInput : MonoBehaviour
                     StopCoroutine(coroutine);
 
                     // Condição final
-                    DataHolder.animating = false;
+                    scriptManager.animating = false;
 
                     // Carrega o menu
                     SceneManager.LoadScene(0);
@@ -144,10 +150,10 @@ public class ExitInput : MonoBehaviour
                     StopCoroutine(coroutine);
 
                     // Condição final
-                    DataHolder.animating = false;
+                    scriptManager.animating = false;
 
                     // Define que o jogo está reiniciando
-                    DataHolder.restarting = true;
+                    scriptManager.restarting = true;
 
                     // Carrega o mesmo nível
                     SceneManager.LoadScene(1);

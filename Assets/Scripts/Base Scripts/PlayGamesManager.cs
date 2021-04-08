@@ -53,6 +53,9 @@ public class PlayGamesManager : MonoBehaviour
 
     // Acesso ao music manager
     private MusicManager musicManager;
+
+    // Acesso ao script manager
+    private ScriptManager scriptManager;
     #endregion
 
     #region Unity Methods
@@ -71,6 +74,9 @@ public class PlayGamesManager : MonoBehaviour
 
     private void Start()
     {
+        // Definição do script manager
+        scriptManager = GameObject.FindWithTag("ScriptManager").GetComponent<ScriptManager>();
+
         // Inicialização da plataforma Play Games
         PlayGamesClientConfiguration config = new PlayGamesClientConfiguration.Builder().Build();
         PlayGamesPlatform.InitializeInstance(config);
@@ -979,13 +985,13 @@ public class PlayGamesManager : MonoBehaviour
             case MessageBoxState.WaitingForLogIn:
 
                 // Define as condições iniciais do estado
-                DataHolder.animating = true;
+                scriptManager.animating = true;
                 message.color = grey;
 
                 // Traduz a mensagem se possível
-                if (DataHolder.dynamicLocalizedText.ContainsKey("LoggingIn") == true)
+                if (scriptManager.dynamicLocalizedText.ContainsKey("LoggingIn") == true)
                 {
-                    message.text = DataHolder.dynamicLocalizedText["LoggingIn"];
+                    message.text = scriptManager.dynamicLocalizedText["LoggingIn"];
                 }
                 else
                 {
@@ -1018,9 +1024,9 @@ public class PlayGamesManager : MonoBehaviour
                 message.color = grey;
 
                 // Traduz a mensagem se possível
-                if (DataHolder.dynamicLocalizedText.ContainsKey("LoginComplete") == true)
+                if (scriptManager.dynamicLocalizedText.ContainsKey("LoginComplete") == true)
                 {
-                    message.text = DataHolder.dynamicLocalizedText["LoginComplete"];
+                    message.text = scriptManager.dynamicLocalizedText["LoginComplete"];
                 }
                 else
                 {
@@ -1038,9 +1044,9 @@ public class PlayGamesManager : MonoBehaviour
                 message.color = red;
 
                 // Traduz a mensagem se possível
-                if (DataHolder.dynamicLocalizedText.ContainsKey("LoginFailed") == true)
+                if (scriptManager.dynamicLocalizedText.ContainsKey("LoginFailed") == true)
                 {
-                    message.text = DataHolder.dynamicLocalizedText["LoginFailed"];
+                    message.text = scriptManager.dynamicLocalizedText["LoginFailed"];
                 }
                 else
                 {
@@ -1077,7 +1083,7 @@ public class PlayGamesManager : MonoBehaviour
     private IEnumerator MessageBoxAnimation(Vector2 targetPosition, Color targetAlpha, float time)
     {
         // Condições iniciais
-        DataHolder.animating = true;
+        scriptManager.animating = true;
         playGamesMessageBox.SetActive(true);
 
         // Animação
@@ -1112,7 +1118,7 @@ public class PlayGamesManager : MonoBehaviour
         }
 
         // Condições finais
-        DataHolder.animating = false;
+        scriptManager.animating = false;
         StopCoroutine(coroutine);
     }
     #endregion

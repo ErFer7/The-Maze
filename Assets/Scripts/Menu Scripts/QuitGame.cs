@@ -10,6 +10,19 @@ public class QuitGame : MonoBehaviour
     public MusicManager musicManager;
     #endregion
 
+    #region Private Variables
+    // Acesso ao Script manager
+    private ScriptManager scriptManager;
+    #endregion
+
+    #region Unity Methods
+    private void Start()
+    {
+        // Acessa o script manager
+        scriptManager = GameObject.FindWithTag("ScriptManager").GetComponent<ScriptManager>();
+    }
+    #endregion
+
     #region Methods
     public void Quit()
     {
@@ -20,7 +33,7 @@ public class QuitGame : MonoBehaviour
     public void Continue()
     {
         // Esconde a caixa de texto
-        if (!DataHolder.animating)
+        if (!scriptManager.animating)
         {
             // Retorna o áudio ao normal
             if (musicManager.publicCoroutine_LPFF != null)

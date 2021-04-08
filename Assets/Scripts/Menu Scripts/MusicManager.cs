@@ -22,11 +22,17 @@ public class MusicManager : MonoBehaviour
 
     // Filtro passa-baixa
     private AudioLowPassFilter lowPassFilter;
+
+    // Acesso ao Script manager
+    private ScriptManager scriptManager;
     #endregion
 
     #region Unity Methods
     private void Start()
-    {   
+    {
+        // Acessa o script manager
+        scriptManager = GameObject.FindWithTag("ScriptManager").GetComponent<ScriptManager>();
+
         // Acessa os objetos da fonte de áudio e filtro passa-baixa
         audioSource = GetComponent<AudioSource>();
         lowPassFilter = GetComponent<AudioLowPassFilter>();
@@ -37,22 +43,22 @@ public class MusicManager : MonoBehaviour
             // Atualiza os botões e o sistema
             case 0:
                 musicToggle.onValueChanged.SetPersistentListenerState(0, UnityEngine.Events.UnityEventCallState.Off);
-                DataHolder.music = false;
+                scriptManager.music = false;
                 musicToggle.isOn = false;
                 break;
             // Atualiza o sistema
             case 1:
-                DataHolder.music = true;
+                scriptManager.music = true;
                 break;
             default:
-                DataHolder.music = true;
+                scriptManager.music = true;
                 break;
         }
 
         musicToggle.onValueChanged.SetPersistentListenerState(0, UnityEngine.Events.UnityEventCallState.RuntimeOnly);
 
         // Toca a música caso o ela esteja definida como ativa
-        if (DataHolder.music)
+        if (scriptManager.music)
         {
             coroutine_MP = StartCoroutine(MusicPlayer());
         }
@@ -63,7 +69,7 @@ public class MusicManager : MonoBehaviour
     private IEnumerator MusicPlayer()
     {   
         // Espera até o fim da animação para tocar a música
-        while (DataHolder.animating)
+        while (scriptManager.animating)
         {
             yield return null;
         }
@@ -79,7 +85,7 @@ public class MusicManager : MonoBehaviour
         if (musicToggle.isOn)
         {
             // Define a música como ativa no sistema
-            DataHolder.music = true;
+            scriptManager.music = true;
             PlayerPrefs.SetInt("Music", 1);
 
             // Toca a música
@@ -91,7 +97,7 @@ public class MusicManager : MonoBehaviour
         else
         {
             // Define a música como inativa no sistema
-            DataHolder.music = false;
+            scriptManager.music = false;
             PlayerPrefs.SetInt("Music", 0);
 
             // Para a música

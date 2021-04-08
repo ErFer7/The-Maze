@@ -50,11 +50,17 @@ public class SceneLoader : MonoBehaviour
     // Posições da caixa de texto
     private Vector2 targetPositionUp;
     private Vector2 targetPositionDown;
+
+    // Acesso ao Script manager
+    private ScriptManager scriptManager;
     #endregion
 
     #region Unity Methods
     private void Start()
     {
+        // Acessa o script manager
+        scriptManager = GameObject.FindWithTag("ScriptManager").GetComponent<ScriptManager>();
+
         // Adiciona receptores de eventos para os botões
         continueButton.onClick.AddListener(Continue);
         newGameButton.onClick.AddListener(NewGame);
@@ -69,7 +75,7 @@ public class SceneLoader : MonoBehaviour
     public void LoadScene()
     {
         // Caso nenhuma animação esteja ocorrendo
-        if (!DataHolder.animating)
+        if (!scriptManager.animating)
         {
             // Muda as configurações para cada modo
             switch (mode)
@@ -77,9 +83,9 @@ public class SceneLoader : MonoBehaviour
                 // Clássico
                 case GameMode.Classic:
 
-                    DataHolder.progressive = true;
-                    DataHolder.regressiveTime = false;
-                    DataHolder.dark = false;
+                    scriptManager.progressive = true;
+                    scriptManager.regressiveTime = false;
+                    scriptManager.dark = false;
 
                     // Se tem um labirinto clássico salvo exibe a caixa de texto
                     if (PlayerPrefs.GetInt("classicSaved", -1) > 0)
@@ -97,8 +103,8 @@ public class SceneLoader : MonoBehaviour
                     }
                     else
                     {
-                        DataHolder.continueLastMaze = false;
-                        DataHolder.level = 1;
+                        scriptManager.continueLastMaze = false;
+                        scriptManager.level = 1;
 
                         FadeOutAnimation();
                     }
@@ -107,9 +113,9 @@ public class SceneLoader : MonoBehaviour
                 // Tempo
                 case GameMode.Time:
 
-                    DataHolder.progressive = true;
-                    DataHolder.regressiveTime = true;
-                    DataHolder.dark = false;
+                    scriptManager.progressive = true;
+                    scriptManager.regressiveTime = true;
+                    scriptManager.dark = false;
 
                     // Se tem um labirinto de tempo salvo exibe a caixa de texto
                     if (PlayerPrefs.GetInt("timeSaved", -1) > 0)
@@ -125,8 +131,8 @@ public class SceneLoader : MonoBehaviour
                     }
                     else
                     {
-                        DataHolder.continueLastMaze = false;
-                        DataHolder.level = 1;
+                        scriptManager.continueLastMaze = false;
+                        scriptManager.level = 1;
 
                         FadeOutAnimation();
                     }
@@ -135,9 +141,9 @@ public class SceneLoader : MonoBehaviour
                 // Escuro
                 case GameMode.Dark:
 
-                    DataHolder.progressive = true;
-                    DataHolder.regressiveTime = false;
-                    DataHolder.dark = true;
+                    scriptManager.progressive = true;
+                    scriptManager.regressiveTime = false;
+                    scriptManager.dark = true;
 
                     // Se tem um labirinto escuro salvo exibe a caixa de texto
                     if (PlayerPrefs.GetInt("darkSaved", -1) > 0)
@@ -153,8 +159,8 @@ public class SceneLoader : MonoBehaviour
                     }
                     else
                     {
-                        DataHolder.continueLastMaze = false;
-                        DataHolder.level = 1;
+                        scriptManager.continueLastMaze = false;
+                        scriptManager.level = 1;
 
                         FadeOutAnimation();
                     }
@@ -163,9 +169,9 @@ public class SceneLoader : MonoBehaviour
                 // Personalizado
                 case GameMode.Custom:
 
-                    DataHolder.progressive = false;
-                    DataHolder.regressiveTime = false;
-                    DataHolder.dark = false;
+                    scriptManager.progressive = false;
+                    scriptManager.regressiveTime = false;
+                    scriptManager.dark = false;
 
                     FadeOutAnimation();
 
@@ -211,25 +217,25 @@ public class SceneLoader : MonoBehaviour
     private void Continue()
     {
         // Definição de continuação
-        DataHolder.continueLastMaze = true;
+        scriptManager.continueLastMaze = true;
 
-        if (!DataHolder.regressiveTime)
+        if (!scriptManager.regressiveTime)
         {
             // Clássico
-            if (!DataHolder.dark)
+            if (!scriptManager.dark)
             {
-                DataHolder.level = PlayerPrefs.GetInt("classicLevel");
+                scriptManager.level = PlayerPrefs.GetInt("classicLevel");
             }
             // Escuro
             else
             {
-                DataHolder.level = PlayerPrefs.GetInt("darkLevel");
+                scriptManager.level = PlayerPrefs.GetInt("darkLevel");
             }
         }
         // Tempo
         else
         {
-            DataHolder.level = PlayerPrefs.GetInt("timeLevel");
+            scriptManager.level = PlayerPrefs.GetInt("timeLevel");
         }
 
         FadeOutAnimation();
@@ -238,8 +244,8 @@ public class SceneLoader : MonoBehaviour
     private void NewGame()
     {
         // Definições de novo jogo
-        DataHolder.continueLastMaze = false;
-        DataHolder.level = 1;
+        scriptManager.continueLastMaze = false;
+        scriptManager.level = 1;
 
         FadeOutAnimation();
     }
@@ -249,7 +255,7 @@ public class SceneLoader : MonoBehaviour
         // Carrega quando todas as animações terminarem
         while (true)
         {
-            if (!DataHolder.animating)
+            if (!scriptManager.animating)
             {
                 StopCoroutine(Canvas.GetComponent<Fade>().coroutine_FT);
                 SceneManager.LoadScene(1);
@@ -265,7 +271,7 @@ public class SceneLoader : MonoBehaviour
     IEnumerator MessageBoxAnimation(Vector2 targetPosition, Color targetAlpha, float time)
     {
         // Condições iniciais da animação
-        DataHolder.animating = true;
+        scriptManager.animating = true;
         messageBox.SetActive(true);
         continueButton.interactable = false;
         newGameButton.interactable = false;
@@ -306,7 +312,7 @@ public class SceneLoader : MonoBehaviour
         }
 
         // Condições finais da animação
-        DataHolder.animating = false;
+        scriptManager.animating = false;
         continueButton.interactable = true;
         newGameButton.interactable = true;
         StopCoroutine(coroutine_MBA);
@@ -315,7 +321,7 @@ public class SceneLoader : MonoBehaviour
     private void FadeOutAnimation()
     {
         // Faz a animação de fade out
-        if (!DataHolder.animating)
+        if (!scriptManager.animating)
         {
             Canvas.GetComponent<Fade>().coroutine_FT = StartCoroutine(Canvas.GetComponent<Fade>().FadeTo(0F, Canvas.GetComponent<Fade>().fadeTime));
             musicManager.GetComponent<MusicManager>().publicCoroutine_MF = StartCoroutine(musicManager.GetComponent<MusicManager>().MusicFade(0, 3));

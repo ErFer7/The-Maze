@@ -16,23 +16,29 @@ public class DeathAnimation : MonoBehaviour
 
     // Acesso a tela branca
     private Image whiteScreenImage;
+
+    // Acesso ao script manager
+    private ScriptManager scriptManager;
     #endregion
 
     #region Unity Methods
     private void Start()
     {
+        // Acessa o script manager
+        scriptManager = GameObject.FindWithTag("ScriptManager").GetComponent<ScriptManager>();
+
         // Acessa o Music Player
         musicPlayer = GameObject.FindWithTag("GameplayMusicPlayer");
 
         // Se o som está desabilitado
-        if (!DataHolder.sound)
+        if (!scriptManager.sound)
         {
             // Desabilita o som da animação
             GetComponent<AudioSource>().enabled = false;
         }
 
         // Se a música está habilitada
-        if (DataHolder.music)
+        if (scriptManager.music)
         {
             // Para o sistema de música
             musicPlayer.GetComponent<MonoBehaviour>().StopCoroutine(musicPlayer.GetComponent<MusicPlayer>().coroutine_PM);
