@@ -517,3 +517,4 @@ The Maze é um jogo para android desenvolvido por mim durante 2019. O jogo foi p
 ## v1.3.1 - 07/04/2021 - Bundle 65
 
 * Dataholder substituído pelo ScriptManager
+* Marca da Abstrato atualizada
