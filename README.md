@@ -518,3 +518,4 @@ The Maze é um jogo para android desenvolvido por mim durante 2019. O jogo foi p
 
 * Dataholder substituído pelo ScriptManager
 * Marca da Abstrato atualizada
+* Bug que fazia com que a saída do labirinto não emitisse som é corrigido

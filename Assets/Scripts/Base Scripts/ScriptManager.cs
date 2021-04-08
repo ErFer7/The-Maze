@@ -46,10 +46,8 @@ public class ScriptManager : MonoBehaviour
         {
             Destroy(gameObject);
         }
-    }
 
-    private void Start()
-    {
+        // Inicializa os atributos (colocar em um Start no futuro, esta maneira é apenas temporária)
         width = 0;
         height = 0;
         useSavedSeed = false;

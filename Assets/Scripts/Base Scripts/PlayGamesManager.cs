@@ -989,7 +989,7 @@ public class PlayGamesManager : MonoBehaviour
                 message.color = grey;
 
                 // Traduz a mensagem se possível
-                if (scriptManager.dynamicLocalizedText.ContainsKey("LoggingIn") == true)
+                if (scriptManager.dynamicLocalizedText.ContainsKey("LoggingIn"))
                 {
                     message.text = scriptManager.dynamicLocalizedText["LoggingIn"];
                 }
@@ -1024,7 +1024,7 @@ public class PlayGamesManager : MonoBehaviour
                 message.color = grey;
 
                 // Traduz a mensagem se possível
-                if (scriptManager.dynamicLocalizedText.ContainsKey("LoginComplete") == true)
+                if (scriptManager.dynamicLocalizedText.ContainsKey("LoginComplete"))
                 {
                     message.text = scriptManager.dynamicLocalizedText["LoginComplete"];
                 }
@@ -1044,7 +1044,7 @@ public class PlayGamesManager : MonoBehaviour
                 message.color = red;
 
                 // Traduz a mensagem se possível
-                if (scriptManager.dynamicLocalizedText.ContainsKey("LoginFailed") == true)
+                if (scriptManager.dynamicLocalizedText.ContainsKey("LoginFailed"))
                 {
                     message.text = scriptManager.dynamicLocalizedText["LoginFailed"];
                 }
