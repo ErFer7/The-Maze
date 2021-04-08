@@ -1,7 +1,7 @@
 {
   "dependencies": {
     "com.google.external-dependency-manager": {
-      "version": "1.2.161",
+      "version": "1.2.164",
       "depth": 0,
       "source": "registry",
       "dependencies": {},
@@ -25,15 +25,6 @@
       "depth": 0,
       "source": "builtin",
       "dependencies": {}
-    },
-    "com.unity.ads": {
-      "version": "3.6.1",
-      "depth": 0,
-      "source": "registry",
-      "dependencies": {
-        "com.unity.ugui": "1.0.0"
-      },
-      "url": "https://packages.unity.com"
     },
     "com.unity.analytics": {
       "version": "3.5.3",
@@ -107,18 +98,6 @@
       "source": "registry",
       "dependencies": {
         "com.unity.ugui": "1.0.0"
-      },
-      "url": "https://packages.unity.com"
-    },
-    "com.unity.timeline": {
-      "version": "1.5.2",
-      "depth": 0,
-      "source": "registry",
-      "dependencies": {
-        "com.unity.modules.director": "1.0.0",
-        "com.unity.modules.animation": "1.0.0",
-        "com.unity.modules.audio": "1.0.0",
-        "com.unity.modules.particlesystem": "1.0.0"
       },
       "url": "https://packages.unity.com"
     },
