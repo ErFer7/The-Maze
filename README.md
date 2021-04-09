@@ -528,3 +528,6 @@ The Maze é um jogo para android desenvolvido por mim durante 2019. O jogo foi p
 
 * Testes para a correção de erros
 
+## v1.3.4 - 09/04/2021 - Bundle 68
+
+* Projeto limpado
