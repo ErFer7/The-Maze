@@ -66,5 +66,11 @@ public class ScriptManager : MonoBehaviour
         sound = false;
         music = false;
     }
+
+    private void Start()
+    {
+        // Define o FPS alvo para 60 FPS
+        Application.targetFrameRate = 60;
+    }
     #endregion
 }

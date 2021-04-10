@@ -520,7 +520,7 @@ The Maze é um jogo para android desenvolvido por mim durante 2019. O jogo foi p
 * Marca da Abstrato atualizada
 * Bug que fazia com que a saída do labirinto não emitisse som é corrigido
 
-## v1.3.2 - 08/04/2021 - Bundle 66 - DEBUG
+## v1.3.2 - 08/04/2021 - Bundle 66
 
 * Configurações do projeto alteradas e alguns pacotes removidos
 
@@ -531,3 +531,7 @@ The Maze é um jogo para android desenvolvido por mim durante 2019. O jogo foi p
 ## v1.3.4 - 09/04/2021 - Bundle 68
 
 * Projeto limpado
+
+## v1.3.5 - 09/04/2021 - Bundle 69
+
+* Testes com o Vsync
