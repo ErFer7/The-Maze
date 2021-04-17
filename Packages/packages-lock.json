@@ -8,7 +8,7 @@
       "url": "https://unityregistry-pa.googleapis.com"
     },
     "com.unity.2d.pixel-perfect": {
-      "version": "4.0.1",
+      "version": "5.0.0",
       "depth": 0,
       "source": "registry",
       "dependencies": {},
