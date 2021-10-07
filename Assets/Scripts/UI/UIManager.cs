@@ -22,9 +22,7 @@ public class UIManager : MonoBehaviour
         Language,
         Custom,
         SeedInfo,
-        ContinuePopUp,
-        ExitPopUp,
-        PGSLoginPopUp,
+        PopUp,
         Load,
         Gameplay,
         Paused,
@@ -116,7 +114,7 @@ public class UIManager : MonoBehaviour
                 yield return null;
             }
 
-            uiState = UIState.ExitPopUp;
+            uiState = UIState.PopUp;
         }
         else
         {
