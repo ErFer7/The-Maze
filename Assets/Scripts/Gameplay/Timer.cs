@@ -29,15 +29,15 @@ public class Timer : MonoBehaviour
     #endregion
 
     // Definições de tempo
-    [System.NonSerialized]
+    [HideInInspector]
     public int seconds;
-    [System.NonSerialized]
+    [HideInInspector]
     public int minutes;
-    [System.NonSerialized]
+    [HideInInspector]
     public int hours;
 
     // Tempo do timer
-    [System.NonSerialized]
+    [HideInInspector]
     public float currentTime;
     #endregion
 

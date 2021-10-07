@@ -548,6 +548,8 @@ public class PlayGamesManager : MonoBehaviour
 
                 for (int i = 0; i < achievements.Length; ++i)
                 {
+                    // Este sistema deve ser simplificado com loops
+
                     // A conquista é checada para saber qual é a conquista em questão
                     switch (achievements[i].id)
                     {

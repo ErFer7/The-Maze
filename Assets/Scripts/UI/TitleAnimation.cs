@@ -1,10 +1,10 @@
 ﻿using System.Collections;
 using UnityEngine;
 
-public class UIAnimation : MonoBehaviour
+public class TitleAnimation : MonoBehaviour
 {
     #region Public Variables
-    // Definições da animação
+    // Configurações da animação
     public bool spin;
     public float rotationSpeed;
     public float updateTime;

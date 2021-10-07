@@ -48,7 +48,7 @@ public class LoadingControl : MonoBehaviour
     #endregion
 
     // Coroutine das operações
-    [System.NonSerialized]
+    [HideInInspector]
     public Coroutine coroutine;
     #endregion
 

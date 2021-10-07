@@ -30,7 +30,7 @@ public class PlayerMovement : MonoBehaviour
     #endregion
 
     // Distância percorrida
-    [System.NonSerialized]
+    [HideInInspector]
     public float distanceTravelled;
     #endregion
 

@@ -1788,6 +1788,81 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 179923430}
   m_CullTransparentMesh: 0
+--- !u!1 &186883947
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 186883948}
+  - component: {fileID: 186883950}
+  - component: {fileID: 186883949}
+  m_Layer: 5
+  m_Name: Void Image
+  m_TagString: VoidImage
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &186883948
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 186883947}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1531298922}
+  m_RootOrder: 7
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 1, y: 1}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 0}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &186883949
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 186883947}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 2100000, guid: 815014dc1fd8487418cfe2be6aaffb7c, type: 2}
+  m_Color: {r: 0, g: 0, b: 0, a: 0}
+  m_RaycastTarget: 0
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 0
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Sprite: {fileID: 0}
+  m_Type: 0
+  m_PreserveAspect: 0
+  m_FillCenter: 1
+  m_FillMethod: 4
+  m_FillAmount: 1
+  m_FillClockwise: 1
+  m_FillOrigin: 0
+  m_UseSpriteMesh: 0
+  m_PixelsPerUnitMultiplier: 1
+--- !u!222 &186883950
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 186883947}
+  m_CullTransparentMesh: 1
 --- !u!1 &188354766
 GameObject:
   m_ObjectHideFlags: 0
@@ -1937,6 +2012,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 67670807a4877584f88eb395aa82fc9a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  triggerKey: 27
 --- !u!114 &188354770
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1946,13 +2022,14 @@ MonoBehaviour:
   m_GameObject: {fileID: 188354766}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3a9aec0746a8a2b4888150c25a43220b, type: 3}
+  m_Script: {fileID: 11500000, guid: c1c3428109a666c4e9e7b17379d95db4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  canvas: {fileID: 1531298918}
-  canvasAlpha: {fileID: 1531298925}
   nextPanel: {fileID: 1489896672}
-  fadeTime: 1
+  popUp: {fileID: 0}
+  background: {fileID: 0}
+  targetPosition: {x: 0, y: 0}
+  selected: 0
 --- !u!114 &188354771
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1998,8 +2075,8 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 188354770}
-        m_TargetAssemblyTypeName: 
-        m_MethodName: StartTransition
+        m_TargetAssemblyTypeName: UIElement, Assembly-CSharp
+        m_MethodName: ChangePanel
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -2135,6 +2212,182 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 193246247}
   m_CullTransparentMesh: 0
+--- !u!1 &202944436
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 202944437}
+  - component: {fileID: 202944441}
+  - component: {fileID: 202944440}
+  - component: {fileID: 202944439}
+  - component: {fileID: 202944438}
+  - component: {fileID: 202944442}
+  m_Layer: 5
+  m_Name: Exit Button
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &202944437
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 202944436}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 825806800}
+  m_RootOrder: 8
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 1, y: 1}
+  m_AnchorMax: {x: 1, y: 1}
+  m_AnchoredPosition: {x: -75, y: -75}
+  m_SizeDelta: {x: 60, y: 60}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &202944438
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 202944436}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c1c3428109a666c4e9e7b17379d95db4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  nextPanel: {fileID: 0}
+  popUp: {fileID: 355642446}
+  background: {fileID: 25748028}
+  targetPosition: {x: 0, y: 0}
+  selected: 1
+--- !u!114 &202944439
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 202944436}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Navigation:
+    m_Mode: 3
+    m_WrapAround: 0
+    m_SelectOnUp: {fileID: 0}
+    m_SelectOnDown: {fileID: 0}
+    m_SelectOnLeft: {fileID: 0}
+    m_SelectOnRight: {fileID: 0}
+  m_Transition: 1
+  m_Colors:
+    m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
+    m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
+    m_PressedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
+    m_SelectedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
+    m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
+    m_ColorMultiplier: 1
+    m_FadeDuration: 0.1
+  m_SpriteState:
+    m_HighlightedSprite: {fileID: 0}
+    m_PressedSprite: {fileID: 0}
+    m_SelectedSprite: {fileID: 0}
+    m_DisabledSprite: {fileID: 0}
+  m_AnimationTriggers:
+    m_NormalTrigger: Normal
+    m_HighlightedTrigger: Highlighted
+    m_PressedTrigger: Pressed
+    m_SelectedTrigger: Selected
+    m_DisabledTrigger: Disabled
+  m_Interactable: 1
+  m_TargetGraphic: {fileID: 202944440}
+  m_OnClick:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 202944438}
+        m_TargetAssemblyTypeName: UIElement, Assembly-CSharp
+        m_MethodName: OpenPopUp
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 202944442}
+        m_TargetAssemblyTypeName: UnityEngine.Behaviour, UnityEngine
+        m_MethodName: set_enabled
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+--- !u!114 &202944440
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 202944436}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 2100000, guid: 815014dc1fd8487418cfe2be6aaffb7c, type: 2}
+  m_Color: {r: 0.19607843, g: 0.19607843, b: 0.19607843, a: 1}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Sprite: {fileID: 21300000, guid: 3f2f07b0da13b2b4aaccee8268592610, type: 3}
+  m_Type: 0
+  m_PreserveAspect: 0
+  m_FillCenter: 1
+  m_FillMethod: 4
+  m_FillAmount: 1
+  m_FillClockwise: 1
+  m_FillOrigin: 0
+  m_UseSpriteMesh: 0
+  m_PixelsPerUnitMultiplier: 1
+--- !u!222 &202944441
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 202944436}
+  m_CullTransparentMesh: 1
+--- !u!114 &202944442
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 202944436}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 67670807a4877584f88eb395aa82fc9a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  triggerKey: 27
 --- !u!1 &203381090
 GameObject:
   m_ObjectHideFlags: 0
@@ -2319,7 +2572,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 4
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &219381389
 MonoBehaviour:
@@ -2925,6 +3178,7 @@ GameObject:
   - component: {fileID: 295181031}
   - component: {fileID: 295181030}
   - component: {fileID: 295181033}
+  - component: {fileID: 295181035}
   - component: {fileID: 295181034}
   m_Layer: 5
   m_Name: Play Games Button
@@ -2996,8 +3250,21 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 295181033}
+      - m_Target: {fileID: 295181034}
         m_TargetAssemblyTypeName: 
+        m_MethodName: PlayOneShot
+        m_Mode: 2
+        m_Arguments:
+          m_ObjectArgument: {fileID: 8300000, guid: 99348d26b121bdf40bca2ff30b000207,
+            type: 3}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.AudioClip, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 295181033}
+        m_TargetAssemblyTypeName: PlayGamesButtons, Assembly-CSharp
         m_MethodName: Interact
         m_Mode: 1
         m_Arguments:
@@ -3008,14 +3275,13 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 295181034}
-        m_TargetAssemblyTypeName: 
-        m_MethodName: PlayOneShot
-        m_Mode: 2
+      - m_Target: {fileID: 202944442}
+        m_TargetAssemblyTypeName: UnityEngine.Behaviour, UnityEngine
+        m_MethodName: set_enabled
+        m_Mode: 6
         m_Arguments:
-          m_ObjectArgument: {fileID: 8300000, guid: 99348d26b121bdf40bca2ff30b000207,
-            type: 3}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.AudioClip, UnityEngine
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
@@ -3167,6 +3433,23 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &295181035
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 295181028}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c1c3428109a666c4e9e7b17379d95db4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  nextPanel: {fileID: 0}
+  popUp: {fileID: 1760106689}
+  background: {fileID: 1768863546}
+  targetPosition: {x: 0, y: 0}
+  selected: 1
 --- !u!1 &355642446
 GameObject:
   m_ObjectHideFlags: 0
@@ -3180,7 +3463,7 @@ GameObject:
   - component: {fileID: 355642448}
   - component: {fileID: 355642450}
   m_Layer: 5
-  m_Name: Message Box
+  m_Name: PopUp
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3577,8 +3860,8 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 439233743}
-        m_TargetAssemblyTypeName: 
-        m_MethodName: Quit
+        m_TargetAssemblyTypeName: UIElement, Assembly-CSharp
+        m_MethodName: QuitGame
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -3648,11 +3931,14 @@ MonoBehaviour:
   m_GameObject: {fileID: 439233737}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e485f9168d7cdef47ba174564c1dcb0e, type: 3}
+  m_Script: {fileID: 11500000, guid: c1c3428109a666c4e9e7b17379d95db4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  menu: {fileID: 825806799}
-  musicManager: {fileID: 1833603583}
+  nextPanel: {fileID: 0}
+  popUp: {fileID: 0}
+  background: {fileID: 0}
+  targetPosition: {x: 0, y: 0}
+  selected: 2
 --- !u!1 &445127460
 GameObject:
   m_ObjectHideFlags: 0
@@ -4169,6 +4455,7 @@ GameObject:
   - component: {fileID: 496349045}
   - component: {fileID: 496349044}
   - component: {fileID: 496349047}
+  - component: {fileID: 496349048}
   - component: {fileID: 496349043}
   m_Layer: 5
   m_Name: No Button
@@ -4337,18 +4624,6 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 496349047}
-        m_TargetAssemblyTypeName: 
-        m_MethodName: Continue
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
       - m_Target: {fileID: 496349043}
         m_TargetAssemblyTypeName: 
         m_MethodName: PlayOneShot
@@ -4361,6 +4636,30 @@ MonoBehaviour:
           m_FloatArgument: 0
           m_StringArgument: 
           m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 496349048}
+        m_TargetAssemblyTypeName: UIElement, Assembly-CSharp
+        m_MethodName: ClosePopUp
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 202944442}
+        m_TargetAssemblyTypeName: UnityEngine.Behaviour, UnityEngine
+        m_MethodName: set_enabled
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 1
         m_CallState: 2
 --- !u!114 &496349045
 MonoBehaviour:
@@ -4409,11 +4708,27 @@ MonoBehaviour:
   m_GameObject: {fileID: 496349041}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e485f9168d7cdef47ba174564c1dcb0e, type: 3}
+  m_Script: {fileID: 11500000, guid: 67670807a4877584f88eb395aa82fc9a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  menu: {fileID: 825806799}
-  musicManager: {fileID: 1833603583}
+  triggerKey: 27
+--- !u!114 &496349048
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 496349041}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c1c3428109a666c4e9e7b17379d95db4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  nextPanel: {fileID: 0}
+  popUp: {fileID: 355642446}
+  background: {fileID: 25748028}
+  targetPosition: {x: 0, y: -485}
+  selected: 1
 --- !u!1 &506459652
 GameObject:
   m_ObjectHideFlags: 0
@@ -4693,6 +5008,18 @@ MonoBehaviour:
           m_ObjectArgument: {fileID: 8300000, guid: 19ee23220d478354ca29f732069ff0d0,
             type: 3}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.AudioClip, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 1866440691}
+        m_TargetAssemblyTypeName: UnityEngine.Behaviour, UnityEngine
+        m_MethodName: set_enabled
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
@@ -5206,7 +5533,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 1
     m_VerticalOverflow: 1
     m_LineSpacing: 1
-  m_Text: 1.3.6
+  m_Text: 1.4-dev
 --- !u!222 &669443122
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -5409,8 +5736,8 @@ MonoBehaviour:
           m_BoolArgument: 0
         m_CallState: 2
       - m_Target: {fileID: 708307708}
-        m_TargetAssemblyTypeName: 
-        m_MethodName: StartTransition
+        m_TargetAssemblyTypeName: UIElement, Assembly-CSharp
+        m_MethodName: ChangePanel
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -5467,13 +5794,14 @@ MonoBehaviour:
   m_GameObject: {fileID: 708307702}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3a9aec0746a8a2b4888150c25a43220b, type: 3}
+  m_Script: {fileID: 11500000, guid: c1c3428109a666c4e9e7b17379d95db4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  canvas: {fileID: 1531298918}
-  canvasAlpha: {fileID: 1531298925}
   nextPanel: {fileID: 179561032}
-  fadeTime: 1
+  popUp: {fileID: 0}
+  background: {fileID: 0}
+  targetPosition: {x: 0, y: 0}
+  selected: 0
 --- !u!1 &722238774
 GameObject:
   m_ObjectHideFlags: 0
@@ -6047,18 +6375,6 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 766444644}
-        m_TargetAssemblyTypeName: 
-        m_MethodName: StartTransition
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
       - m_Target: {fileID: 766444645}
         m_TargetAssemblyTypeName: 
         m_MethodName: PlayOneShot
@@ -6067,6 +6383,18 @@ MonoBehaviour:
           m_ObjectArgument: {fileID: 8300000, guid: 99348d26b121bdf40bca2ff30b000207,
             type: 3}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.AudioClip, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 766444644}
+        m_TargetAssemblyTypeName: UIElement, Assembly-CSharp
+        m_MethodName: ChangePanel
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
@@ -6119,13 +6447,14 @@ MonoBehaviour:
   m_GameObject: {fileID: 766444639}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3a9aec0746a8a2b4888150c25a43220b, type: 3}
+  m_Script: {fileID: 11500000, guid: c1c3428109a666c4e9e7b17379d95db4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  canvas: {fileID: 1531298918}
-  canvasAlpha: {fileID: 1531298925}
   nextPanel: {fileID: 409448069}
-  fadeTime: 1
+  popUp: {fileID: 0}
+  background: {fileID: 0}
+  targetPosition: {x: 0, y: 0}
+  selected: 0
 --- !u!82 &766444645
 AudioSource:
   m_ObjectHideFlags: 0
@@ -6389,7 +6718,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 825806800}
-  - component: {fileID: 825806801}
   - component: {fileID: 825806802}
   m_Layer: 5
   m_Name: Menu
@@ -6417,6 +6745,7 @@ RectTransform:
   - {fileID: 1871546615}
   - {fileID: 708307703}
   - {fileID: 1151255008}
+  - {fileID: 202944437}
   - {fileID: 1343307492}
   - {fileID: 898497015}
   m_Father: {fileID: 1531298922}
@@ -6427,25 +6756,6 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &825806801
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 825806799}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6a07a50a88a631c4c912052bffa6463e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  exit: {fileID: 25748028}
-  animationTime: 0.65
-  colorUp: {r: 0, g: 0, b: 0, a: 0.39215687}
-  colorDown: {r: 0, g: 0, b: 0, a: 0}
-  exitBackGround: {fileID: 25748030}
-  exitMessageBox: {fileID: 355642447}
-  musicManager: {fileID: 1833603583}
 --- !u!222 &825806802
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -6753,7 +7063,7 @@ GameObject:
   - component: {fileID: 898497017}
   - component: {fileID: 898497016}
   m_Layer: 5
-  m_Name: Play Games MessageBox
+  m_Name: Play Games PopUp Container
   m_TagString: PlayGamesMessageBox
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -6772,7 +7082,7 @@ RectTransform:
   m_Children:
   - {fileID: 1768863547}
   m_Father: {fileID: 825806800}
-  m_RootOrder: 9
+  m_RootOrder: 10
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
@@ -7052,18 +7362,6 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 927027624}
-        m_TargetAssemblyTypeName: 
-        m_MethodName: StartTransition
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
       - m_Target: {fileID: 927027625}
         m_TargetAssemblyTypeName: 
         m_MethodName: PlayOneShot
@@ -7072,6 +7370,18 @@ MonoBehaviour:
           m_ObjectArgument: {fileID: 8300000, guid: 99348d26b121bdf40bca2ff30b000207,
             type: 3}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.AudioClip, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 927027624}
+        m_TargetAssemblyTypeName: UIElement, Assembly-CSharp
+        m_MethodName: ChangePanel
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
@@ -7124,13 +7434,14 @@ MonoBehaviour:
   m_GameObject: {fileID: 927027619}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3a9aec0746a8a2b4888150c25a43220b, type: 3}
+  m_Script: {fileID: 11500000, guid: c1c3428109a666c4e9e7b17379d95db4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  canvas: {fileID: 1531298918}
-  canvasAlpha: {fileID: 1531298925}
   nextPanel: {fileID: 1483658979}
-  fadeTime: 1
+  popUp: {fileID: 0}
+  background: {fileID: 0}
+  targetPosition: {x: 0, y: 0}
+  selected: 0
 --- !u!82 &927027625
 AudioSource:
   m_ObjectHideFlags: 0
@@ -7356,6 +7667,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 67670807a4877584f88eb395aa82fc9a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  triggerKey: 27
 --- !u!114 &1072970565
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7365,13 +7677,14 @@ MonoBehaviour:
   m_GameObject: {fileID: 1072970562}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3a9aec0746a8a2b4888150c25a43220b, type: 3}
+  m_Script: {fileID: 11500000, guid: c1c3428109a666c4e9e7b17379d95db4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  canvas: {fileID: 1531298918}
-  canvasAlpha: {fileID: 1531298925}
   nextPanel: {fileID: 409448069}
-  fadeTime: 1
+  popUp: {fileID: 0}
+  background: {fileID: 0}
+  targetPosition: {x: 0, y: 0}
+  selected: 0
 --- !u!114 &1072970566
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7417,8 +7730,8 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 1072970565}
-        m_TargetAssemblyTypeName: 
-        m_MethodName: StartTransition
+        m_TargetAssemblyTypeName: UIElement, Assembly-CSharp
+        m_MethodName: ChangePanel
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -7718,8 +8031,8 @@ GameObject:
   - component: {fileID: 1128121694}
   - component: {fileID: 1128121693}
   - component: {fileID: 1128121692}
-  - component: {fileID: 1128121691}
   - component: {fileID: 1128121690}
+  - component: {fileID: 1128121691}
   - component: {fileID: 1128121689}
   m_Layer: 5
   m_Name: Return Button
@@ -7855,6 +8168,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 67670807a4877584f88eb395aa82fc9a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  triggerKey: 27
 --- !u!114 &1128121691
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7864,13 +8178,14 @@ MonoBehaviour:
   m_GameObject: {fileID: 1128121687}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3a9aec0746a8a2b4888150c25a43220b, type: 3}
+  m_Script: {fileID: 11500000, guid: c1c3428109a666c4e9e7b17379d95db4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  canvas: {fileID: 1531298918}
-  canvasAlpha: {fileID: 1531298925}
   nextPanel: {fileID: 825806799}
-  fadeTime: 1
+  popUp: {fileID: 0}
+  background: {fileID: 0}
+  targetPosition: {x: 0, y: 0}
+  selected: 0
 --- !u!114 &1128121692
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7915,18 +8230,6 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1128121691}
-        m_TargetAssemblyTypeName: 
-        m_MethodName: StartTransition
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
       - m_Target: {fileID: 1128121689}
         m_TargetAssemblyTypeName: 
         m_MethodName: PlayOneShot
@@ -7935,6 +8238,18 @@ MonoBehaviour:
           m_ObjectArgument: {fileID: 8300000, guid: 99348d26b121bdf40bca2ff30b000207,
             type: 3}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.AudioClip, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 1128121691}
+        m_TargetAssemblyTypeName: UIElement, Assembly-CSharp
+        m_MethodName: ChangePanel
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
@@ -8145,18 +8460,6 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1151255012}
-        m_TargetAssemblyTypeName: 
-        m_MethodName: StartTransition
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
       - m_Target: {fileID: 1151255013}
         m_TargetAssemblyTypeName: 
         m_MethodName: PlayOneShot
@@ -8165,6 +8468,18 @@ MonoBehaviour:
           m_ObjectArgument: {fileID: 8300000, guid: 99348d26b121bdf40bca2ff30b000207,
             type: 3}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.AudioClip, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 1151255012}
+        m_TargetAssemblyTypeName: UIElement, Assembly-CSharp
+        m_MethodName: ChangePanel
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
@@ -8217,13 +8532,14 @@ MonoBehaviour:
   m_GameObject: {fileID: 1151255007}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3a9aec0746a8a2b4888150c25a43220b, type: 3}
+  m_Script: {fileID: 11500000, guid: c1c3428109a666c4e9e7b17379d95db4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  canvas: {fileID: 1531298918}
-  canvasAlpha: {fileID: 1531298925}
   nextPanel: {fileID: 1097798571}
-  fadeTime: 1
+  popUp: {fileID: 0}
+  background: {fileID: 0}
+  targetPosition: {x: 0, y: 0}
+  selected: 0
 --- !u!82 &1151255013
 AudioSource:
   m_ObjectHideFlags: 0
@@ -8541,6 +8857,18 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 1866440691}
+        m_TargetAssemblyTypeName: UnityEngine.Behaviour, UnityEngine
+        m_MethodName: set_enabled
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1188115767
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8748,13 +9076,14 @@ MonoBehaviour:
   m_GameObject: {fileID: 1214872584}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3a9aec0746a8a2b4888150c25a43220b, type: 3}
+  m_Script: {fileID: 11500000, guid: c1c3428109a666c4e9e7b17379d95db4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  canvas: {fileID: 1531298918}
-  canvasAlpha: {fileID: 1531298925}
   nextPanel: {fileID: 1453202448}
-  fadeTime: 1
+  popUp: {fileID: 0}
+  background: {fileID: 0}
+  targetPosition: {x: 0, y: 0}
+  selected: 0
 --- !u!114 &1214872587
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8800,8 +9129,8 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 1214872586}
-        m_TargetAssemblyTypeName: 
-        m_MethodName: StartTransition
+        m_TargetAssemblyTypeName: UIElement, Assembly-CSharp
+        m_MethodName: ChangePanel
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -9200,7 +9529,7 @@ GameObject:
   - component: {fileID: 1343307493}
   - component: {fileID: 1343307494}
   m_Layer: 5
-  m_Name: Exit
+  m_Name: Exit PopUp Container
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -9219,7 +9548,7 @@ RectTransform:
   m_Children:
   - {fileID: 25748029}
   m_Father: {fileID: 825806800}
-  m_RootOrder: 8
+  m_RootOrder: 9
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
@@ -10201,6 +10530,18 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 1866440691}
+        m_TargetAssemblyTypeName: UnityEngine.Behaviour, UnityEngine
+        m_MethodName: set_enabled
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1458202525
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -11069,7 +11410,6 @@ GameObject:
   - component: {fileID: 1531298924}
   - component: {fileID: 1531298923}
   - component: {fileID: 1531298925}
-  - component: {fileID: 1531298926}
   m_Layer: 5
   m_Name: Main UI
   m_TagString: Canvas
@@ -11156,6 +11496,7 @@ RectTransform:
   - {fileID: 409448070}
   - {fileID: 1453202449}
   - {fileID: 1483658980}
+  - {fileID: 186883948}
   m_Father: {fileID: 0}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -11214,19 +11555,6 @@ CanvasGroup:
   m_Interactable: 1
   m_BlocksRaycasts: 1
   m_IgnoreParentGroups: 0
---- !u!114 &1531298926
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1531298918}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 808753149069f9149922b4e078ace08a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  fadeTime: 3
 --- !u!1 &1532753962
 GameObject:
   m_ObjectHideFlags: 0
@@ -11574,6 +11902,53 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1544672697}
   m_CullTransparentMesh: 0
+--- !u!1 &1545634977
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1545634978}
+  - component: {fileID: 1545634979}
+  m_Layer: 0
+  m_Name: UIManager
+  m_TagString: UIManager
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1545634978
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1545634977}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 4
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1545634979
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1545634977}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4d803994ea29dec428b6ccba626a5122, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  fadeTime: 0.5
+  popUpMoveTime: 0.5
+  popUpBGAlpha: 0.5
+  uiState: 0
 --- !u!1 &1561990618
 GameObject:
   m_ObjectHideFlags: 0
@@ -11783,6 +12158,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 67670807a4877584f88eb395aa82fc9a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  triggerKey: 27
 --- !u!114 &1588825179
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -11792,13 +12168,14 @@ MonoBehaviour:
   m_GameObject: {fileID: 1588825176}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3a9aec0746a8a2b4888150c25a43220b, type: 3}
+  m_Script: {fileID: 11500000, guid: c1c3428109a666c4e9e7b17379d95db4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  canvas: {fileID: 1531298918}
-  canvasAlpha: {fileID: 1531298925}
   nextPanel: {fileID: 1097798571}
-  fadeTime: 1
+  popUp: {fileID: 0}
+  background: {fileID: 0}
+  targetPosition: {x: 0, y: 0}
+  selected: 0
 --- !u!114 &1588825180
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -11844,8 +12221,8 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 1588825179}
-        m_TargetAssemblyTypeName: 
-        m_MethodName: StartTransition
+        m_TargetAssemblyTypeName: UIElement, Assembly-CSharp
+        m_MethodName: ChangePanel
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -12031,7 +12408,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 6
+  m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1606913387
 MonoBehaviour:
@@ -12383,6 +12760,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9c1f4e687311f4448826c03dd7676c3d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  uiManager: {fileID: 0}
+  musicManager: {fileID: 0}
   width: 0
   height: 0
   useSavedSeed: 0
@@ -12399,6 +12778,8 @@ MonoBehaviour:
   scoreFontSize: 0
   sound: 0
   music: 0
+  gameState: 0
+  gameMode: 0
 --- !u!4 &1688410238
 Transform:
   m_ObjectHideFlags: 0
@@ -12411,7 +12792,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 7
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1693441329
 GameObject:
@@ -12579,7 +12960,7 @@ GameObject:
   - component: {fileID: 1741114879}
   - component: {fileID: 1741114878}
   - component: {fileID: 1741114877}
-  - component: {fileID: 1741114880}
+  - component: {fileID: 1741114882}
   - component: {fileID: 1741114881}
   m_Layer: 5
   m_Name: Start Button
@@ -12651,18 +13032,6 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1741114880}
-        m_TargetAssemblyTypeName: 
-        m_MethodName: StartTransition
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
       - m_Target: {fileID: 1741114881}
         m_TargetAssemblyTypeName: 
         m_MethodName: PlayOneShot
@@ -12671,6 +13040,18 @@ MonoBehaviour:
           m_ObjectArgument: {fileID: 8300000, guid: 99348d26b121bdf40bca2ff30b000207,
             type: 3}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.AudioClip, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 1741114882}
+        m_TargetAssemblyTypeName: UIElement, Assembly-CSharp
+        m_MethodName: ChangePanel
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
@@ -12714,22 +13095,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1741114875}
   m_CullTransparentMesh: 0
---- !u!114 &1741114880
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1741114875}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3a9aec0746a8a2b4888150c25a43220b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  canvas: {fileID: 1531298918}
-  canvasAlpha: {fileID: 1531298925}
-  nextPanel: {fileID: 1489896672}
-  fadeTime: 1
 --- !u!82 &1741114881
 AudioSource:
   m_ObjectHideFlags: 0
@@ -12826,6 +13191,23 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &1741114882
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1741114875}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c1c3428109a666c4e9e7b17379d95db4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  nextPanel: {fileID: 1489896672}
+  popUp: {fileID: 0}
+  background: {fileID: 0}
+  targetPosition: {x: 0, y: 0}
+  selected: 0
 --- !u!1 &1760106689
 GameObject:
   m_ObjectHideFlags: 0
@@ -12839,7 +13221,7 @@ GameObject:
   - component: {fileID: 1760106692}
   - component: {fileID: 1760106691}
   m_Layer: 5
-  m_Name: Message Box
+  m_Name: PopUp
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -13446,7 +13828,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 5
+  m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!169 &1833603586
 AudioLowPassFilter:
@@ -13903,8 +14285,8 @@ GameObject:
   - component: {fileID: 1866440689}
   - component: {fileID: 1866440688}
   - component: {fileID: 1866440687}
-  - component: {fileID: 1866440690}
   - component: {fileID: 1866440691}
+  - component: {fileID: 1866440690}
   - component: {fileID: 1866440692}
   m_Layer: 5
   m_Name: Return Button
@@ -13976,18 +14358,6 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1866440690}
-        m_TargetAssemblyTypeName: 
-        m_MethodName: StartTransition
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
       - m_Target: {fileID: 1866440692}
         m_TargetAssemblyTypeName: 
         m_MethodName: PlayOneShot
@@ -13996,6 +14366,18 @@ MonoBehaviour:
           m_ObjectArgument: {fileID: 8300000, guid: 99348d26b121bdf40bca2ff30b000207,
             type: 3}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.AudioClip, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 1866440690}
+        m_TargetAssemblyTypeName: UIElement, Assembly-CSharp
+        m_MethodName: ChangePanel
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
@@ -14048,13 +14430,14 @@ MonoBehaviour:
   m_GameObject: {fileID: 1866440685}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3a9aec0746a8a2b4888150c25a43220b, type: 3}
+  m_Script: {fileID: 11500000, guid: c1c3428109a666c4e9e7b17379d95db4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  canvas: {fileID: 1531298918}
-  canvasAlpha: {fileID: 1531298925}
   nextPanel: {fileID: 825806799}
-  fadeTime: 1
+  popUp: {fileID: 0}
+  background: {fileID: 0}
+  targetPosition: {x: 0, y: 0}
+  selected: 0
 --- !u!114 &1866440691
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -14067,6 +14450,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 67670807a4877584f88eb395aa82fc9a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  triggerKey: 27
 --- !u!82 &1866440692
 AudioSource:
   m_ObjectHideFlags: 0
@@ -14703,6 +15087,18 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 202944442}
+        m_TargetAssemblyTypeName: UnityEngine.Behaviour, UnityEngine
+        m_MethodName: set_enabled
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 1
+        m_CallState: 2
 --- !u!114 &1926828168
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -14765,8 +15161,8 @@ GameObject:
   - component: {fileID: 1966849013}
   - component: {fileID: 1966849012}
   - component: {fileID: 1966849011}
-  - component: {fileID: 1966849010}
   - component: {fileID: 1966849009}
+  - component: {fileID: 1966849010}
   - component: {fileID: 1966849008}
   m_Layer: 5
   m_Name: Return Button
@@ -14902,6 +15298,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 67670807a4877584f88eb395aa82fc9a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  triggerKey: 27
 --- !u!114 &1966849010
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -14911,13 +15308,14 @@ MonoBehaviour:
   m_GameObject: {fileID: 1966849006}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3a9aec0746a8a2b4888150c25a43220b, type: 3}
+  m_Script: {fileID: 11500000, guid: c1c3428109a666c4e9e7b17379d95db4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  canvas: {fileID: 1531298918}
-  canvasAlpha: {fileID: 1531298925}
   nextPanel: {fileID: 825806799}
-  fadeTime: 1
+  popUp: {fileID: 0}
+  background: {fileID: 0}
+  targetPosition: {x: 0, y: 0}
+  selected: 0
 --- !u!114 &1966849011
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -14962,18 +15360,6 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1966849010}
-        m_TargetAssemblyTypeName: 
-        m_MethodName: StartTransition
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
       - m_Target: {fileID: 1966849008}
         m_TargetAssemblyTypeName: 
         m_MethodName: PlayOneShot
@@ -14982,6 +15368,18 @@ MonoBehaviour:
           m_ObjectArgument: {fileID: 8300000, guid: 99348d26b121bdf40bca2ff30b000207,
             type: 3}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.AudioClip, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 1966849010}
+        m_TargetAssemblyTypeName: UIElement, Assembly-CSharp
+        m_MethodName: ChangePanel
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
@@ -16019,7 +16417,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 3
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &2138762007
 MonoBehaviour:

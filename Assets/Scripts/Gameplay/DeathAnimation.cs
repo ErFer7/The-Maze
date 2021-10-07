@@ -6,7 +6,7 @@ public class DeathAnimation : MonoBehaviour
 {
     #region Public Variables
     // Define quando a animação terminou
-    [System.NonSerialized]
+    [HideInInspector]
     public bool finished;
     #endregion
 

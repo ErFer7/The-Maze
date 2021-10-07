@@ -2,6 +2,8 @@
 using UnityEngine;
 using UnityEngine.UI;
 
+// DEPRECIADO
+
 public class MenuExit : MonoBehaviour
 {
     #region Public Variables

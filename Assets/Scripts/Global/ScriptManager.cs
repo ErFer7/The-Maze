@@ -4,6 +4,10 @@ using UnityEngine;
 public class ScriptManager : MonoBehaviour
 {
     #region Public Variables
+    // Managers
+    public UIManager uiManager;
+    public MusicManager musicManager;
+
     // Labirinto
     public int width;
     public int height;
@@ -25,19 +29,42 @@ public class ScriptManager : MonoBehaviour
     // Gameplay
     public bool playerCanMove;
 
-    // Localização;
+    // Localizaï¿½ï¿½o;
     public Dictionary<string, string> dynamicLocalizedText;
     public int scoreFontSize;
 
     // Audio
     public bool sound;
     public bool music;
+
+    public GameState gameState;
+    public GameMode gameMode;
+
+    //Estado de jogo
+    public enum GameState
+    {
+        Initializing,
+        LoadingMenu,
+        Menu,
+        LoadingGameplay,
+        Gameplay
+    }
+
+    public enum GameMode
+    {
+        Null,
+        Classic,
+        Time,
+        Dark,
+        Custom
+    }
+
     #endregion
 
     #region Unity Methods
     private void Awake()
     {
-        // Impede que duas intâncias da classe existam ao mesmo tempo (Singleton)
+        // Impede que duas intï¿½ncias da classe existam ao mesmo tempo (Singleton)
         if (GameObject.FindGameObjectsWithTag("ScriptManager").Length == 1)
         {
             DontDestroyOnLoad(gameObject);
@@ -47,7 +74,7 @@ public class ScriptManager : MonoBehaviour
             Destroy(gameObject);
         }
 
-        // Inicializa os atributos (colocar em um Start no futuro, esta maneira é apenas temporária)
+        // Inicializa os atributos (colocar em um Start no futuro, esta maneira ï¿½ apenas temporï¿½ria)
         width = 0;
         height = 0;
         useSavedSeed = false;
@@ -71,6 +98,9 @@ public class ScriptManager : MonoBehaviour
     {
         // Define o FPS alvo para 60 FPS
         Application.targetFrameRate = 60;
+
+        gameState = GameState.Initializing;
+        gameMode = GameMode.Null;
     }
     #endregion
 }

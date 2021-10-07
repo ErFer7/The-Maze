@@ -26,10 +26,10 @@ public class Pause : MonoBehaviour
     public Button pauseButton;
     #endregion
     // Estado da pausa
-    [System.NonSerialized]
+    [HideInInspector]
     public bool resume;
     // Coroutine
-    [System.NonSerialized]
+    [HideInInspector]
     public Coroutine coroutine_PG;
     #endregion
 

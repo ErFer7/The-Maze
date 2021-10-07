@@ -185,7 +185,7 @@ public class SceneLoader : MonoBehaviour
     IEnumerator Return()
     {
         // Desabilita o retorno da página principal
-        returnButton.GetComponent<MobileReturn>().enabled = false;
+        returnButton.GetComponent<KeyListener>().enabled = false;
 
         while (true)
         {
@@ -205,7 +205,7 @@ public class SceneLoader : MonoBehaviour
                 coroutine_MBA = StartCoroutine(MessageBoxAnimation(targetPositionDown, colorDown, animationTime));
 
                 // Habilita o retorno da página principal
-                returnButton.GetComponent<MobileReturn>().enabled = true;
+                returnButton.GetComponent<KeyListener>().enabled = true;
 
                 StopCoroutine(coroutine_R);
             }
@@ -257,7 +257,7 @@ public class SceneLoader : MonoBehaviour
         {
             if (!scriptManager.animating)
             {
-                StopCoroutine(Canvas.GetComponent<Fade>().coroutine_FT);
+                // StopCoroutine(Canvas.GetComponent<Fade>().coroutine_FT);
                 SceneManager.LoadScene(1);
                 StopCoroutine(coroutine_MBA);
             }
@@ -323,7 +323,7 @@ public class SceneLoader : MonoBehaviour
         // Faz a animação de fade out
         if (!scriptManager.animating)
         {
-            Canvas.GetComponent<Fade>().coroutine_FT = StartCoroutine(Canvas.GetComponent<Fade>().FadeTo(0F, Canvas.GetComponent<Fade>().fadeTime));
+            // Canvas.GetComponent<Fade>().coroutine_FT = StartCoroutine(Canvas.GetComponent<Fade>().FadeTo(0F, Canvas.GetComponent<Fade>().fadeTime));
             musicManager.GetComponent<MusicManager>().publicCoroutine_MF = StartCoroutine(musicManager.GetComponent<MusicManager>().MusicFade(0, 3));
             coroutine_MBA = StartCoroutine(Load());
         }

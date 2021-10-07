@@ -20,7 +20,7 @@ public class Exit : MonoBehaviour
     #endregion
 
     // Define que o jogador está saindo do labirinto (para acesso externo)
-    [System.NonSerialized]
+    [HideInInspector]
     public bool exiting;
     #endregion
 
