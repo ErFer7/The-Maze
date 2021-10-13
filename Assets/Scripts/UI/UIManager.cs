@@ -44,6 +44,18 @@ public class UIManager : MonoBehaviour
     #endregion
 
     #region Unity Methods
+    private void Awake()
+    {
+        if (GameObject.FindGameObjectsWithTag(tag).Length == 1)
+        {
+            DontDestroyOnLoad(gameObject);
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
+    }
+
     private void Start()
     {
         scriptManager = GameObject.FindWithTag("ScriptManager").GetComponent<ScriptManager>();
@@ -70,6 +82,7 @@ public class UIManager : MonoBehaviour
     }
     #endregion
 
+    #region Public Methods
     public void PanelTransition(GameObject nextPanel)
     {
         uiState = UIState.InTransition;
@@ -88,6 +101,20 @@ public class UIManager : MonoBehaviour
         coroutine_PUAC = StartCoroutine(PopUpActionCoroutine(popUp, background, targetPosition, open));
     }
 
+    public void UpdateMazeSize(int width = 0, int height = 0)
+    {
+        if (height < 2)
+        {
+            scriptManager.width = width;
+        }
+        else
+        {
+            scriptManager.height = height;
+        }
+    }
+    #endregion
+
+    #region Private Methods
     private IEnumerator PopUpActionCoroutine(GameObject popUp, GameObject background, Vector2 targetPosition, bool open)
     {
         if (open)
@@ -326,4 +353,5 @@ public class UIManager : MonoBehaviour
         finishFlag = true;
         yield return null;
     }
+    #endregion
 }

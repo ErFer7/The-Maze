@@ -65,7 +65,7 @@ public class ScriptManager : MonoBehaviour
     private void Awake()
     {
         // Impede que duas int�ncias da classe existam ao mesmo tempo (Singleton)
-        if (GameObject.FindGameObjectsWithTag("ScriptManager").Length == 1)
+        if (GameObject.FindGameObjectsWithTag(tag).Length == 1)
         {
             DontDestroyOnLoad(gameObject);
         }
@@ -75,8 +75,8 @@ public class ScriptManager : MonoBehaviour
         }
 
         // Inicializa os atributos (colocar em um Start no futuro, esta maneira � apenas tempor�ria)
-        width = 0;
-        height = 0;
+        width = 2;
+        height = 2;
         useSavedSeed = false;
         seed = 0;
         progressive = false;

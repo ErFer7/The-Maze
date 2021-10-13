@@ -1370,9 +1370,15 @@ MonoBehaviour:
   m_GameObject: {fileID: 133228107}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 98df9c6d941833342b8c3a52cf16d696, type: 3}
+  m_Script: {fileID: 11500000, guid: c1c3428109a666c4e9e7b17379d95db4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  nextPanel: {fileID: 0}
+  popUp: {fileID: 0}
+  background: {fileID: 0}
+  targetPosition: {x: 0, y: 0}
+  sliderText: {fileID: 205306618}
+  selected: 3
 --- !u!114 &133228110
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1423,8 +1429,8 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 133228109}
-        m_TargetAssemblyTypeName: CustomHeight, Assembly-CSharp
-        m_MethodName: set_Height
+        m_TargetAssemblyTypeName: UIElement, Assembly-CSharp
+        m_MethodName: set_sliderValue
         m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -2029,6 +2035,7 @@ MonoBehaviour:
   popUp: {fileID: 0}
   background: {fileID: 0}
   targetPosition: {x: 0, y: 0}
+  sliderText: {fileID: 0}
   selected: 0
 --- !u!114 &188354771
 MonoBehaviour:
@@ -2268,6 +2275,7 @@ MonoBehaviour:
   popUp: {fileID: 355642446}
   background: {fileID: 25748028}
   targetPosition: {x: 0, y: 0}
+  sliderText: {fileID: 0}
   selected: 1
 --- !u!114 &202944439
 MonoBehaviour:
@@ -2534,7 +2542,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 1
     m_VerticalOverflow: 1
     m_LineSpacing: 1
-  m_Text: 0
+  m_Text: 2
 --- !u!222 &205306619
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -3449,6 +3457,7 @@ MonoBehaviour:
   popUp: {fileID: 1760106689}
   background: {fileID: 1768863546}
   targetPosition: {x: 0, y: 0}
+  sliderText: {fileID: 0}
   selected: 1
 --- !u!1 &355642446
 GameObject:
@@ -3938,6 +3947,7 @@ MonoBehaviour:
   popUp: {fileID: 0}
   background: {fileID: 0}
   targetPosition: {x: 0, y: 0}
+  sliderText: {fileID: 0}
   selected: 2
 --- !u!1 &445127460
 GameObject:
@@ -4728,6 +4738,7 @@ MonoBehaviour:
   popUp: {fileID: 355642446}
   background: {fileID: 25748028}
   targetPosition: {x: 0, y: -485}
+  sliderText: {fileID: 0}
   selected: 1
 --- !u!1 &506459652
 GameObject:
@@ -5801,6 +5812,7 @@ MonoBehaviour:
   popUp: {fileID: 0}
   background: {fileID: 0}
   targetPosition: {x: 0, y: 0}
+  sliderText: {fileID: 0}
   selected: 0
 --- !u!1 &722238774
 GameObject:
@@ -6454,6 +6466,7 @@ MonoBehaviour:
   popUp: {fileID: 0}
   background: {fileID: 0}
   targetPosition: {x: 0, y: 0}
+  sliderText: {fileID: 0}
   selected: 0
 --- !u!82 &766444645
 AudioSource:
@@ -7441,6 +7454,7 @@ MonoBehaviour:
   popUp: {fileID: 0}
   background: {fileID: 0}
   targetPosition: {x: 0, y: 0}
+  sliderText: {fileID: 0}
   selected: 0
 --- !u!82 &927027625
 AudioSource:
@@ -7684,6 +7698,7 @@ MonoBehaviour:
   popUp: {fileID: 0}
   background: {fileID: 0}
   targetPosition: {x: 0, y: 0}
+  sliderText: {fileID: 0}
   selected: 0
 --- !u!114 &1072970566
 MonoBehaviour:
@@ -8185,6 +8200,7 @@ MonoBehaviour:
   popUp: {fileID: 0}
   background: {fileID: 0}
   targetPosition: {x: 0, y: 0}
+  sliderText: {fileID: 0}
   selected: 0
 --- !u!114 &1128121692
 MonoBehaviour:
@@ -8539,6 +8555,7 @@ MonoBehaviour:
   popUp: {fileID: 0}
   background: {fileID: 0}
   targetPosition: {x: 0, y: 0}
+  sliderText: {fileID: 0}
   selected: 0
 --- !u!82 &1151255013
 AudioSource:
@@ -9083,6 +9100,7 @@ MonoBehaviour:
   popUp: {fileID: 0}
   background: {fileID: 0}
   targetPosition: {x: 0, y: 0}
+  sliderText: {fileID: 0}
   selected: 0
 --- !u!114 &1214872587
 MonoBehaviour:
@@ -9832,6 +9850,49 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1380409613}
   m_CullTransparentMesh: 0
+--- !u!1 &1411370535
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1411370536}
+  - component: {fileID: 1411370537}
+  m_Layer: 0
+  m_Name: Scene Manager
+  m_TagString: SceneManager
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1411370536
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1411370535}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 9
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1411370537
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1411370535}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5571261e04d242c4ca28ad2964bbe52d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1422466343
 GameObject:
   m_ObjectHideFlags: 0
@@ -12096,7 +12157,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 1
     m_VerticalOverflow: 1
     m_LineSpacing: 1
-  m_Text: 0
+  m_Text: 2
 --- !u!222 &1562784219
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -12175,6 +12236,7 @@ MonoBehaviour:
   popUp: {fileID: 0}
   background: {fileID: 0}
   targetPosition: {x: 0, y: 0}
+  sliderText: {fileID: 0}
   selected: 0
 --- !u!114 &1588825180
 MonoBehaviour:
@@ -13207,6 +13269,7 @@ MonoBehaviour:
   popUp: {fileID: 0}
   background: {fileID: 0}
   targetPosition: {x: 0, y: 0}
+  sliderText: {fileID: 0}
   selected: 0
 --- !u!1 &1760106689
 GameObject:
@@ -13867,7 +13930,7 @@ GameObject:
   - component: {fileID: 1836823032}
   - component: {fileID: 1836823031}
   - component: {fileID: 1836823030}
-  - component: {fileID: 1836823033}
+  - component: {fileID: 1836823035}
   - component: {fileID: 1836823034}
   m_Layer: 5
   m_Name: Width ScrollBar
@@ -13948,9 +14011,9 @@ MonoBehaviour:
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1836823033}
-        m_TargetAssemblyTypeName: CustomWidth, Assembly-CSharp
-        m_MethodName: set_Width
+      - m_Target: {fileID: 1836823035}
+        m_TargetAssemblyTypeName: UIElement, Assembly-CSharp
+        m_MethodName: set_sliderValue
         m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -14011,18 +14074,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1836823028}
   m_CullTransparentMesh: 0
---- !u!114 &1836823033
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1836823028}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4baa44e0de101ca4381c9dc23a659bfb, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!82 &1836823034
 AudioSource:
   m_ObjectHideFlags: 0
@@ -14119,6 +14170,24 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &1836823035
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1836823028}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c1c3428109a666c4e9e7b17379d95db4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  nextPanel: {fileID: 0}
+  popUp: {fileID: 0}
+  background: {fileID: 0}
+  targetPosition: {x: 0, y: 0}
+  sliderText: {fileID: 1562784218}
+  selected: 2
 --- !u!1 &1849958803
 GameObject:
   m_ObjectHideFlags: 0
@@ -14437,6 +14506,7 @@ MonoBehaviour:
   popUp: {fileID: 0}
   background: {fileID: 0}
   targetPosition: {x: 0, y: 0}
+  sliderText: {fileID: 0}
   selected: 0
 --- !u!114 &1866440691
 MonoBehaviour:
@@ -15315,6 +15385,7 @@ MonoBehaviour:
   popUp: {fileID: 0}
   background: {fileID: 0}
   targetPosition: {x: 0, y: 0}
+  sliderText: {fileID: 0}
   selected: 0
 --- !u!114 &1966849011
 MonoBehaviour:

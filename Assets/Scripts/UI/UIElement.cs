@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.UI;
 using UnityEditor;
 
 public class UIElement : MonoBehaviour
@@ -6,11 +7,36 @@ public class UIElement : MonoBehaviour
     #region Public Variables
     #region Editor Accessible
     // Troca de painéis
-    public Object nextPanel;
+    public GameObject nextPanel;
     // Pop Up
-    public Object popUp;
-    public Object background;
+    public GameObject popUp;
+    public GameObject background;
     public Vector2 targetPosition;
+    public float sliderValue
+    {
+        get { return (float)_sliderValue; }
+        set
+        {
+            int _sliderValue = Mathf.RoundToInt(value * 100);
+
+            if (_sliderValue < 2)
+            {
+                _sliderValue = 2;
+            }
+
+            if (selected == 2)
+            {
+                uiManager.UpdateMazeSize(width: _sliderValue);
+            }
+            else if (selected == 3)
+            {
+                uiManager.UpdateMazeSize(height: _sliderValue);
+            }
+
+            sliderText.text = _sliderValue.ToString();
+        }
+    }
+    public Text sliderText;
     #endregion
 
     [HideInInspector]
@@ -20,6 +46,7 @@ public class UIElement : MonoBehaviour
     #region Private Variables
     // Atributo para o acesso ao UIManager
     private UIManager uiManager;
+    private int _sliderValue;
     #endregion
 
     #region Unity Methods
@@ -34,7 +61,7 @@ public class UIElement : MonoBehaviour
     {
         if (uiManager.uiState != UIManager.UIState.InTransition)
         {
-            uiManager.PanelTransition(nextPanel as GameObject);
+            uiManager.PanelTransition(nextPanel);
         }
     }
 
@@ -42,7 +69,7 @@ public class UIElement : MonoBehaviour
     {
         if (uiManager.uiState != UIManager.UIState.InTransition)
         {
-            uiManager.PopUpAction(popUp as GameObject, background as GameObject, targetPosition, true);
+            uiManager.PopUpAction(popUp, background, targetPosition, true);
         }
     }
 
@@ -50,7 +77,7 @@ public class UIElement : MonoBehaviour
     {
         if (uiManager.uiState != UIManager.UIState.InTransition)
         {
-            uiManager.PopUpAction(popUp as GameObject, background as GameObject, targetPosition, false);
+            uiManager.PopUpAction(popUp, background, targetPosition, false);
         }
     }
 
@@ -74,19 +101,43 @@ public class UIElementEditor : Editor
 
         string[] options = new string[]
         {
-            "Panel", "PopUp", "Quit"
+            "Panel", "PopUp", "Width Slider", "Height Slider", "Quit"
         };
         uiElementScript.selected = EditorGUILayout.Popup("Element Target", uiElementScript.selected, options);
 
         switch (uiElementScript.selected)
         {
             case 0:
-                uiElementScript.nextPanel = EditorGUILayout.ObjectField("Next Panel", uiElementScript.nextPanel, typeof(GameObject), true);
+                uiElementScript.nextPanel = EditorGUILayout.ObjectField("Next Panel",
+                                                                        uiElementScript.nextPanel,
+                                                                        typeof(GameObject),
+                                                                        true) as GameObject;
                 break;
             case 1:
-                uiElementScript.popUp = EditorGUILayout.ObjectField("Pop Up", uiElementScript.popUp, typeof(GameObject), true);
-                uiElementScript.background = EditorGUILayout.ObjectField("Background", uiElementScript.background, typeof(GameObject), true);
-                uiElementScript.targetPosition = EditorGUILayout.Vector2Field("Target Position", uiElementScript.targetPosition);
+                uiElementScript.popUp = EditorGUILayout.ObjectField("Pop Up",
+                                                                    uiElementScript.popUp,
+                                                                    typeof(GameObject),
+                                                                    true) as GameObject;
+
+                uiElementScript.background = EditorGUILayout.ObjectField("Background",
+                                                                         uiElementScript.background,
+                                                                         typeof(GameObject),
+                                                                         true) as GameObject;
+
+                uiElementScript.targetPosition = EditorGUILayout.Vector2Field("Target Position",
+                                                                              uiElementScript.targetPosition);
+                break;
+            case 2:
+                uiElementScript.sliderText = EditorGUILayout.ObjectField("Slider Output",
+                                                                         uiElementScript.sliderText,
+                                                                         typeof(Text),
+                                                                         true) as Text;
+                break;
+            case 3:
+                uiElementScript.sliderText = EditorGUILayout.ObjectField("Slider Output",
+                                                                         uiElementScript.sliderText,
+                                                                         typeof(Text),
+                                                                         true) as Text;
                 break;
             default:
                 break;
