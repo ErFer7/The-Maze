@@ -34,6 +34,7 @@ public class UIManager : MonoBehaviour
     #region Private Variables
     private ScriptManager scriptManager;
     private Image voidImage;
+    private GameObject loadingPanel;
     private GameObject currentPanel;
     private Coroutine coroutine_PTC;  // Panel transition coroutine
     private Coroutine coroutine_STC;  // Scene transition coroutine 
@@ -59,7 +60,7 @@ public class UIManager : MonoBehaviour
     private void Start()
     {
         scriptManager = GameObject.FindWithTag("ScriptManager").GetComponent<ScriptManager>();
-        scriptManager.uiManager = gameObject.GetComponent<UIManager>();
+        scriptManager.uiManager = GetComponent<UIManager>();
         uiState = UIState.Void;
         finishFlag = false;
 
@@ -79,6 +80,10 @@ public class UIManager : MonoBehaviour
         {
             currentPanel = GameObject.FindWithTag("Menu");
         }
+        else
+        {
+            loadingPanel = GameObject.FindWithTag("LoadingPanel");
+        }
     }
     #endregion
 
@@ -89,10 +94,11 @@ public class UIManager : MonoBehaviour
         coroutine_PTC = StartCoroutine(PanelTransitionCoroutine(nextPanel));
     }
 
-    public void SceneTransition(bool start)
+    public void SceneTransition(bool menuInitialization, bool preserveSave = false)
     {
         uiState = UIState.InTransition;
-        coroutine_STC = StartCoroutine(SceneTransitionCoroutine(start));
+        scriptManager.preserveSave = preserveSave;
+        coroutine_STC = StartCoroutine(SceneTransitionCoroutine(menuInitialization));
     }
 
     public void PopUpAction(GameObject popUp, GameObject background, Vector2 targetPosition, bool open)
@@ -111,6 +117,22 @@ public class UIManager : MonoBehaviour
         {
             scriptManager.height = height;
         }
+    }
+
+    public void UpdateSeed(int seed, bool useSavedSeed)
+    {
+        scriptManager.useSavedSeed = useSavedSeed;
+        scriptManager.seed = seed;
+    }
+
+    public bool SaveExists(ScriptManager.GameMode gameMode)
+    {
+        return scriptManager.sceneManager.SaveExists(gameMode);
+    }
+
+    public void SetGameMode(ScriptManager.GameMode gameMode)
+    {
+        scriptManager.gameMode = gameMode;
     }
     #endregion
 
@@ -233,9 +255,9 @@ public class UIManager : MonoBehaviour
         currentPanel = nextPanel;
     }
 
-    private IEnumerator SceneTransitionCoroutine(bool start)
+    private IEnumerator SceneTransitionCoroutine(bool menuInitialization)
     {
-        if (start)
+        if (menuInitialization)
         {
             voidImage.gameObject.SetActive(true);
             coroutine_LFI = StartCoroutine(LinearFadeImage(voidImage, false, fadeTime));
@@ -248,11 +270,27 @@ public class UIManager : MonoBehaviour
             voidImage.gameObject.SetActive(false);
 
             uiState = UIState.Menu;
-            // No scene manager o sistema deve definir o GameState como "Menu"
         }
         else
         {
             voidImage.gameObject.SetActive(true);
+            coroutine_LFI = StartCoroutine(LinearFadeImage(voidImage, true, fadeTime));
+
+            while (!finishFlag)
+            {
+                yield return null;
+            }
+
+            // Troca de cena
+            scriptManager.sceneManager.LoadScene();
+
+            // No scene manager o sistema deve esperar até que a operação seja concluída
+            while (scriptManager.sceneManager.loading)
+            {
+                yield return null;
+            }
+
+            // Fade in da tela de carregamento
             coroutine_LFI = StartCoroutine(LinearFadeImage(voidImage, false, fadeTime));
 
             while (!finishFlag)
@@ -260,24 +298,44 @@ public class UIManager : MonoBehaviour
                 yield return null;
             }
 
-            uiState = UIState.Void;
-            // No scene manager o sistema deve esperar até que a operação seja concluída
+            while (scriptManager.gameplayManager == null)
+            {
+                yield return null;
+            }
 
-            // Espere pelo sinal de que o jogo carregou a cena
-
-            // Fade in da tela de carregamento
+            scriptManager.gameplayManager.StartMazeGeneration();
 
             // Espere pelo sinal de que o labirinto foi gerado
+            while (!scriptManager.gameplayManager.mazeGenerated)
+            {
+                yield return null;
+            }
 
             // Fade out
+            coroutine_LFI = StartCoroutine(LinearFadeImage(voidImage, true, fadeTime));
 
             // Espere pelo fim do fade out
+            while (!finishFlag)
+            {
+                yield return null;
+            }
+
+            // Destrói a tela de carregamento
+            Destroy(loadingPanel);
 
             // Fade in
+            coroutine_LFI = StartCoroutine(LinearFadeImage(voidImage, false, fadeTime));
 
             // Espere pelo fim do fade in
+            while (!finishFlag)
+            {
+                yield return null;
+            }
+
+            voidImage.gameObject.SetActive(false);
 
             // Finalizado
+            scriptManager.gameplayManager.StartGameplay();
         }
     }
 

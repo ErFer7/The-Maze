@@ -49,6 +49,7 @@ public class Timer : MonoBehaviour
     private int oldSeconds;
 
     // Coroutines
+    private Coroutine coroutine_TC;
     private Coroutine coroutine_DAC;
     private Coroutine coroutine_F;
 
@@ -97,12 +98,10 @@ public class Timer : MonoBehaviour
     #endregion
 
     #region Timer
-    public IEnumerator StartTimer()
+    public void StartTimer()
     {
         // Inicializa o timer
-        StartCoroutine(TimeCounter());
-        StopCoroutine(loadingControl.GetComponent<LoadingControl>().coroutine);
-        yield return null;
+        coroutine_TC = StartCoroutine(TimeCounter());
     }
 
     private IEnumerator TimeCounter()

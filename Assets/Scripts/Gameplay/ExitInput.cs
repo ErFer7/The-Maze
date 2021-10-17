@@ -7,9 +7,6 @@ public class ExitInput : MonoBehaviour
     #region Public Variables
     // Acessoa a tela preta
     public FadeImage blackScreen;
-
-    // Acesso ao AudioSource
-    public AudioSource audioSource;
     #endregion
 
     #region Private Variables
@@ -110,13 +107,6 @@ public class ExitInput : MonoBehaviour
         // Espera até a tela escurecer totalmente
         while (true)
         {
-            // Para o som de início do jogo (Caso ele esteja tocando)
-            if (audioSource != null && audioSource.isPlaying)
-            {
-                StopCoroutine(audioSource.GetComponent<LoadingControl>().coroutine);
-                Destroy(audioSource.gameObject);
-            }
-
             switch (scriptManager.loadingStage)
             {
                 // Próximo
@@ -153,7 +143,7 @@ public class ExitInput : MonoBehaviour
                     scriptManager.animating = false;
 
                     // Define que o jogo está reiniciando
-                    scriptManager.restarting = true;
+                    scriptManager.preserveSave = true;
 
                     // Carrega o mesmo nível
                     SceneManager.LoadScene(1);

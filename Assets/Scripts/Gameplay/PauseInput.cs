@@ -11,9 +11,6 @@ public class PauseInput : MonoBehaviour
 
     // Acesso a tela de pausa
     public GameObject pausingScreen;
-
-    // Acesso ao Audio Source
-    public AudioSource audioSource;
     #endregion
 
     #region Private Variables
@@ -81,13 +78,6 @@ public class PauseInput : MonoBehaviour
         // Controla os estágios
         while (true)
         {
-            // Para e destrói o Audio Source
-            if (audioSource != null && audioSource.isPlaying)
-            {
-                StopCoroutine(audioSource.GetComponent<LoadingControl>().coroutine);
-                Destroy(audioSource.gameObject);
-            }
-
             switch (scriptManager.loadingStage)
             {
                 // Carregamento para o menu
@@ -98,7 +88,7 @@ public class PauseInput : MonoBehaviour
                     break;
                 // Reinicia o labirinto
                 case 5:
-                    scriptManager.restarting = true;
+                    scriptManager.preserveSave = true;
                     scriptManager.animating = false;
                     SceneManager.LoadScene(1);
                     break;

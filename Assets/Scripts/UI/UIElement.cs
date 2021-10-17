@@ -37,6 +37,9 @@ public class UIElement : MonoBehaviour
         }
     }
     public Text sliderText;
+    public InputField inputField;
+    public ScriptManager.GameMode gameMode;
+    public int selectedMode;
     #endregion
 
     [HideInInspector]
@@ -81,27 +84,87 @@ public class UIElement : MonoBehaviour
         }
     }
 
+    public void UpdateSeed()
+    {
+        // Ignora o string se ele for vazio
+        if (inputField.text == "")
+        {
+            uiManager.UpdateSeed(0, false);
+        }
+        else
+        {
+            int seed;
+            // Se o string não puder ser convertido em números inteiros então uma seed aleatória será usada
+            if (!int.TryParse(inputField.text, out seed))
+            {
+                seed = GetDeterministicHashCode(inputField.text);
+            }
+
+            uiManager.UpdateSeed(seed, true);
+        }
+    }
+
+    public void OpenScenePopUp()
+    {
+        if (uiManager.uiState != UIManager.UIState.InTransition)
+        {
+            uiManager.SetGameMode(gameMode);
+            if (uiManager.SaveExists(gameMode))
+            {
+                OpenPopUp();
+            }
+            else
+            {
+                uiManager.SceneTransition(false, false);
+            }
+        }
+    }
+
+    public void ChangeScene(bool preserveSave)
+    {
+        if (uiManager.uiState != UIManager.UIState.InTransition)
+        {
+            uiManager.SceneTransition(false, preserveSave);
+        }
+    }
+
     public void QuitGame()
     {
         // Sai do aplicativo
         Application.Quit();
     }
 
+    private int GetDeterministicHashCode(string str)
+    {
+        unchecked
+        {
+            int hash1 = (5381 << 16) + 5381;
+            int hash2 = hash1;
+
+            for (int i = 0; i < str.Length; i += 2)
+            {
+                hash1 = ((hash1 << 5) + hash1) ^ str[i];
+                if (i == str.Length - 1)
+                    break;
+                hash2 = ((hash2 << 5) + hash2) ^ str[i + 1];
+            }
+
+            return hash1 + (hash2 * 1566083941);
+        }
+    }
     #endregion
 }
 
 [CustomEditor(typeof(UIElement))]
 public class UIElementEditor : Editor
 {
-    private int selected = 0;
-
     public override void OnInspectorGUI()
     {
         var uiElementScript = target as UIElement;
 
         string[] options = new string[]
         {
-            "Panel", "PopUp", "Width Slider", "Height Slider", "Quit"
+            "Panel", "PopUp", "Width Slider", "Height Slider", "Seed Input", "Scene PopUp", "Scene Load", "Quit"
         };
         uiElementScript.selected = EditorGUILayout.Popup("Element Target", uiElementScript.selected, options);
 
@@ -138,6 +201,53 @@ public class UIElementEditor : Editor
                                                                          uiElementScript.sliderText,
                                                                          typeof(Text),
                                                                          true) as Text;
+                break;
+            case 4:
+                uiElementScript.inputField = EditorGUILayout.ObjectField("Input Field",
+                                                                         uiElementScript.inputField,
+                                                                         typeof(InputField),
+                                                                         true) as InputField;
+                break;
+            case 5:
+                uiElementScript.popUp = EditorGUILayout.ObjectField("Pop Up",
+                                                                    uiElementScript.popUp,
+                                                                    typeof(GameObject),
+                                                                    true) as GameObject;
+
+                uiElementScript.background = EditorGUILayout.ObjectField("Background",
+                                                                         uiElementScript.background,
+                                                                         typeof(GameObject),
+                                                                         true) as GameObject;
+
+                uiElementScript.targetPosition = EditorGUILayout.Vector2Field("Target Position",
+                                                                              uiElementScript.targetPosition);
+
+                string[] subOptions = new string[]
+                {
+                    "Classic", "Time", "Dark", "Custom"
+                };
+                uiElementScript.selectedMode = EditorGUILayout.Popup("Game mode",
+                                                                     uiElementScript.selectedMode,
+                                                                     subOptions);
+
+                switch (uiElementScript.selectedMode)
+                {
+                    case 0:
+                        uiElementScript.gameMode = ScriptManager.GameMode.Classic;
+                        break;
+                    case 1:
+                        uiElementScript.gameMode = ScriptManager.GameMode.Time;
+                        break;
+                    case 2:
+                        uiElementScript.gameMode = ScriptManager.GameMode.Dark;
+                        break;
+                    case 3:
+                        uiElementScript.gameMode = ScriptManager.GameMode.Custom;
+                        break;
+                    default:
+                        uiElementScript.gameMode = ScriptManager.GameMode.Null;
+                        break;
+                }
                 break;
             default:
                 break;

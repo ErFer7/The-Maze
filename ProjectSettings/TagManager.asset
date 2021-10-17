@@ -20,6 +20,7 @@ TagManager:
   - VoidImage
   - UIManager
   - SceneManager
+  - LoadingPanel
   layers:
   - Default
   - TransparentFX

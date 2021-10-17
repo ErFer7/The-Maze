@@ -7,6 +7,8 @@ public class ScriptManager : MonoBehaviour
     // Managers
     public UIManager uiManager;
     public MusicManager musicManager;
+    public Abstrato.SceneManager sceneManager;
+    public GameplayManager gameplayManager;
 
     // Labirinto
     public int width;
@@ -15,7 +17,6 @@ public class ScriptManager : MonoBehaviour
     public int seed;
     public bool progressive;
     public int level;
-    public bool restarting;
     public bool regressiveTime;
     public bool continueLastMaze;
     public bool dark;
@@ -39,6 +40,7 @@ public class ScriptManager : MonoBehaviour
 
     public GameState gameState;
     public GameMode gameMode;
+    public bool preserveSave;
 
     //Estado de jogo
     public enum GameState
@@ -81,7 +83,6 @@ public class ScriptManager : MonoBehaviour
         seed = 0;
         progressive = false;
         level = 0;
-        restarting = false;
         regressiveTime = false;
         continueLastMaze = false;
         dark = false;
