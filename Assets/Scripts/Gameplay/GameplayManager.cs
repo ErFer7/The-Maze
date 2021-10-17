@@ -65,6 +65,7 @@ public class GameplayManager : MonoBehaviour
         }
 
         mazeGenerated = true;
+        Destroy(mazeGenerator.gameObject);
         yield return null;
     }
 
