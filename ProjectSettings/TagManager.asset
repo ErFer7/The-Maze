@@ -13,14 +13,6 @@ TagManager:
   - MusicManager
   - LeaderboardsButton
   - ScriptManager
-  - Exit
-  - GameplayMusicPlayer
-  - Script
-  - GUI
-  - VoidImage
-  - UIManager
-  - SceneManager
-  - LoadingPanel
   layers:
   - Default
   - TransparentFX

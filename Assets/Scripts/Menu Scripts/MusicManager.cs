@@ -32,7 +32,6 @@ public class MusicManager : MonoBehaviour
     {
         // Acessa o script manager
         scriptManager = GameObject.FindWithTag("ScriptManager").GetComponent<ScriptManager>();
-        scriptManager.musicManager = GetComponent<MusicManager>();
 
         // Acessa os objetos da fonte de áudio e filtro passa-baixa
         audioSource = GetComponent<AudioSource>();
